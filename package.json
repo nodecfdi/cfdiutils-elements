@@ -25,7 +25,7 @@
     "scripts": {
         "dev": "rollup -c -w",
         "build": "rollup -c",
-        "build:types": "rm -r build && tsc -p ./tsconfig.json --outDir build --declaration true && api-extractor run",
+        "build:types": "rm -rf build && tsc -p ./tsconfig.json --outDir build --declaration true && api-extractor run",
         "lint": "eslint --ext .js,.ts .",
         "test": "jest",
         "docs": "typedoc src --out docs"

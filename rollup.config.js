@@ -8,15 +8,16 @@ export default [
     {
         input: 'src/index.ts',
         output: {
-            name: 'cfdiutils-common',
+            name: 'cfdiutils-elements',
             file: pkg.browser,
             format: 'umd',
+            globals: {
+                '@nodecfdi/cfdiutils-common': 'cfdiutils-common',
+                'typescript-mix': 'typescript-mix',
+            },
         },
-        plugins: [
-            resolve(),
-            commonjs(),
-            typescript({ tsconfig: './tsconfig.json' })
-        ],
+        plugins: [resolve(), commonjs(), typescript({ tsconfig: './tsconfig.json' })],
+        external: ['typescript-mix', '@nodecfdi/cfdiutils-common'],
     },
 
     // CommonJS (for Node) and ES module (for bundlers) build.
@@ -29,8 +30,9 @@ export default [
         input: 'src/index.ts',
         output: [
             { file: pkg.main, format: 'cjs' },
-            { file: pkg.module, format: 'es' }
+            { file: pkg.module, format: 'es' },
         ],
         plugins: [typescript({ tsconfig: './tsconfig.json' })],
-    }
+        external: ['typescript-mix', '@nodecfdi/cfdiutils-common'],
+    },
 ];
