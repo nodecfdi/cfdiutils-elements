@@ -20,6 +20,6 @@
 
 :mexico: La documentación del proyecto está en español porque ese es el lenguaje principal de los usuarios.
 
-## Acerca de @nodecfdi/cfdiutils-common
+## Acerca de @nodecfdi/cfdiutils-elements
 
 Librería para contener las estructuras de datos que componen un cfdi. Inspirada por la versión de php https://github.com/eclipxe13/CfdiUtils
