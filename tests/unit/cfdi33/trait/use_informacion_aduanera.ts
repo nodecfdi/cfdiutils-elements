@@ -5,7 +5,7 @@ import { InformacionAduaneraTrait } from '../../../../src/cfdi33/traits/informac
 interface UseInformacionAduanera extends CNode, InformacionAduaneraTrait {}
 
 class UseInformacionAduanera extends CNode {
-  @use(InformacionAduaneraTrait) this;
+    @use(InformacionAduaneraTrait) this: unknown;
 }
 
 export { UseInformacionAduanera };

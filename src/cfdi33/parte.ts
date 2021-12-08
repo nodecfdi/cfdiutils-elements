@@ -6,15 +6,15 @@ import { InformacionAduaneraTrait } from './traits/informacion_aduanera_trait';
 interface Parte extends AbstractElement, InformacionAduaneraTrait {}
 
 class Parte extends AbstractElement {
-  @use(InformacionAduaneraTrait) this;
+    @use(InformacionAduaneraTrait) this: unknown;
 
-  constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
-    super('cfdi:Parte', attributes, children);
-  }
+    constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
+        super('cfdi:Parte', attributes, children);
+    }
 
-  public getElementName(): string {
-    return 'cfdi:Parte';
-  }
+    public getElementName(): string {
+        return 'cfdi:Parte';
+    }
 }
 
 export { Parte };

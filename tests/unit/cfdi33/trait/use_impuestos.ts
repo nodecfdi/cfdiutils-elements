@@ -7,19 +7,19 @@ import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
 interface UseImpuestos extends ImpuestosTrait, AbstractElement {}
 
 class UseImpuestos extends AbstractElement {
-  @use(ImpuestosTrait) this: unknown;
+    @use(ImpuestosTrait) this: unknown;
 
-  constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
-    super('X', attributes, children);
-  }
+    constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
+        super('X', attributes, children);
+    }
 
-  public getImpuestos(): Impuestos {
-    return this.helperGetOrAdd(new Impuestos());
-  }
+    public getImpuestos(): Impuestos {
+        return this.helperGetOrAdd(new Impuestos());
+    }
 
-  public getElementName(): string {
-    return 'X';
-  }
+    public getElementName(): string {
+        return 'X';
+    }
 }
 
 export { UseImpuestos };

@@ -4,23 +4,23 @@ import { Traslados } from './traslados';
 import { Retenciones } from './retenciones';
 
 export class Impuestos extends AbstractElement {
-  constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
-    super('cfdi:Impuestos', attributes, children);
-  }
+    constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
+        super('cfdi:Impuestos', attributes, children);
+    }
 
-  public getElementName(): string {
-    return 'cfdi:Impuestos';
-  }
+    public getElementName(): string {
+        return 'cfdi:Impuestos';
+    }
 
-  public getChildrenOrder(): string[] {
-    return ['cfdi:Retenciones', 'cfdi:Traslados'];
-  }
+    public getChildrenOrder(): string[] {
+        return ['cfdi:Retenciones', 'cfdi:Traslados'];
+    }
 
-  public getTraslados(): Traslados {
-    return this.helperGetOrAdd(new Traslados());
-  }
+    public getTraslados(): Traslados {
+        return this.helperGetOrAdd(new Traslados());
+    }
 
-  public getRetenciones(): Retenciones {
-    return this.helperGetOrAdd(new Retenciones());
-  }
+    public getRetenciones(): Retenciones {
+        return this.helperGetOrAdd(new Retenciones());
+    }
 }
