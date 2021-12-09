@@ -54,9 +54,10 @@ export class SumasConceptosWriter {
         const impLocal = this.comprobante.searchNode('cfdi:Complemento', 'implocal:ImpuestosLocales');
         if (!impLocal) return;
         if (!this.sumas.hasLocalesTraslados() && !this.sumas.hasLocalesRetenciones()) {
-            this.comprobante.getComplemento().children().remove(impLocal);
-            if (this.comprobante.getComplemento().count() === 0) {
-                this.comprobante.children().remove(this.comprobante.getComplemento());
+            const complemento = this.comprobante.getComplemento();
+            complemento.children().remove(impLocal);
+            if (complemento.count() === 0) {
+                this.comprobante.children().remove(complemento);
             }
             return;
         }
