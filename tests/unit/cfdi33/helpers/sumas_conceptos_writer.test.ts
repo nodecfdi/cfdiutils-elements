@@ -205,70 +205,53 @@ describe('Cfdi33.SumasConceptosWriter', () => {
 
     test('remove only implocal Complemento when is empty and preserve others Complementos', () => {
         const comprobante = new Comprobante();
-        const concepto = comprobante.addConcepto();
-        concepto.addTraslado({ Base: '1000', Impuesto: '002', TipoFactor: 'Exento' });
-        concepto.addRetencion({
-            Base: '1000.00',
-            Impuesto: '001',
-            TipoFactor: 'Tasa',
-            TasaOCuota: '0.04000',
-            Importe: '40.00',
-        });
-        comprobante.addConcepto().addTraslado({ Base: '1000', Impuesto: '002', TipoFactor: 'Exento' });
         comprobante.addComplemento(new ImpuestosLocales());
         comprobante.addComplemento(new Pagos());
-        expect(comprobante.getComplemento().count()).toBe(2);
-        expect(comprobante.searchNode('cfdi:Complemento', 'implocal:ImpuestosLocales')).not.toBeUndefined();
+       
         const precision = 2;
         const sumasConceptos = new SumasConceptos(comprobante, precision);
         const writer = new SumasConceptosWriter(comprobante, sumasConceptos, precision);
         writer.put();
-        expect(comprobante.getComplemento().count()).toBe(1);
+
         expect(comprobante.searchNode('cfdi:Complemento', 'pago10:Pagos')).not.toBeUndefined();
         expect(comprobante.searchNode('cfdi:Complemento', 'implocal:ImpuestosLocales')).toBeUndefined();
     });
 
     test('removes Complemento node and ImpuestoLocales node when implocal is empty', () => {
         const comprobante = new Comprobante();
-        const concepto = comprobante.addConcepto();
-        concepto.addTraslado({ Base: '1000', Impuesto: '002', TipoFactor: 'Exento' });
         comprobante.addComplemento(new ImpuestosLocales());
-        expect(comprobante.getComplemento().count()).toBe(1);
-        expect(comprobante.searchNode('cfdi:Complemento', 'implocal:ImpuestosLocales')).not.toBeUndefined();
+      
         const precision = 2;
         const sumasConceptos = new SumasConceptos(comprobante, precision);
         const writer = new SumasConceptosWriter(comprobante, sumasConceptos, precision);
         writer.put();
+
         expect(comprobante.searchNode('cfdi:Complemento')).toBeUndefined();
-        expect(comprobante.searchNode('cfdi:Complemento', 'implocal:ImpuestosLocales')).toBeUndefined();
     });
 
     test('implocal Complemento contains required attributes', () => {
         const comprobante = new Comprobante();
-        const concepto = comprobante.addConcepto();
-        concepto.addTraslado({ Base: '1000', Impuesto: '002', TipoFactor: 'Exento' });
         const impuestosLocales = new ImpuestosLocales();
-        impuestosLocales.addTrasladoLocal({
-            ImpLocTrasladado: 'IH',
-            Importe: '27.43',
-            TasadeTraslado: '2.50',
-        });
-        impuestosLocales.addTrasladoLocal({
-            ImpLocTrasladado: 'IH',
-            Importe: '27.43',
-            TasadeTraslado: '2.50',
-        });
-        impuestosLocales.addRetencionLocal({
-            ImpLocRetenido: 'IH',
-            Importe: '27.43',
-            TasadeRetencion: '2.50',
-        });
+        for (let index = 0; index < 2; index++) {
+            impuestosLocales.addTrasladoLocal({
+                ImpLocTrasladado: 'IH',
+                Importe: '27.43',
+                TasadeTraslado: '2.50',
+            });
+            impuestosLocales.addRetencionLocal({
+                ImpLocRetenido: 'IH',
+                Importe: '27.43',
+                TasadeRetencion: '2.50',
+            });
+        }
         comprobante.getComplemento().add(impuestosLocales);
+
         const precision = 2;
         const sumasConceptos = new SumasConceptos(comprobante, precision);
         const writer = new SumasConceptosWriter(comprobante, sumasConceptos, precision);
         writer.put();
-        expect(impuestosLocales.attributes().get('TotaldeRetenciones')).toBe('27.43');
+
+        expect(impuestosLocales.attributes().get('TotaldeRetenciones')).toBe('54.86');
         expect(impuestosLocales.attributes().get('TotaldeTraslados')).toBe('54.86');
     });
 });
