@@ -1,4 +1,5 @@
 import { JubilacionPensionRetiro } from '../../../src/nomina12';
+
 describe('Elements.Nomina12.JubilacionPensionRetiro', () => {
     let element: JubilacionPensionRetiro;
 

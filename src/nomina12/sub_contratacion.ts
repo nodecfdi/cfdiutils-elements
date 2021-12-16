@@ -1,4 +1,4 @@
-import { CNodeInterface } from "@nodecfdi/cfdiutils-common";
+import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract_element';
 
 export class SubContratacion extends AbstractElement {

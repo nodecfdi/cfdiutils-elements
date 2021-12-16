@@ -1,12 +1,12 @@
-import { CNodeInterface } from "@nodecfdi/cfdiutils-common";
+import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract_element';
-import { OtroPago } from "./otro_pago";
+import { OtroPago } from './otro_pago';
 
 export class OtrosPagos extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('nomina12:OtrosPagos', attributes, children);
     }
-    
+
     public getElementName(): string {
         return 'nomina12:OtrosPagos';
     }
@@ -18,7 +18,7 @@ export class OtrosPagos extends AbstractElement {
     }
 
     public multiOtroPago(elementAttributes: Record<string, unknown>[] = []): OtrosPagos {
-        elementAttributes.forEach(attributes => {
+        elementAttributes.forEach((attributes) => {
             this.addOtroPago(attributes);
         });
         return this;

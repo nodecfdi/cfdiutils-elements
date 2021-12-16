@@ -1,4 +1,5 @@
 import { SubContratacion } from '../../../src/nomina12';
+
 describe('Elements.Nomina12.SubContratacion', () => {
     let element: SubContratacion;
 

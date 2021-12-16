@@ -1,5 +1,6 @@
 import { CNode } from '@nodecfdi/cfdiutils-common';
 import { JubilacionPensionRetiro, Percepcion, Percepciones, SeparacionIndemnizacion } from '../../../src/nomina12';
+
 describe('Elements.Nomina12.Percepciones', () => {
     let element: Percepciones;
 

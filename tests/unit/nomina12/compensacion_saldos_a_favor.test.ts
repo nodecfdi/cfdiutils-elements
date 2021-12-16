@@ -1,4 +1,5 @@
 import { CompensacionSaldosAFavor } from '../../../src/nomina12';
+
 describe('Elements.Nomina12.CompensacionSaldosAFavor', () => {
     let element: CompensacionSaldosAFavor;
 

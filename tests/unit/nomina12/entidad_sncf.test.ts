@@ -1,4 +1,5 @@
 import { EntidadSNCF } from '../../../src/nomina12';
+
 describe('Elements.Nomina12.EntidadSNCF', () => {
     let element: EntidadSNCF;
 

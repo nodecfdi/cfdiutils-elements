@@ -1,4 +1,5 @@
 import { SubsidioAlEmpleo } from '../../../src/nomina12';
+
 describe('Elements.Nomina12.SubsidioAlEmpleo', () => {
     let element: SubsidioAlEmpleo;
 

@@ -1,8 +1,8 @@
-import { CNodeInterface } from "@nodecfdi/cfdiutils-common";
+import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract_element';
-import { JubilacionPensionRetiro } from "./jubilacion_pension_retiro";
-import { Percepcion } from "./percepcion";
-import { SeparacionIndemnizacion } from "./separacion_indemnizacion";
+import { JubilacionPensionRetiro } from './jubilacion_pension_retiro';
+import { Percepcion } from './percepcion';
+import { SeparacionIndemnizacion } from './separacion_indemnizacion';
 
 export class Percepciones extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
@@ -14,11 +14,7 @@ export class Percepciones extends AbstractElement {
     }
 
     public getChildrenOrder(): string[] {
-        return [
-            'nomina12:Percepcion',
-            'nomina12:JubilacionPensionRetiro',
-            'nomina12:SeparacionIndemnizacion',
-        ];
+        return ['nomina12:Percepcion', 'nomina12:JubilacionPensionRetiro', 'nomina12:SeparacionIndemnizacion'];
     }
 
     public addPercepcion(attributes: Record<string, unknown>, children: CNodeInterface[] = []): Percepcion {
@@ -28,14 +24,14 @@ export class Percepciones extends AbstractElement {
     }
 
     public multiPercepcion(elementAttributes: Record<string, unknown>[] = []): Percepciones {
-        elementAttributes.forEach(attributes => {
+        elementAttributes.forEach((attributes) => {
             this.addPercepcion(attributes);
         });
         return this;
     }
 
-    public getJubilacionPensionRetiro() : JubilacionPensionRetiro {
-        return this.helperGetOrAdd(new JubilacionPensionRetiro);
+    public getJubilacionPensionRetiro(): JubilacionPensionRetiro {
+        return this.helperGetOrAdd(new JubilacionPensionRetiro());
     }
 
     public addJubilacionPensionRetiro(attributes: Record<string, unknown> = {}): JubilacionPensionRetiro {

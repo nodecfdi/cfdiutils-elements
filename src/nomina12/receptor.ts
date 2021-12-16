@@ -1,6 +1,6 @@
-import { CNodeInterface } from "@nodecfdi/cfdiutils-common";
+import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract_element';
-import { SubContratacion } from "./sub_contratacion";
+import { SubContratacion } from './sub_contratacion';
 
 export class Receptor extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
@@ -18,7 +18,7 @@ export class Receptor extends AbstractElement {
     }
 
     public multiSubContratacion(elementAttributes: Record<string, unknown>[] = []): Receptor {
-        elementAttributes.forEach(attributes => {
+        elementAttributes.forEach((attributes) => {
             this.addSubContratacion(attributes);
         });
         return this;

@@ -1,4 +1,5 @@
 import { CompensacionSaldosAFavor, OtroPago, SubsidioAlEmpleo } from '../../../src/nomina12';
+
 describe('Elements.Nomina12.OtroPago', () => {
     let element: OtroPago;
 
@@ -12,7 +13,7 @@ describe('Elements.Nomina12.OtroPago', () => {
     });
 
     test('children order', () => {
-        const expected =  ['nomina12:SubsidioAlEmpleo', 'nomina12:CompensacionSaldosAFavor'];
+        const expected = ['nomina12:SubsidioAlEmpleo', 'nomina12:CompensacionSaldosAFavor'];
         expect(element.getChildrenOrder()).toStrictEqual(expected);
     });
 

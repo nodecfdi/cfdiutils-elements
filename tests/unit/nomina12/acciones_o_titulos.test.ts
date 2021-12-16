@@ -1,4 +1,5 @@
 import { AccionesOTitulos } from '../../../src/nomina12';
+
 describe('Elements.Nomina12.AccionesOTitulos', () => {
     let element: AccionesOTitulos;
 

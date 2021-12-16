@@ -1,4 +1,5 @@
 import { OtroPago, OtrosPagos } from '../../../src/nomina12';
+
 describe('Elements.Nomina12.OtrosPagos', () => {
     let element: OtrosPagos;
 
@@ -16,17 +17,14 @@ describe('Elements.Nomina12.OtrosPagos', () => {
         expect(first).toBeInstanceOf(OtroPago);
         expect(first.attributes().get('id')).toBe('first');
         expect(element.count()).toBe(1);
-        
+
         const second = element.addOtroPago({ id: 'second' });
         expect(first).not.toBe(second);
         expect(element.count()).toBe(2);
     });
 
     test('multi otro pago', () => {
-        const otrosPagos = element.multiOtroPago([
-            {id : 'first'},
-            {id: 'second'},
-        ])
+        const otrosPagos = element.multiOtroPago([{ id: 'first' }, { id: 'second' }]);
         expect(element.count()).toBe(2);
         expect(element).toBe(otrosPagos);
     });

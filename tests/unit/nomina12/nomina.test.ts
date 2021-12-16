@@ -1,4 +1,5 @@
 import { Deducciones, Emisor, Incapacidades, Nomina, OtrosPagos, Percepciones, Receptor } from '../../../src/nomina12';
+
 describe('Elements.Nomina12.Nomina', () => {
     let element: Nomina;
 

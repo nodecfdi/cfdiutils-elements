@@ -1,5 +1,6 @@
 import { Emisor } from '../../../src/nomina12';
 import { EntidadSNCF } from '../../../src/nomina12';
+
 describe('Elements.Nomina12.Emisor', () => {
     let element: Emisor;
 
@@ -25,15 +26,14 @@ describe('Elements.Nomina12.Emisor', () => {
     });
 
     test('add EntidadSNFC', () => {
-        const first = element.addEntidadSNCF({'id': 'first'});
+        const first = element.addEntidadSNCF({ id: 'first' });
         expect(first).toBeInstanceOf(EntidadSNCF);
         expect(first.attributes().get('id')).toBe('first');
         expect(element.count()).toBe(1);
 
         // insert secondElement
-        const second = element.addEntidadSNCF({'id': 'second'});
+        const second = element.addEntidadSNCF({ id: 'second' });
         expect(second).toBe(first);
         expect(second.attributes().get('id')).toBe('second');
-
     });
 });

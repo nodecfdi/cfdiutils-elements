@@ -1,5 +1,6 @@
 import { CNode } from '@nodecfdi/cfdiutils-common';
 import { AccionesOTitulos, HorasExtra, Percepcion } from '../../../src/nomina12';
+
 describe('Elements.Nomina12.Percepcion', () => {
     let element: Percepcion;
 
@@ -13,7 +14,7 @@ describe('Elements.Nomina12.Percepcion', () => {
     });
 
     test('children order', () => {
-        const expected =  ['nomina12:AccionesOTitulos', 'nomina12:HorasExtra'];
+        const expected = ['nomina12:AccionesOTitulos', 'nomina12:HorasExtra'];
         expect(element.getChildrenOrder()).toStrictEqual(expected);
     });
 
