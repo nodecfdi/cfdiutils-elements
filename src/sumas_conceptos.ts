@@ -25,7 +25,7 @@ export class SumasConceptos {
      * @param comprobante
      * @private
      */
-    private addComprobante(comprobante: CNodeInterface) {
+    private addComprobante(comprobante: CNodeInterface): void {
         const conceptos = comprobante.searchNodes('cfdi:Conceptos', 'cfdi:Concepto');
         conceptos.forEach((concepto) => {
             this.addConcepto(concepto);
@@ -70,7 +70,7 @@ export class SumasConceptos {
         );
     }
 
-    private addConcepto(concepto: CNodeInterface) {
+    private addConcepto(concepto: CNodeInterface): void {
         this.importes += Number.parseFloat(concepto.attributes().get('Importe') || '0');
         if (concepto.attributes().has('Descuento')) {
             this.foundAnyConceptWithDiscount = true;

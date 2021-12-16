@@ -2,7 +2,7 @@ import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { InformacionAduanera } from '../informacion_aduanera';
 
 export abstract class InformacionAduaneraTrait {
-    abstract addChild(node: CNodeInterface): CNodeInterface;
+    public abstract addChild(node: CNodeInterface): CNodeInterface;
 
     public addInformacionAduanera(attributes: Record<string, unknown> = {}): InformacionAduanera {
         const informacionAduanera = new InformacionAduanera(attributes);

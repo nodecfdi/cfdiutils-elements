@@ -6,7 +6,7 @@ import { InformacionAduaneraTrait } from './traits/informacion_aduanera_trait';
 interface Parte extends AbstractElement, InformacionAduaneraTrait {}
 
 class Parte extends AbstractElement {
-    @use(InformacionAduaneraTrait) this: unknown;
+    @use(InformacionAduaneraTrait) private this: unknown;
 
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cfdi:Parte', attributes, children);

@@ -15,7 +15,7 @@ import { Addenda } from './addenda';
 interface Comprobante extends AbstractElement, ImpuestosTrait {}
 
 class Comprobante extends AbstractElement {
-    @use(ImpuestosTrait) this: unknown;
+    @use(ImpuestosTrait) private this: unknown;
 
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cfdi:Comprobante', attributes, children);

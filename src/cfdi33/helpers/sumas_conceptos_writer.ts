@@ -12,13 +12,13 @@ export class SumasConceptosWriter {
         this.precision = precision;
     }
 
-    public put() {
+    public put(): void {
         this.putComprobanteSumas();
         this.putImpuestosNode();
         this.putComplementoImpuestoLocalSumas();
     }
 
-    private putComprobanteSumas() {
+    private putComprobanteSumas(): void {
         this.comprobante.attributes().set('SubTotal', this.format(this.sumas.getSubTotal()));
         this.comprobante.attributes().set('Total', this.format(this.sumas.getTotal()));
         this.comprobante.attributes().set('Descuento', this.format(this.sumas.getDescuento()));
@@ -27,7 +27,7 @@ export class SumasConceptosWriter {
         }
     }
 
-    private putImpuestosNode() {
+    private putImpuestosNode(): void {
         // obtain node reference
         const impuestos = this.comprobante.getImpuestos();
         // if there is nothing to write then remove the children and exit
@@ -49,7 +49,7 @@ export class SumasConceptosWriter {
         }
     }
 
-    private putComplementoImpuestoLocalSumas() {
+    private putComplementoImpuestoLocalSumas(): void {
         // obtain node reference to Complemento ImpuestoLocal
         const impLocal = this.comprobante.searchNode('cfdi:Complemento', 'implocal:ImpuestosLocales');
         if (!impLocal) return;
@@ -86,7 +86,7 @@ export class SumasConceptosWriter {
         // toFixed-function, the floating point number 5
         // does not belong to the upper half of an integer,
         // the given number is rounded down
-        const toFixed = (number: number, decimals: number) => {
+        const toFixed = (number: number, decimals: number): string => {
             const base = 10 ** decimals;
             return (Math.round(number * base) / base).toFixed(decimals);
         };

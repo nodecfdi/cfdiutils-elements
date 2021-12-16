@@ -3,7 +3,7 @@ import { Traslado } from '../traslado';
 import { Retencion } from '../retencion';
 
 export abstract class ImpuestosTrait {
-    abstract getImpuestos(): Impuestos;
+    public abstract getImpuestos(): Impuestos;
 
     public addTraslado(attributes: Record<string, unknown> = {}): Traslado {
         return this.getImpuestos().getTraslados().addTraslado(attributes);

@@ -1,13 +1,13 @@
-import { AbstractElement } from '../../../../src/common/abstract_element';
+import { AbstractElement } from '../../../../src';
 import { use } from 'typescript-mix';
-import { ImpuestosTrait } from '../../../../src/cfdi33/traits/impuestos_trait';
+import { ImpuestosTrait } from '../../../../src';
 import { Impuestos } from '../../../../src/cfdi33/impuestos';
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
 
 interface UseImpuestos extends ImpuestosTrait, AbstractElement {}
 
 class UseImpuestos extends AbstractElement {
-    @use(ImpuestosTrait) this: unknown;
+    @use(ImpuestosTrait) private this: unknown;
 
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('X', attributes, children);
