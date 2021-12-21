@@ -1,4 +1,4 @@
-import { AbstractElement } from '../../../src';
+import '../../matchers/to_element_has_child';
 import {
     Autotransporte,
     CantidadTransporta,
@@ -27,52 +27,6 @@ import {
 } from '../../../src/carta_porte20';
 
 describe('Elements.CartaPorte20', () => {
-    const assertElementHasChildSingle = <T>(element: T, childClassName: unknown): void => {
-        (element as unknown as AbstractElement).children().removeAll();
-        const childClassBaseName = (childClassName as { name: string }).name;
-
-        const getter: keyof T = ('get' + childClassBaseName) as keyof T;
-        const instance = (element[getter] as unknown as () => void)();
-        expect(instance).toBeInstanceOf(childClassName);
-        expect(instance).toBe((element[getter] as unknown as () => void)());
-
-        const adder = ('add' + childClassBaseName) as keyof T;
-        const second = (element[adder] as unknown as (attributes: Record<string, unknown>) => AbstractElement)({
-            foo: 'bar',
-        });
-        expect(second).toBeInstanceOf(childClassName);
-        expect(second.attributes().get('foo')).toBe('bar');
-    };
-
-    const assertElementHasChildMultiple = <T>(element: T, childClassName: unknown): void => {
-        (element as unknown as AbstractElement).children().removeAll();
-        const childClassBaseName = (childClassName as { name: string }).name;
-        const adder = ('add' + childClassBaseName) as keyof T;
-
-        const first = (element[adder] as unknown as (attributes: Record<string, unknown>) => AbstractElement)({
-            id: 'first',
-        });
-        expect(first).toBeInstanceOf(childClassName);
-        expect(first.attributes().get('id')).toBe('first');
-
-        expect((element as unknown as AbstractElement).children().length).toBe(1);
-
-        const second = (element[adder] as unknown as (attributes: Record<string, unknown>) => AbstractElement)({
-            id: 'second',
-        });
-        expect(second).not.toBe(first);
-        expect(second.attributes().get('id')).toBe('second');
-        expect((element as unknown as AbstractElement).children().length).toBe(2);
-
-        const multier = ('multi' + childClassBaseName) as keyof T;
-        const sameAsElement = (
-            element[multier] as unknown as (attributes: Record<string, unknown>[]) => AbstractElement
-        )([{ id: 'third' }, { id: 'fourth' }]);
-
-        expect(element).toBe(sameAsElement);
-        expect((element as unknown as AbstractElement).children().length).toBe(4);
-    };
-
     test('carta porte', () => {
         const element = new CartaPorte();
         expect(element.name()).toBe('cartaporte20:CartaPorte');
@@ -90,16 +44,16 @@ describe('Elements.CartaPorte20', () => {
                 'http://www.sat.gob.mx/CartaPorte20 http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte20.xsd',
             Version: '2.0',
         });
-        assertElementHasChildSingle(element, Ubicaciones);
-        assertElementHasChildSingle(element, Mercancias);
-        assertElementHasChildSingle(element, FiguraTransporte);
+        expect(element).toElementHasChildSingle(Ubicaciones);
+        expect(element).toElementHasChildSingle(Mercancias);
+        expect(element).toElementHasChildSingle(FiguraTransporte);
     });
 
     test('ubicaciones', () => {
         const element = new Ubicaciones();
         expect(element.name()).toBe('cartaporte20:Ubicaciones');
         expect(element.getElementName()).toBe('cartaporte20:Ubicaciones');
-        assertElementHasChildMultiple(element, Ubicacion);
+        expect(element).toElementHasChildMultiple(Ubicacion);
     });
 
     test('mercancias', () => {
@@ -115,11 +69,11 @@ describe('Elements.CartaPorte20', () => {
             'cartaporte20:TransporteFerroviario',
         ]);
 
-        assertElementHasChildMultiple(element, Mercancia);
-        assertElementHasChildSingle(element, Autotransporte);
-        assertElementHasChildSingle(element, TransporteMaritimo);
-        assertElementHasChildSingle(element, TransporteAereo);
-        assertElementHasChildSingle(element, TransporteFerroviario);
+        expect(element).toElementHasChildMultiple(Mercancia);
+        expect(element).toElementHasChildSingle(Autotransporte);
+        expect(element).toElementHasChildSingle(TransporteMaritimo);
+        expect(element).toElementHasChildSingle(TransporteAereo);
+        expect(element).toElementHasChildSingle(TransporteFerroviario);
     });
 
     test('figura transporte', () => {
@@ -127,7 +81,7 @@ describe('Elements.CartaPorte20', () => {
         expect(element.name()).toBe('cartaporte20:FiguraTransporte');
         expect(element.getElementName()).toBe('cartaporte20:FiguraTransporte');
 
-        assertElementHasChildMultiple(element, TiposFigura);
+        expect(element).toElementHasChildMultiple(TiposFigura);
     });
 
     test('ubicacion', () => {
@@ -135,7 +89,7 @@ describe('Elements.CartaPorte20', () => {
         expect(element.name()).toBe('cartaporte20:Ubicacion');
         expect(element.getElementName()).toBe('cartaporte20:Ubicacion');
 
-        assertElementHasChildSingle(element, Domicilio);
+        expect(element).toElementHasChildSingle(Domicilio);
     });
 
     test('mercancia', () => {
@@ -150,10 +104,10 @@ describe('Elements.CartaPorte20', () => {
             'cartaporte20:DetalleMercancia',
         ]);
 
-        assertElementHasChildMultiple(element, Pedimentos);
-        assertElementHasChildMultiple(element, GuiasIdentificacion);
-        assertElementHasChildMultiple(element, CantidadTransporta);
-        assertElementHasChildSingle(element, DetalleMercancia);
+        expect(element).toElementHasChildMultiple(Pedimentos);
+        expect(element).toElementHasChildMultiple(GuiasIdentificacion);
+        expect(element).toElementHasChildMultiple(CantidadTransporta);
+        expect(element).toElementHasChildSingle(DetalleMercancia);
     });
 
     test('autotransporte', () => {
@@ -167,16 +121,17 @@ describe('Elements.CartaPorte20', () => {
             'cartaporte20:Remolques',
         ]);
 
-        assertElementHasChildSingle(element, IdentificacionVehicular);
-        assertElementHasChildSingle(element, Seguros);
-        assertElementHasChildSingle(element, Remolques);
+        expect(element).toElementHasChildSingle(IdentificacionVehicular);
+        expect(element).toElementHasChildSingle(Seguros);
+        expect(element).toElementHasChildSingle(Remolques);
     });
 
     test('transporte maritimo', () => {
         const element = new TransporteMaritimo();
         expect(element.name()).toBe('cartaporte20:TransporteMaritimo');
         expect(element.getElementName()).toBe('cartaporte20:TransporteMaritimo');
-        assertElementHasChildMultiple(element, Contenedor);
+
+        expect(element).toElementHasChildMultiple(Contenedor);
     });
 
     test('transporte aereo', () => {
@@ -192,8 +147,8 @@ describe('Elements.CartaPorte20', () => {
 
         expect(element.getChildrenOrder()).toStrictEqual(['cartaporte20:DerechosDePaso', 'cartaporte20:Carro']);
 
-        assertElementHasChildMultiple(element, DerechosDePaso);
-        assertElementHasChildMultiple(element, Carro);
+        expect(element).toElementHasChildMultiple(DerechosDePaso);
+        expect(element).toElementHasChildMultiple(Carro);
     });
 
     test('domicilio', () => {
@@ -209,8 +164,8 @@ describe('Elements.CartaPorte20', () => {
 
         expect(element.getChildrenOrder()).toStrictEqual(['cartaporte20:PartesTransporte', 'cartaporte20:Domicilio']);
 
-        assertElementHasChildMultiple(element, PartesTransporte);
-        assertElementHasChildSingle(element, Domicilio);
+        expect(element).toElementHasChildMultiple(PartesTransporte);
+        expect(element).toElementHasChildSingle(Domicilio);
     });
 
     test('pedimentos', () => {
@@ -253,7 +208,8 @@ describe('Elements.CartaPorte20', () => {
         const element = new Remolques();
         expect(element.name()).toBe('cartaporte20:Remolques');
         expect(element.getElementName()).toBe('cartaporte20:Remolques');
-        assertElementHasChildMultiple(element, Remolque);
+
+        expect(element).toElementHasChildMultiple(Remolque);
     });
 
     test('contenedor', () => {
@@ -271,7 +227,8 @@ describe('Elements.CartaPorte20', () => {
         const element = new Carro();
         expect(element.name()).toBe('cartaporte20:Carro');
         expect(element.getElementName()).toBe('cartaporte20:Carro');
-        assertElementHasChildMultiple(element, Contenedor);
+
+        expect(element).toElementHasChildMultiple(Contenedor);
     });
 
     test('partes transporte', () => {
