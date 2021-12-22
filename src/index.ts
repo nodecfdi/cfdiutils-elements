@@ -6,10 +6,11 @@ import * as CartaPorte20 from './carta_porte20';
 import * as Retenciones10 from './retenciones10';
 import * as Dividendos10 from './dividendos10';
 import * as PagosAExtranjeros10 from './pagosaextranjeros10';
+import * as Tfd11 from './tfd11';
 
 export * from './cfdi33/traits/impuestos_trait';
 export * from './cfdi33/traits/informacion_aduanera_trait';
 export * from './common/abstract_element';
 export * from './common/element_interface';
 export * from './sumas_conceptos';
-export { Cfdi33, ImpLocal10, Pagos10, Nomina12, CartaPorte20, Retenciones10, Dividendos10, PagosAExtranjeros10 };
+export { Cfdi33, ImpLocal10, Pagos10, Nomina12, CartaPorte20, Retenciones10, Dividendos10, PagosAExtranjeros10, Tfd11 };
