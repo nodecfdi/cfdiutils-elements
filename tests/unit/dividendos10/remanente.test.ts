@@ -1,6 +1,6 @@
 import { Remanente } from '../../../src/dividendos10';
 
-describe('Elements.Dividendos10.Remamente', () => {
+describe('Elements.Dividendos10.Remanente', () => {
     let element: Remanente;
 
     beforeEach(() => {

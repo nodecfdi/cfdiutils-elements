@@ -1,7 +1,7 @@
 import '../../matchers/to_element_has_child';
 import { Dividendos, DividOUtil, Remanente } from '../../../src/dividendos10';
 
-describe('Elements.Dividendos10.Remamente', () => {
+describe('Elements.Dividendos10.Dividendos', () => {
     let element: Dividendos;
 
     beforeEach(() => {

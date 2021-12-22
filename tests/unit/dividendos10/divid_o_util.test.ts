@@ -1,6 +1,6 @@
 import { DividOUtil } from '../../../src/dividendos10';
 
-describe('Elements.Dividendos10.Remamente', () => {
+describe('Elements.Dividendos10.DividOUtil', () => {
     let element: DividOUtil;
 
     beforeEach(() => {
