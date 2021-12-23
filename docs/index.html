@@ -15,5 +15,77 @@
 <a href="#acerca-de-nodecfdicfdiutils-elements" id="acerca-de-nodecfdicfdiutils-elements" style="color: inherit; text-decoration: none;">
   <h2>Acerca de @nodecfdi/cfdiutils-elements</h2>
 </a>
-<p>Librería para contener las estructuras de datos que componen un cfdi. Inspirada por la versión de php <a href="https://github.com/eclipxe13/CfdiUtils">https://github.com/eclipxe13/CfdiUtils</a></p>
-</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li><li class=" tsd-kind-namespace"><a href="modules/Cfdi33.html">Cfdi33</a></li><li class=" tsd-kind-namespace"><a href="modules/ImpLocal10.html">Imp<wbr/>Local10</a></li><li class=" tsd-kind-namespace"><a href="modules/Pagos10.html">Pagos10</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-class"><a href="classes/AbstractElement.html" class="tsd-kind-icon">Abstract<wbr/>Element</a></li><li class="tsd-kind-class"><a href="classes/ImpuestosTrait.html" class="tsd-kind-icon">Impuestos<wbr/>Trait</a></li><li class="tsd-kind-class"><a href="classes/InformacionAduaneraTrait.html" class="tsd-kind-icon">Informacion<wbr/>Aduanera<wbr/>Trait</a></li><li class="tsd-kind-class"><a href="classes/SumasConceptos.html" class="tsd-kind-icon">Sumas<wbr/>Conceptos</a></li><li class="tsd-kind-interface"><a href="interfaces/ElementInterface.html" class="tsd-kind-icon">Element<wbr/>Interface</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li><li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
+<p>Librería para contener las estructuras de datos que componen un cfdi. Inspirada por la versión de
+php <a href="https://github.com/eclipxe13/CfdiUtils">https://github.com/eclipxe13/CfdiUtils</a></p>
+
+<a href="#estructura-de-datos-elements" id="estructura-de-datos-elements" style="color: inherit; text-decoration: none;">
+  <h2>Estructura de datos Elements</h2>
+</a>
+<p>La librería <code>@nodecfdi/cfdiutils-elements</code> es una especialización de <code>CNodes</code>.</p>
+<p>Se trata solo de una estructura de datos, no caigas en la tentación de insertar lógica más allá de la propia estructura.</p>
+<p>Todo <em>elemento</em> es un <em>nodo</em>, entonces todos los métodos y propiedades de <code>CNodeInterface</code> están presentes.</p>
+<p>Entonces, para escribir atributos se recomienda usar la forma de arreglo, por ejemplo:
+<code>comprobante.attributes().set(&#39;Descuento&#39;,&#39;1234.56&#39;)</code> para establecer el atributo &quot;Descuento&quot; a &quot;1234.56&quot;.</p>
+<p>Cualquier elemento debe cumplir con la interfaz <code>ElementInterface</code>
+que es una extensión de <code>CNodeInterface</code> y agrega:</p>
+<ul>
+<li><code>getElementName(): string</code>: Devuelve el nombre del elemento, como <code>cfdi:Complemento</code></li>
+<li><code>getFixedAttributes(): array</code>: Establece la lista de nodos predefinidos al crearse (útil para Complementos y
+Comprobante)</li>
+<li><code>getChildrenOrder(): array</code>: establece el orden de los nodos hijos</li>
+</ul>
+<p>En última instancia, un <em>elemento</em> (<code>ElementInterface</code>) es un <em>nodo</em> (<code>CNodeInterface</code>)
+por lo que puedes utilizar a bajo nivel todo el poder de los nodos para trabajar con esta estructura de datos.</p>
+
+<a href="#nomenclatura-genérica" id="nomenclatura-genérica" style="color: inherit; text-decoration: none;">
+  <h2>Nomenclatura genérica</h2>
+</a>
+<p>Los elementos deberían seguir esta nomenclatura genérica para nombrar sus métodos.</p>
+
+<a href="#prefijo-get" id="prefijo-get" style="color: inherit; text-decoration: none;">
+  <h3>Prefijo <code>get*</code></h3>
+</a>
+<p>La nomenclatura con el prefijo <code>get*</code> se escribe en la forma <code>ElementoPadre.getElementoHijo(): ElementoHijo</code>
+y se espera devolver una única instancia de <code>ElementoHijo</code>. Si la instancia no existe entonces se crea.</p>
+
+<a href="#prefijo-add" id="prefijo-add" style="color: inherit; text-decoration: none;">
+  <h3>Prefijo <code>add*</code></h3>
+</a>
+<p>La nomenclatura con el prefijo <code>add*</code> se escribe la forma <code>ElementoPadre.addElementoHijo(attributes): ElementoHijo</code>
+y se espera crear una instancia de <code>ElementoHijo</code> con los atributos datos, agregarla a los hijos de <code>ElementoPadre</code>
+y la instancia de <code>ElementoHijo</code> creada.</p>
+<p>Cuando se utiliza <code>add*</code> hay dos comportamientos esperados:</p>
+<ul>
+<li>Si solo debe haber un hijo de un determinado tipo, entonces no se crea uno nuevo y se ocupa el existente.</li>
+<li>Si puede haber más de un hijo de un determinado tipo, entonces se crea uno nuevo y se agrega a los hijos.</li>
+</ul>
+<p>Por eso, como solo debe haber un nodo emisor dentro de un comprobante,
+entonces <code>Comprobante.addEmisor({&#39;RegimenFiscal&#39; : &#39;601&#39;})</code> tiene este comportamiento:</p>
+<ul>
+<li>Se obtiene el elemento <code>Emisor</code>, si no existe se crea uno vacío.</li>
+<li>Se escriben los atributos pasados al elemento obtenido.</li>
+<li>Se devuelve el elemento.</li>
+</ul>
+<p>Por el contrario, como puede haber varios Cfdi Relacionados, entonces
+<code>CfdiRelacionados.addCfdiRelacionado({ &#39;UUID&#39; : uuid })</code> tiene este comportamiento:</p>
+<ul>
+<li>Se crea un elemento de tipo <code>CfdiRelacionado</code> con los atributos pasados.</li>
+<li>Se agrega el elemento recién creado a los hijos de <code>CfdiRelacionados</code>.</li>
+<li>Se devuelve el elemento creado.</li>
+</ul>
+<p>Existe un caso donde lo que se espera entregar como atributo al prefijo <code>add*</code> es en realidad un hijo. Esto sucede
+en <code>addComplemento</code> y <code>addAddenda</code>.</p>
+
+<a href="#prefijo-multi" id="prefijo-multi" style="color: inherit; text-decoration: none;">
+  <h3>Prefijo <code>multi*</code></h3>
+</a>
+<p>La nomenclatura con el prefijo <code>multi*</code> se escribe la
+forma <code>ElementoPadre.multiElementoHijo(...attributes): ElementoPadre</code>
+y se espera crear múltiples una instancia de <code>ElementoHijo</code> con los atributos datos, agregarla a los hijos
+de <code>ElementoPadre</code>
+y la instancia de <code>ElementoPadre</code> creada.</p>
+<p>Otra forma de decirlo: es como los métodos <code>add*</code> pero se le pueden mandar varios arreglos de atributos y se creará un
+elemento para cada parámetro enviado.</p>
+<p>Por lo anterior, <code>CfdiRelacionados.multiCfdiRelacionado( {&#39;UUID&#39; : uuid1}, {&#39;UUID&#39; : uuid2})</code> agregará dos hijos y
+devolverá la misma instancia del objeto llamado.</p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li><li class=" tsd-kind-namespace"><a href="modules/CartaPorte20.html">Carta<wbr/>Porte20</a></li><li class=" tsd-kind-namespace"><a href="modules/Cfdi33.html">Cfdi33</a></li><li class=" tsd-kind-namespace"><a href="modules/Dividendos10.html">Dividendos10</a></li><li class=" tsd-kind-namespace"><a href="modules/ImpLocal10.html">Imp<wbr/>Local10</a></li><li class=" tsd-kind-namespace"><a href="modules/Nomina12.html">Nomina12</a></li><li class=" tsd-kind-namespace"><a href="modules/Pagos10.html">Pagos10</a></li><li class=" tsd-kind-namespace"><a href="modules/PagosAExtranjeros10.html">PagosAExtranjeros10</a></li><li class=" tsd-kind-namespace"><a href="modules/Retenciones10.html">Retenciones10</a></li><li class=" tsd-kind-namespace"><a href="modules/Tfd11.html">Tfd11</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-class"><a href="classes/AbstractElement.html" class="tsd-kind-icon">Abstract<wbr/>Element</a></li><li class="tsd-kind-class"><a href="classes/ImpuestosTrait.html" class="tsd-kind-icon">Impuestos<wbr/>Trait</a></li><li class="tsd-kind-class"><a href="classes/InformacionAduaneraTrait.html" class="tsd-kind-icon">Informacion<wbr/>Aduanera<wbr/>Trait</a></li><li class="tsd-kind-class"><a href="classes/SumasConceptos.html" class="tsd-kind-icon">Sumas<wbr/>Conceptos</a></li><li class="tsd-kind-interface"><a href="interfaces/ElementInterface.html" class="tsd-kind-icon">Element<wbr/>Interface</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li><li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>

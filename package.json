@@ -25,7 +25,7 @@
     "scripts": {
         "dev": "rollup -c -w",
         "build": "rollup -c",
-        "generate": "rimraf {build, dist} && yarn build && yarn build:types && yarn docs && rimraf build",
+        "generate": "rimraf build && rimraf dist && yarn build && yarn build:types && yarn docs && rimraf build",
         "build:types": "tsc -p ./tsconfig.json --outDir build --declaration true && api-extractor run",
         "lint": "eslint --ext .js,.ts .",
         "test": "jest",

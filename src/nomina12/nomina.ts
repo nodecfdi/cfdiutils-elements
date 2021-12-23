@@ -1,6 +1,7 @@
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract_element';
-import { Emisor, Receptor } from '../nomina12';
+import { Emisor } from './emisor';
+import { Receptor } from './receptor';
 import { Deducciones } from './deducciones';
 import { Incapacidades } from './incapacidades';
 import { OtrosPagos } from './otros_pagos';
