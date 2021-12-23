@@ -7,10 +7,6 @@ export class Totales extends AbstractElement {
         super('retenciones:Totales', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'retenciones:Totales';
-    }
-
     public addImpRetenidos(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []): ImpRetenidos {
         const subject = new ImpRetenidos(attributes, children);
         this.addChild(subject);
@@ -18,7 +14,7 @@ export class Totales extends AbstractElement {
     }
 
     public multiImpRetenidos(elementAttributes: Record<string, unknown>[] = []): Totales {
-        elementAttributes.forEach(attributes => {
+        elementAttributes.forEach((attributes) => {
             this.addImpRetenidos(attributes);
         });
         return this;

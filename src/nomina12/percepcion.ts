@@ -8,10 +8,6 @@ export class Percepcion extends AbstractElement {
         super('nomina12:Percepcion', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'nomina12:Percepcion';
-    }
-
     public getChildrenOrder(): string[] {
         return ['nomina12:AccionesOTitulos', 'nomina12:HorasExtra'];
     }

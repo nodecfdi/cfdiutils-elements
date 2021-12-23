@@ -7,10 +7,6 @@ export class Receptor extends AbstractElement {
         super('nomina12:Receptor', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'nomina12:Receptor';
-    }
-
     public addSubContratacion(attributes: Record<string, unknown> = {}): SubContratacion {
         const subContratacion = new SubContratacion(attributes);
         this.addChild(subContratacion);

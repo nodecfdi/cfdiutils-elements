@@ -7,15 +7,11 @@ export class Ubicacion extends AbstractElement {
         super('cartaporte20:Ubicacion', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cartaporte20:Ubicacion';
-    }
-
     public getDomicilio(): Domicilio {
         return this.helperGetOrAdd(new Domicilio());
     }
 
-    public addDomicilio(attributes: Record<string, unknown>= {}): Domicilio {
+    public addDomicilio(attributes: Record<string, unknown> = {}): Domicilio {
         const subject = this.getDomicilio();
         subject.addAttributes(attributes);
         return subject;

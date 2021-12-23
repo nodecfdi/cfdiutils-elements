@@ -8,10 +8,6 @@ export class TransporteFerroviario extends AbstractElement {
         super('cartaporte20:TransporteFerroviario', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cartaporte20:TransporteFerroviario';
-    }
-
     public getChildrenOrder(): string[] {
         return ['cartaporte20:DerechosDePaso', 'cartaporte20:Carro'];
     }
@@ -23,7 +19,7 @@ export class TransporteFerroviario extends AbstractElement {
     }
 
     public multiDerechosDePaso(elementAttributes: Record<string, unknown>[] = []): TransporteFerroviario {
-        elementAttributes.forEach(attributes => {
+        elementAttributes.forEach((attributes) => {
             this.addDerechosDePaso(attributes);
         });
         return this;
@@ -36,7 +32,7 @@ export class TransporteFerroviario extends AbstractElement {
     }
 
     public multiCarro(elementAttributes: Record<string, unknown>[] = []): TransporteFerroviario {
-        elementAttributes.forEach(attributes => {
+        elementAttributes.forEach((attributes) => {
             this.addCarro(attributes);
         });
         return this;

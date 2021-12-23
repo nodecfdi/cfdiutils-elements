@@ -8,10 +8,6 @@ export class Pagosaextranjeros extends AbstractElement {
         super('pagosaextranjeros:Pagosaextranjeros', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'pagosaextranjeros:Pagosaextranjeros';
-    }
-
     public getNoBeneficiario(): NoBeneficiario {
         return this.helperGetOrAdd(new NoBeneficiario());
     }

@@ -8,10 +8,6 @@ export class Impuestos extends AbstractElement {
         super('pago10:Impuestos', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'pago10:Impuestos';
-    }
-
     public getChildrenOrder(): string[] {
         return ['pago10:Retenciones', 'pago10:Traslados'];
     }

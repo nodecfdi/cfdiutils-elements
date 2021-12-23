@@ -6,10 +6,6 @@ export class Complemento extends AbstractElement {
         super('retenciones:Complemento', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'retenciones:Complemento';
-    }
-
     public add(child: CNodeInterface): Complemento {
         this.children().add(child);
         return this;

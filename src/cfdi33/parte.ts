@@ -11,10 +11,6 @@ class Parte extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cfdi:Parte', attributes, children);
     }
-
-    public getElementName(): string {
-        return 'cfdi:Parte';
-    }
 }
 
 export { Parte };

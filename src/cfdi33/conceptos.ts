@@ -7,10 +7,6 @@ export class Conceptos extends AbstractElement {
         super('cfdi:Conceptos', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cfdi:Conceptos';
-    }
-
     public addConcepto(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []): Concepto {
         const concepto = new Concepto(attributes, children);
         this.addChild(concepto);

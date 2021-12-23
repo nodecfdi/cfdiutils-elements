@@ -7,10 +7,6 @@ export class Retenciones extends AbstractElement {
         super('pago10:Retenciones', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'pago10:Retenciones';
-    }
-
     public addRetencion(attributes: Record<string, unknown> = {}): Retencion {
         const retencion = new Retencion(attributes);
         this.addChild(retencion);

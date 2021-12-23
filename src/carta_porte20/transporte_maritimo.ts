@@ -7,10 +7,6 @@ export class TransporteMaritimo extends AbstractElement {
         super('cartaporte20:TransporteMaritimo', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cartaporte20:TransporteMaritimo';
-    }
-
     public addContenedor(attributes: Record<string, unknown> = {}): Contenedor {
         const subject = new Contenedor(attributes);
         this.addChild(subject);
@@ -18,7 +14,7 @@ export class TransporteMaritimo extends AbstractElement {
     }
 
     public multiContenedor(elementAttributes: Record<string, unknown>[] = []): TransporteMaritimo {
-        elementAttributes.forEach(attributes => {
+        elementAttributes.forEach((attributes) => {
             this.addContenedor(attributes);
         });
         return this;

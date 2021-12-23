@@ -6,10 +6,6 @@ export class TimbreFiscalDigital extends AbstractElement {
         super('tfd:TimbreFiscalDigital', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'tfd:TimbreFiscalDigital';
-    }
-
     public getFixedAttributes(): Record<string, string> {
         return {
             'xmlns:tfd': 'http://www.sat.gob.mx/TimbreFiscalDigital',

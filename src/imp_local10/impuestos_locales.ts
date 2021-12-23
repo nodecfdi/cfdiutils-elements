@@ -8,10 +8,6 @@ export class ImpuestosLocales extends AbstractElement {
         super('implocal:ImpuestosLocales', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'implocal:ImpuestosLocales';
-    }
-
     public addRetencionLocal(attributes: Record<string, unknown> = {}): RetencionesLocales {
         const retencion = new RetencionesLocales(attributes);
         this.addChild(retencion);

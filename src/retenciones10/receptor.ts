@@ -8,10 +8,6 @@ export class Receptor extends AbstractElement {
         super('retenciones:Receptor', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'retenciones:Receptor';
-    }
-
     public getNacional(): Nacional {
         const nacional = this.helperGetOrAdd(new Nacional());
         this.children().removeAll();

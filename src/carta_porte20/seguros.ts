@@ -5,8 +5,4 @@ export class Seguros extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cartaporte20:Seguros', attributes, children);
     }
-
-    public getElementName(): string {
-        return 'cartaporte20:Seguros';
-    }
 }

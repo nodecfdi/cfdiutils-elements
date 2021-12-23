@@ -13,10 +13,6 @@ export class Retenciones extends AbstractElement {
         super('retenciones:Retenciones', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'retenciones:Retenciones';
-    }
-
     public getEmisor(): Emisor {
         return this.helperGetOrAdd(new Emisor());
     }

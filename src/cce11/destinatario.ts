@@ -7,10 +7,6 @@ export class Destinatario extends AbstractElement {
         super('cce11:Destinatario', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cce11:Destinatario';
-    }
-
     public addDomicilio(attributes: Record<string, unknown> = {}): Domicilio {
         const subject = new Domicilio(attributes);
         this.addChild(subject);

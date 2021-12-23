@@ -7,10 +7,6 @@ export class OtrosPagos extends AbstractElement {
         super('nomina12:OtrosPagos', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'nomina12:OtrosPagos';
-    }
-
     public addOtroPago(attributes: Record<string, unknown> = {}): OtroPago {
         const otroPago = new OtroPago(attributes);
         this.addChild(otroPago);

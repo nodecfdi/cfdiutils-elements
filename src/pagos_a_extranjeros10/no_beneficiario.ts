@@ -5,8 +5,4 @@ export class NoBeneficiario extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('pagosaextranjeros:NoBeneficiario', attributes, children);
     }
-
-    public getElementName(): string {
-        return 'pagosaextranjeros:NoBeneficiario';
-    }
 }

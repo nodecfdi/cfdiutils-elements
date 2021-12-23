@@ -5,8 +5,4 @@ export class DividOUtil extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('dividendos:DividOUtil', attributes, children);
     }
-
-    public getElementName(): string {
-        return 'dividendos:DividOUtil';
-    }
 }

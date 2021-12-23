@@ -8,10 +8,6 @@ export class Dividendos extends AbstractElement {
         super('dividendos:Dividendos', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'dividendos:Dividendos';
-    }
-
     public getDividOUtil(): DividOUtil {
         return this.helperGetOrAdd(new DividOUtil());
     }

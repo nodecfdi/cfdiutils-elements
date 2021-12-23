@@ -5,8 +5,4 @@ export class Periodo extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('retenciones:Periodo', attributes, children);
     }
-
-    public getElementName(): string {
-        return 'retenciones:Periodo';
-    }
 }

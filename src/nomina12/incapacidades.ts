@@ -7,10 +7,6 @@ export class Incapacidades extends AbstractElement {
         super('nomina12:Incapacidades', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'nomina12:Incapacidades';
-    }
-
     public addIncapacidad(elementAttributes: Record<string, unknown> = {}): Incapacidad {
         const incapacidad = new Incapacidad(elementAttributes);
         this.addChild(incapacidad);

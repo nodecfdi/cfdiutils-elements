@@ -12,10 +12,6 @@ export class Nomina extends AbstractElement {
         super('nomina12:Nomina', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'nomina12:Nomina';
-    }
-
     public getChildrenOrder(): string[] {
         return [
             'nomina12:Emisor',

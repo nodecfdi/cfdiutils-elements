@@ -8,10 +8,6 @@ export class Pago extends AbstractElement {
         super('pago10:Pago', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'pago10:Pago';
-    }
-
     public addDoctoRelacionado(attributes: Record<string, unknown> = {}): DoctoRelacionado {
         const doctoRelacionado = new DoctoRelacionado(attributes);
         this.addChild(doctoRelacionado);

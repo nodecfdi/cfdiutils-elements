@@ -6,10 +6,6 @@ export class Addenda extends AbstractElement {
         super('retenciones:Addenda', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'retenciones:Addenda';
-    }
-
     public add(child: CNodeInterface): Addenda {
         this.children().add(child);
         return this;

@@ -9,10 +9,6 @@ export class Autotransporte extends AbstractElement {
         super('cartaporte20:Autotransporte', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cartaporte20:Autotransporte';
-    }
-
     public getChildrenOrder(): string[] {
         return ['cartaporte20:IdentificacionVehicular', 'cartaporte20:Seguros', 'cartaporte20:Remolques'];
     }

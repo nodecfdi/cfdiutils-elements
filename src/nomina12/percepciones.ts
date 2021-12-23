@@ -9,10 +9,6 @@ export class Percepciones extends AbstractElement {
         super('nomina12:Percepciones', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'nomina12:Percepciones';
-    }
-
     public getChildrenOrder(): string[] {
         return ['nomina12:Percepcion', 'nomina12:JubilacionPensionRetiro', 'nomina12:SeparacionIndemnizacion'];
     }

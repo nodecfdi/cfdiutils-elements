@@ -5,8 +5,4 @@ export class PartesTransporte extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cartaporte20:PartesTransporte', attributes, children);
     }
-
-    public getElementName(): string {
-        return 'cartaporte20:PartesTransporte';
-    }
 }

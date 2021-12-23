@@ -7,19 +7,15 @@ export class Ubicaciones extends AbstractElement {
         super('cartaporte20:Ubicaciones', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cartaporte20:Ubicaciones';
-    }
-
-    public addUbicacion(attributes: Record<string, unknown>= {}): Ubicacion {
+    public addUbicacion(attributes: Record<string, unknown> = {}): Ubicacion {
         const subject = new Ubicacion(attributes);
         this.addChild(subject);
-        
+
         return subject;
     }
 
     public multiUbicacion(elementAttributes: Record<string, unknown>[] = []): Ubicaciones {
-        elementAttributes.forEach(attributes => {
+        elementAttributes.forEach((attributes) => {
             this.addUbicacion(attributes);
         });
         return this;

@@ -6,10 +6,6 @@ export class Complemento extends AbstractElement {
         super('cfdi:Complemento', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cfdi:Complemento';
-    }
-
     public add(child: CNodeInterface): Complemento {
         this.children().add(child);
         return this;

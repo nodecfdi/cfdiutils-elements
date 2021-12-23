@@ -7,10 +7,6 @@ export class Retenciones extends AbstractElement {
         super('cfdi:Retenciones', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cfdi:Retenciones';
-    }
-
     public addRetencion(attributes: Record<string, unknown> = {}): Retencion {
         const retencion = new Retencion(attributes);
         this.addChild(retencion);

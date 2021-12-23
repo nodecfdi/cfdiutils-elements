@@ -11,10 +11,6 @@ export class Mercancias extends AbstractElement {
         super('cartaporte20:Mercancias', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cartaporte20:Mercancias';
-    }
-
     public getChildrenOrder(): string[] {
         return [
             'cartaporte20:Mercancia',
@@ -32,7 +28,7 @@ export class Mercancias extends AbstractElement {
     }
 
     public multiMercancia(elementAttributes: Record<string, unknown>[] = []): Mercancias {
-        elementAttributes.forEach(attributes => {
+        elementAttributes.forEach((attributes) => {
             this.addMercancia(attributes);
         });
         return this;

@@ -8,10 +8,6 @@ export class Impuestos extends AbstractElement {
         super('cfdi:Impuestos', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cfdi:Impuestos';
-    }
-
     public getChildrenOrder(): string[] {
         return ['cfdi:Retenciones', 'cfdi:Traslados'];
     }

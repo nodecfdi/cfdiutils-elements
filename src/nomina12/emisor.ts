@@ -7,10 +7,6 @@ export class Emisor extends AbstractElement {
         super('nomina12:Emisor', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'nomina12:Emisor';
-    }
-
     public getEntidadSNCF(): EntidadSNCF {
         return this.helperGetOrAdd(new EntidadSNCF());
     }

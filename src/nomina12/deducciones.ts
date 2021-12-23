@@ -7,10 +7,6 @@ export class Deducciones extends AbstractElement {
         super('nomina12:Deducciones', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'nomina12:Deducciones';
-    }
-
     public addDeduccion(attributes: Record<string, unknown> = {}): Deduccion {
         const deduccion = new Deduccion(attributes);
         this.addChild(deduccion);

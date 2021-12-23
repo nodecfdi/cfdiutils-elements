@@ -7,10 +7,6 @@ export class Remolques extends AbstractElement {
         super('cartaporte20:Remolques', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cartaporte20:Remolques';
-    }
-
     public addRemolque(attributes: Record<string, unknown> = {}): Remolque {
         const subject = new Remolque(attributes);
         this.addChild(subject);
@@ -18,7 +14,7 @@ export class Remolques extends AbstractElement {
     }
 
     public multiRemolque(elementAttributes: Record<string, unknown>[] = []): Remolques {
-        elementAttributes.forEach(attributes => {
+        elementAttributes.forEach((attributes) => {
             this.addRemolque(attributes);
         });
         return this;

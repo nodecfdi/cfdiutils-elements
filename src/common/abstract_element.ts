@@ -15,7 +15,9 @@ export abstract class AbstractElement extends CNode implements ElementInterface 
         return [];
     }
 
-    public abstract getElementName(): string;
+    public getElementName(): string {
+        return this.name();
+    }
 
     public getFixedAttributes(): Record<string, string> {
         return {};

@@ -7,10 +7,6 @@ export class CfdiRelacionados extends AbstractElement {
         super('cfdi:CfdiRelacionados', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cfdi:CfdiRelacionados';
-    }
-
     public addCfdiRelacionado(attributes: Record<string, unknown> = {}): CfdiRelacionado {
         const cfdiRelacionado = new CfdiRelacionado(attributes);
         this.addChild(cfdiRelacionado);

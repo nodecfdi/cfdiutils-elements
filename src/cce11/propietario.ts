@@ -5,8 +5,4 @@ export class Propietario extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cce11:Propietario', attributes, children);
     }
-
-    public getElementName(): string {
-        return 'cce11:Propietario';
-    }
 }

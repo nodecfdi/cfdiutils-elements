@@ -9,8 +9,4 @@ export class Receptor extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cce11:Receptor', attributes, children);
     }
-
-    public getElementName(): string {
-        return 'cce11:Receptor';
-    }
 }

@@ -8,10 +8,6 @@ export class OtroPago extends AbstractElement {
         super('nomina12:OtroPago', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'nomina12:OtroPago';
-    }
-
     public getChildrenOrder(): string[] {
         return ['nomina12:SubsidioAlEmpleo', 'nomina12:CompensacionSaldosAFavor'];
     }

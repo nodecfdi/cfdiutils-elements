@@ -10,10 +10,6 @@ export class Mercancia extends AbstractElement {
         super('cartaporte20:Mercancia', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cartaporte20:Mercancia';
-    }
-
     public getChildrenOrder(): string[] {
         return [
             'cartaporte20:Pedimentos',
@@ -30,7 +26,7 @@ export class Mercancia extends AbstractElement {
     }
 
     public multiPedimentos(elementAttributes: Record<string, unknown>[] = []): Mercancia {
-        elementAttributes.forEach(attributes => {
+        elementAttributes.forEach((attributes) => {
             this.addPedimentos(attributes);
         });
         return this;
@@ -43,7 +39,7 @@ export class Mercancia extends AbstractElement {
     }
 
     public multiGuiasIdentificacion(elementAttributes: Record<string, unknown>[] = []): Mercancia {
-        elementAttributes.forEach(attributes => {
+        elementAttributes.forEach((attributes) => {
             this.addGuiasIdentificacion(attributes);
         });
         return this;
@@ -56,7 +52,7 @@ export class Mercancia extends AbstractElement {
     }
 
     public multiCantidadTransporta(elementAttributes: Record<string, unknown>[] = []): Mercancia {
-        elementAttributes.forEach(attributes => {
+        elementAttributes.forEach((attributes) => {
             this.addCantidadTransporta(attributes);
         });
         return this;
@@ -64,7 +60,7 @@ export class Mercancia extends AbstractElement {
 
     public getDetalleMercancia(): DetalleMercancia {
         return this.helperGetOrAdd(new DetalleMercancia());
-    } 
+    }
 
     public addDetalleMercancia(attributes: Record<string, unknown>): DetalleMercancia {
         const subject = this.getDetalleMercancia();

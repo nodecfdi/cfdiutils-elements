@@ -12,10 +12,6 @@ export class ComercioExterior extends AbstractElement {
         super('cce11:ComercioExterior', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cce11:ComercioExterior';
-    }
-
     public getEmisor(): Emisor {
         return this.helperGetOrAdd(new Emisor());
     }

@@ -8,10 +8,6 @@ export class TiposFigura extends AbstractElement {
         super('cartaporte20:TiposFigura', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cartaporte20:TiposFigura';
-    }
-
     public getChildrenOrder(): string[] {
         return ['cartaporte20:PartesTransporte', 'cartaporte20:Domicilio'];
     }
@@ -23,7 +19,7 @@ export class TiposFigura extends AbstractElement {
     }
 
     public multiPartesTransporte(elementAttributes: Record<string, unknown>[] = []): TiposFigura {
-        elementAttributes.forEach(attributes => {
+        elementAttributes.forEach((attributes) => {
             this.addPartesTransporte(attributes);
         });
         return this;

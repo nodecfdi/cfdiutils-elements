@@ -9,10 +9,6 @@ export class CartaPorte extends AbstractElement {
         super('cartaporte20:CartaPorte', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cartaporte20:CartaPorte';
-    }
-
     public getChildrenOrder(): string[] {
         return ['cartaporte20:Ubicaciones', 'cartaporte20:Mercancias', 'cartaporte20:FiguraTransporte'];
     }

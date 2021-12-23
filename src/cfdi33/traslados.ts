@@ -7,10 +7,6 @@ export class Traslados extends AbstractElement {
         super('cfdi:Traslados', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cfdi:Traslados';
-    }
-
     public addTraslado(attributes: Record<string, unknown> = {}): Traslado {
         const traslado = new Traslado(attributes);
         this.addChild(traslado);

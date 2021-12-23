@@ -7,10 +7,6 @@ export class Mercancia extends AbstractElement {
         super('cce11:Mercancia', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cce11:Mercancia';
-    }
-
     public addDescripcionesEspecificas(attributes: Record<string, unknown> = {}): DescripcionesEspecificas {
         const subject = new DescripcionesEspecificas(attributes);
         this.addChild(subject);

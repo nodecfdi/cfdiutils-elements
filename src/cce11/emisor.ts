@@ -9,8 +9,4 @@ export class Emisor extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cce11:Emisor', attributes, children);
     }
-
-    public getElementName(): string {
-        return 'cce11:Emisor';
-    }
 }

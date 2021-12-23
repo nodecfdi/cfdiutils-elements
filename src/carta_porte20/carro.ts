@@ -7,18 +7,14 @@ export class Carro extends AbstractElement {
         super('cartaporte20:Carro', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cartaporte20:Carro';
-    }
-
     public addContenedor(attributes: Record<string, unknown> = {}): Contenedor {
         const subject = new Contenedor(attributes);
         this.addChild(subject);
         return subject;
-    } 
+    }
 
     public multiContenedor(elementAttributes: Record<string, unknown>[] = []): Carro {
-        elementAttributes.forEach(attributes => {
+        elementAttributes.forEach((attributes) => {
             this.addContenedor(attributes);
         });
         return this;

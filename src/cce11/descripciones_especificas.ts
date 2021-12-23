@@ -5,8 +5,4 @@ export class DescripcionesEspecificas extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cce11:DescripcionesEspecificas', attributes, children);
     }
-
-    public getElementName(): string {
-        return 'cce11:DescripcionesEspecificas';
-    }
 }

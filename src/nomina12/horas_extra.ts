@@ -5,8 +5,4 @@ export class HorasExtra extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('nomina12:HorasExtra', attributes, children);
     }
-
-    public getElementName(): string {
-        return 'nomina12:HorasExtra';
-    }
 }

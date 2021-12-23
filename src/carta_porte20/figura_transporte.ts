@@ -7,18 +7,14 @@ export class FiguraTransporte extends AbstractElement {
         super('cartaporte20:FiguraTransporte', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cartaporte20:FiguraTransporte';
-    }
-
-    public addTiposFigura(attributes: Record<string, unknown>= {}): TiposFigura {
+    public addTiposFigura(attributes: Record<string, unknown> = {}): TiposFigura {
         const subject = new TiposFigura(attributes);
         this.addChild(subject);
         return subject;
     }
 
     public multiTiposFigura(elementAttributes: Record<string, unknown>[] = []): FiguraTransporte {
-        elementAttributes.forEach(attributes => {
+        elementAttributes.forEach((attributes) => {
             this.addTiposFigura(attributes);
         });
         return this;

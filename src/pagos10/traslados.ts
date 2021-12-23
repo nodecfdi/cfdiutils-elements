@@ -7,10 +7,6 @@ export class Traslados extends AbstractElement {
         super('pago10:Traslados', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'pago10:Traslados';
-    }
-
     public addTraslado(attributes: Record<string, unknown> = {}): Traslado {
         const traslado = new Traslado(attributes);
         this.addChild(traslado);

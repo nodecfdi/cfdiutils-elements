@@ -7,10 +7,6 @@ export class Pagos extends AbstractElement {
         super('pago10:Pagos', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'pago10:Pagos';
-    }
-
     public addPago(attributes: Record<string, unknown> = {}): Pago {
         const pago = new Pago(attributes);
         this.addChild(pago);

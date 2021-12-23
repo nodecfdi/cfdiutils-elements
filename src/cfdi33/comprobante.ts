@@ -21,10 +21,6 @@ class Comprobante extends AbstractElement {
         super('cfdi:Comprobante', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cfdi:Comprobante';
-    }
-
     public getCfdiRelacionados(): CfdiRelacionados {
         return this.helperGetOrAdd(new CfdiRelacionados());
     }

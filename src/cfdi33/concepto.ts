@@ -17,10 +17,6 @@ class Concepto extends AbstractElement {
         super('cfdi:Concepto', attributes, children);
     }
 
-    public getElementName(): string {
-        return 'cfdi:Concepto';
-    }
-
     public getChildrenOrder(): string[] {
         return [
             'cfdi:Impuestos',

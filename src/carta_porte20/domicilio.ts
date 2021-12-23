@@ -5,8 +5,4 @@ export class Domicilio extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cartaporte20:Domicilio', attributes, children);
     }
-
-    public getElementName(): string {
-        return 'cartaporte20:Domicilio';
-    }
 }
