@@ -13,7 +13,7 @@ export class Operadores extends AbstractElement {
         return subject;
     }
 
-    public multiOperador(elementAttributes: Record<string, unknown>[] = []): Operadores {
+    public multiOperador(...elementAttributes: Record<string, unknown>[]): Operadores {
         elementAttributes.forEach((attributes) => {
             this.addOperador(attributes);
         });

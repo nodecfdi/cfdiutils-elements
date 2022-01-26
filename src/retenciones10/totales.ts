@@ -13,7 +13,7 @@ export class Totales extends AbstractElement {
         return subject;
     }
 
-    public multiImpRetenidos(elementAttributes: Record<string, unknown>[] = []): Totales {
+    public multiImpRetenidos(...elementAttributes: Record<string, unknown>[]): Totales {
         elementAttributes.forEach((attributes) => {
             this.addImpRetenidos(attributes);
         });

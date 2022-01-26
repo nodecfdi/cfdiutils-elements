@@ -13,7 +13,7 @@ export class SumasConceptos {
     private localesTraslados: Record<string, string | number>[] = [];
     private localesRetenciones: Record<string, string | number>[] = [];
     private readonly precision;
-    private foundAnyConceptWithDiscount = false;
+    private _foundAnyConceptWithDiscount = false;
 
     constructor(comprobante: CNodeInterface, precision = 2) {
         this.precision = precision;
@@ -73,7 +73,7 @@ export class SumasConceptos {
     private addConcepto(concepto: CNodeInterface): void {
         this.importes += Number.parseFloat(concepto.attributes().get('Importe') || '0');
         if (concepto.attributes().has('Descuento')) {
-            this.foundAnyConceptWithDiscount = true;
+            this._foundAnyConceptWithDiscount = true;
         }
         this.descuento += Number.parseFloat(concepto.attributes().get('Descuento') || '0');
 
@@ -112,6 +112,9 @@ export class SumasConceptos {
     ): Record<string, Record<string, string | number>> {
         Object.keys(group).forEach((key) => {
             group[key]['Importe'] = Number(group[key]['Importe']).toFixed(this.precision);
+            if(group[key]['Base']) {
+                group[key]['Base'] = Number(group[key]['Base']).toFixed(this.precision)
+            }
         });
         return group;
     }
@@ -129,9 +132,11 @@ export class SumasConceptos {
                 TipoFactor: attributes.get('TipoFactor') || '',
                 TasaOCuota: attributes.get('TasaOCuota') || '',
                 Importe: 0.0,
+                Base: 0.0,
             };
         }
         (this.traslados[key]['Importe'] as number) += Number.parseFloat(attributes.get('Importe') || '0');
+        (this.traslados[key]['Base'] as number) += Number.parseFloat(attributes.get('Base') || '0');
     }
 
     private addRetencion(retencion: CNodeInterface): void {
@@ -217,7 +222,7 @@ export class SumasConceptos {
         return this.localesRetenciones.length > 0;
     }
 
-    public isFoundAnyConceptWithDiscount(): boolean {
-        return this.foundAnyConceptWithDiscount;
+    public foundAnyConceptWithDiscount(): boolean {
+        return this._foundAnyConceptWithDiscount;
     }
 }

@@ -13,7 +13,7 @@ export class Remolques extends AbstractElement {
         return subject;
     }
 
-    public multiRemolque(elementAttributes: Record<string, unknown>[] = []): Remolques {
+    public multiRemolque(...elementAttributes: Record<string, unknown>[]): Remolques {
         elementAttributes.forEach((attributes) => {
             this.addRemolque(attributes);
         });

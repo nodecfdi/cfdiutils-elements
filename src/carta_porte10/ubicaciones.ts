@@ -13,7 +13,7 @@ export class Ubicaciones extends AbstractElement {
         return subject;
     }
 
-    public multiUbicacion(elementAttributes: Record<string, unknown>[] = []): Ubicaciones {
+    public multiUbicacion(...elementAttributes: Record<string, unknown>[]): Ubicaciones {
         elementAttributes.forEach((attributes) => {
             this.addUbicacion(attributes);
         });

@@ -13,7 +13,7 @@ export class FiguraTransporte extends AbstractElement {
         return subject;
     }
 
-    public multiTiposFigura(elementAttributes: Record<string, unknown>[] = []): FiguraTransporte {
+    public multiTiposFigura(...elementAttributes: Record<string, unknown>[]): FiguraTransporte {
         elementAttributes.forEach((attributes) => {
             this.addTiposFigura(attributes);
         });

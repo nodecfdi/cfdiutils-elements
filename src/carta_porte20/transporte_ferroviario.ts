@@ -18,7 +18,7 @@ export class TransporteFerroviario extends AbstractElement {
         return subject;
     }
 
-    public multiDerechosDePaso(elementAttributes: Record<string, unknown>[] = []): TransporteFerroviario {
+    public multiDerechosDePaso(...elementAttributes: Record<string, unknown>[]): TransporteFerroviario {
         elementAttributes.forEach((attributes) => {
             this.addDerechosDePaso(attributes);
         });
@@ -31,7 +31,7 @@ export class TransporteFerroviario extends AbstractElement {
         return subject;
     }
 
-    public multiCarro(elementAttributes: Record<string, unknown>[] = []): TransporteFerroviario {
+    public multiCarro(...elementAttributes: Record<string, unknown>[]): TransporteFerroviario {
         elementAttributes.forEach((attributes) => {
             this.addCarro(attributes);
         });

@@ -13,7 +13,7 @@ export class TransporteMaritimo extends AbstractElement {
         return subject;
     }
 
-    public multiContenedor(elementAttributes: Record<string, unknown>[] = []): TransporteMaritimo {
+    public multiContenedor(...elementAttributes: Record<string, unknown>[]): TransporteMaritimo {
         elementAttributes.forEach((attributes) => {
             this.addContenedor(attributes);
         });

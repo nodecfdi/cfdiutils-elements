@@ -16,7 +16,7 @@ export class FiguraTransporte extends AbstractElement {
         return subject;
     }
 
-    public multiOperadores(elementAttributes: Record<string, unknown>[] = []): FiguraTransporte {
+    public multiOperadores(...elementAttributes: Record<string, unknown>[]): FiguraTransporte {
         elementAttributes.forEach((attributes) => {
             this.addOperadores(attributes);
         });
@@ -29,7 +29,7 @@ export class FiguraTransporte extends AbstractElement {
         return subject;
     }
 
-    public multiPropietario(elementAttributes: Record<string, unknown>[] = []): FiguraTransporte {
+    public multiPropietario(...elementAttributes: Record<string, unknown>[]): FiguraTransporte {
         elementAttributes.forEach((attributes) => {
             this.addPropietario(attributes);
         });
@@ -41,7 +41,7 @@ export class FiguraTransporte extends AbstractElement {
         return subject;
     }
 
-    public multiArrendatario(elementAttributes: Record<string, unknown>[] = []): FiguraTransporte {
+    public multiArrendatario(...elementAttributes: Record<string, unknown>[]): FiguraTransporte {
         elementAttributes.forEach((attributes) => {
             this.addArrendatario(attributes);
         });
@@ -54,7 +54,7 @@ export class FiguraTransporte extends AbstractElement {
         return subject;
     }
 
-    public multiNotificado(elementAttributes: Record<string, unknown>[] = []): FiguraTransporte {
+    public multiNotificado(...elementAttributes: Record<string, unknown>[]): FiguraTransporte {
         elementAttributes.forEach((attributes) => {
             this.addNotificado(attributes);
         });

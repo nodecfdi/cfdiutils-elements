@@ -27,7 +27,7 @@ export class Mercancias extends AbstractElement {
         return subject;
     }
 
-    public multiMercancia(elementAttributes: Record<string, unknown>[] = []): Mercancias {
+    public multiMercancia(...elementAttributes: Record<string, unknown>[]): Mercancias {
         elementAttributes.forEach((attributes) => {
             this.addMercancia(attributes);
         });

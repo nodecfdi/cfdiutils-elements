@@ -25,7 +25,7 @@ export class Mercancia extends AbstractElement {
         return subject;
     }
 
-    public multiPedimentos(elementAttributes: Record<string, unknown>[] = []): Mercancia {
+    public multiPedimentos(...elementAttributes: Record<string, unknown>[]): Mercancia {
         elementAttributes.forEach((attributes) => {
             this.addPedimentos(attributes);
         });
@@ -38,7 +38,7 @@ export class Mercancia extends AbstractElement {
         return subject;
     }
 
-    public multiGuiasIdentificacion(elementAttributes: Record<string, unknown>[] = []): Mercancia {
+    public multiGuiasIdentificacion(...elementAttributes: Record<string, unknown>[]): Mercancia {
         elementAttributes.forEach((attributes) => {
             this.addGuiasIdentificacion(attributes);
         });
@@ -51,7 +51,7 @@ export class Mercancia extends AbstractElement {
         return subject;
     }
 
-    public multiCantidadTransporta(elementAttributes: Record<string, unknown>[] = []): Mercancia {
+    public multiCantidadTransporta(...elementAttributes: Record<string, unknown>[]): Mercancia {
         elementAttributes.forEach((attributes) => {
             this.addCantidadTransporta(attributes);
         });
