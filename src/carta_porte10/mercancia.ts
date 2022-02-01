@@ -14,7 +14,7 @@ export class Mercancia extends AbstractElement {
         return subject;
     }
 
-    public multiCantidadTransporta(elementAttributes: Record<string, unknown>[] = []): Mercancia {
+    public multiCantidadTransporta(...elementAttributes: Record<string, unknown>[]): Mercancia {
         elementAttributes.forEach((attributes) => {
             this.addCantidadTransporta(attributes);
         });

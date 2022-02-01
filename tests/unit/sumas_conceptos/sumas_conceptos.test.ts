@@ -1,7 +1,7 @@
 import { CNode } from '@nodecfdi/cfdiutils-common';
-import { SumasConceptos } from '../../src';
-import { Comprobante } from '../../src/cfdi33';
-import { ImpuestosLocales } from '../../src/imp_local10/impuestos_locales';
+import { SumasConceptos } from '../../../src';
+import { Comprobante } from '../../../src/cfdi33';
+import { ImpuestosLocales } from '../../../src/imp_local10/impuestos_locales';
 
 describe('SumasConceptos', () => {
     test('constructor', () => {
@@ -22,7 +22,7 @@ describe('SumasConceptos', () => {
         expect(sc.hasTraslados()).toBeFalsy();
         expect(sc.hasLocalesRetenciones()).toBeFalsy();
         expect(sc.hasLocalesTraslados()).toBeFalsy();
-        expect(sc.isFoundAnyConceptWithDiscount()).toBeFalsy();
+        expect(sc.foundAnyConceptWithDiscount()).toBeFalsy();
     });
 
     test.each([
@@ -37,6 +37,7 @@ describe('SumasConceptos', () => {
                     Importe: '111.11',
                 })
                 .addTraslado({
+                    Base: '111.11',
                     Impuesto: '002',
                     TipoFactor: 'Tasa',
                     TasaOCuota: '0.160000',
@@ -47,6 +48,7 @@ describe('SumasConceptos', () => {
                     Importe: '222.22',
                 })
                 .addTraslado({
+                    Base: '222.22',
                     Impuesto: '002',
                     TipoFactor: 'Tasa',
                     TasaOCuota: '0.160000',
@@ -72,6 +74,7 @@ describe('SumasConceptos', () => {
                 Importe: '111.11',
             })
             .addTraslado({
+                Base: '111.11',
                 Impuesto: '002',
                 TipoFactor: 'Tasa',
                 TasaOCuota: '0.160000',
@@ -82,6 +85,7 @@ describe('SumasConceptos', () => {
                 Importe: '222.22',
             })
             .addTraslado({
+                Base: '222.22',
                 Impuesto: '002',
                 TipoFactor: 'Tasa',
                 TasaOCuota: '0.160000',
@@ -89,7 +93,7 @@ describe('SumasConceptos', () => {
             });
         const impuestosLocales = new ImpuestosLocales();
         impuestosLocales.addTrasladoLocal({
-            ImpLocTrasladado: 'IH',
+            ImpLocTrasladado: 'IH', // fixed, taken from a sample,
             TasadeTraslado: '2.5',
             Importe: (333.33 * 0.025).toFixed(2),
         });
@@ -117,22 +121,24 @@ describe('SumasConceptos', () => {
         const comprobante = new Comprobante();
         comprobante.addConcepto({ Importe: '111.11' });
         comprobante.addConcepto({ Importe: '222.22' });
-        expect(new SumasConceptos(comprobante).isFoundAnyConceptWithDiscount()).toBeFalsy();
+        expect(new SumasConceptos(comprobante).foundAnyConceptWithDiscount()).toBeFalsy();
 
         // now add the attribute Descuento
         comprobante.addConcepto({ Importe: '333.33', Descuento: '' });
-        expect(new SumasConceptos(comprobante).isFoundAnyConceptWithDiscount()).toBeTruthy();
+        expect(new SumasConceptos(comprobante).foundAnyConceptWithDiscount()).toBeTruthy();
     });
 
     test('impuesto importe with more decimals than the precision is rounded', () => {
         const comprobante = new Comprobante();
         comprobante.addConcepto().addTraslado({
+            Base : '48.611106',
             Importe: '7.777777',
             Impuesto: '002',
             TipoFactor: 'Tasa',
             TasaOCuota: '0.160000',
         });
         comprobante.addConcepto().addTraslado({
+            Base : '13.888888',
             Importe: '2.222222',
             Impuesto: '002',
             TipoFactor: 'Tasa',
@@ -140,9 +146,11 @@ describe('SumasConceptos', () => {
         });
 
         const sumas = new SumasConceptos(comprobante, 3);
+
         expect(sumas.hasTraslados()).toBeTruthy();
         expect(sumas.getImpuestosTrasladados()).toBe(10.0);
         expect(sumas.getTraslados()['002:Tasa:0.160000']['Importe']).toBe((10.0).toFixed(3));
+        expect(sumas.getTraslados()['002:Tasa:0.160000']['Base']).toBe((62.5).toFixed(3));
     });
 
     test('impuesto with traslados Tasa and Exento', () => {

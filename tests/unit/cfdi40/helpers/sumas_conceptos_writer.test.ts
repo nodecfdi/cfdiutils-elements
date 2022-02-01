@@ -1,4 +1,4 @@
-import { Comprobante, SumasConceptosWriter } from '../../../../src/cfdi33';
+import { Comprobante, SumasConceptosWriter } from '../../../../src/cfdi40';
 import { SumasConceptos } from '../../../../src/common/sumas_conceptos/sumas_conceptos';
 import { CNode, XmlNodeUtils } from '@nodecfdi/cfdiutils-common';
 import { ImpuestosLocales } from '../../../../src/imp_local10/impuestos_locales';
@@ -13,7 +13,7 @@ describe('Cfdi40.SumasConceptosWriter', () => {
 
         expect(writer.getPrecision()).toBe(precision);
         expect(writer.getSumasConceptos()).toStrictEqual(sumasConceptos);
-        expect(writer.hasWriteImpuestosBase()).toBeFalsy();
+        expect(writer.hasWriteImpuestosBase()).toBeTruthy();
     });
 
     test('format', () => {
@@ -149,7 +149,7 @@ describe('Cfdi40.SumasConceptosWriter', () => {
         expect(comprobante.attributes().has('Descuento')).toBeFalsy();
     });
 
-    test('on complemento impuestos importe sum is rounded cfdi', () => {
+    test('on complemento impuestos importe sum is rounded', () => {
         const comprobante = new Comprobante();
         comprobante.addConcepto().addTraslado({
             Base: '48.611106',

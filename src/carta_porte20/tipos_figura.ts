@@ -18,7 +18,7 @@ export class TiposFigura extends AbstractElement {
         return subject;
     }
 
-    public multiPartesTransporte(elementAttributes: Record<string, unknown>[] = []): TiposFigura {
+    public multiPartesTransporte(...elementAttributes: Record<string, unknown>[]): TiposFigura {
         elementAttributes.forEach((attributes) => {
             this.addPartesTransporte(attributes);
         });

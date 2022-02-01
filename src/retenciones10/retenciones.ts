@@ -58,7 +58,7 @@ export class Retenciones extends AbstractElement {
     }
 
     public multiImpRetenidos(elementAttributes: Record<string, unknown>[] = []): Retenciones {
-        this.getTotales().multiImpRetenidos(elementAttributes);
+        this.getTotales().multiImpRetenidos(...elementAttributes);
         return this;
     }
 
