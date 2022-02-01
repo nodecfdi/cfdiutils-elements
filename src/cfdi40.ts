@@ -19,4 +19,5 @@ export * from './cfdi40/retencion';
 export * from './cfdi40/retenciones';
 export * from './cfdi40/traslado';
 export * from './cfdi40/traslados';
+export * from './cfdi40/traits/impuestos_trait';
 export * from './cfdi40/helpers/sumas_conceptos_writer';
