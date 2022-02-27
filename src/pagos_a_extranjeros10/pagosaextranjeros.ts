@@ -37,7 +37,7 @@ export class Pagosaextranjeros extends AbstractElement {
             'xmlns:pagosaextranjeros': 'http://www.sat.gob.mx/esquemas/retencionpago/1/pagosaextranjeros',
             'xsi:schemaLocation':
                 'http://www.sat.gob.mx/esquemas/retencionpago/1/pagosaextranjeros http://www.sat.gob.mx/esquemas/retencionpago/1/pagosaextranjeros/pagosaextranjeros.xsd',
-            Version: '1.0',
+            'Version': '1.0',
         };
     }
 }

@@ -25,7 +25,7 @@ describe('Elements.Pagosaextranjeros10.Pagosaextranjeros', () => {
         const namespace = 'http://www.sat.gob.mx/esquemas/retencionpago/1/pagosaextranjeros';
         expect(element.attributes().get('Version')).toBe('1.0');
         expect(element.attributes().get('xmlns:pagosaextranjeros')).toBe(namespace);
-        expect(element.attributes().get('xsi:schemaLocation')).toMatch(new RegExp(`^${namespace} http://?`))
+        expect(element.attributes().get('xsi:schemaLocation')).toMatch(new RegExp(`^${namespace} http://?`));
     });
 
     test('children order', () => {

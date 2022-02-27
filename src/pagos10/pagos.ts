@@ -25,7 +25,7 @@ export class Pagos extends AbstractElement {
             'xmlns:pago10': 'http://www.sat.gob.mx/Pagos',
             'xsi:schemaLocation':
                 'http://www.sat.gob.mx/Pagos http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xsd',
-            Version: '1.0',
+            'Version': '1.0',
         };
     }
 }

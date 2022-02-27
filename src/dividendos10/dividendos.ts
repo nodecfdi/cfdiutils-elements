@@ -37,7 +37,7 @@ export class Dividendos extends AbstractElement {
             'xmlns:dividendos': 'http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos',
             'xsi:schemaLocation':
                 'http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos/dividendos.xsd',
-            Version: '1.0',
+            'Version': '1.0',
         };
     }
 }

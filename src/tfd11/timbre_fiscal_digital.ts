@@ -11,7 +11,7 @@ export class TimbreFiscalDigital extends AbstractElement {
             'xmlns:tfd': 'http://www.sat.gob.mx/TimbreFiscalDigital',
             'xsi:schemaLocation':
                 'http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigitalv11.xsd',
-            Version: '1.1',
+            'Version': '1.1',
         };
     }
 }

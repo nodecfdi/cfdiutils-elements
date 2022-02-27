@@ -97,7 +97,7 @@ export class Retenciones extends AbstractElement {
             'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
             'xsi:schemaLocation':
                 'http://www.sat.gob.mx/esquemas/retencionpago/1 http://www.sat.gob.mx/esquemas/retencionpago/1/retencionpagov1.xsd',
-            Version: '1.0',
+            'Version': '1.0',
         };
     }
 }

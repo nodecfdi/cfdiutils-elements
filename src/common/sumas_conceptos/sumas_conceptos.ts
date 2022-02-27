@@ -113,7 +113,7 @@ export class SumasConceptos {
         Object.keys(group).forEach((key) => {
             group[key]['Importe'] = Number(group[key]['Importe']).toFixed(this.precision);
             if(group[key]['Base']) {
-                group[key]['Base'] = Number(group[key]['Base']).toFixed(this.precision)
+                group[key]['Base'] = Number(group[key]['Base']).toFixed(this.precision);
             }
         });
         return group;

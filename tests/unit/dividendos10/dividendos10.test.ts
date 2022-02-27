@@ -25,7 +25,7 @@ describe('Elements.Dividendos10.Dividendos', () => {
         const namespace = 'http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos';
         expect(element.attributes().get('Version')).toBe('1.0');
         expect(element.attributes().get('xmlns:dividendos')).toBe(namespace);
-        expect(element.attributes().get('xsi:schemaLocation')).toMatch(new RegExp(`^${namespace} http://?`))
+        expect(element.attributes().get('xsi:schemaLocation')).toMatch(new RegExp(`^${namespace} http://?`));
     });
 
     test('children order', () => {

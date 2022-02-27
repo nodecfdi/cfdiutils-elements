@@ -28,7 +28,7 @@ export class Nomina extends AbstractElement {
             'xmlns:nomina12': 'http://www.sat.gob.mx/nomina12',
             'xsi:schemaLocation':
                 'http://www.sat.gob.mx/nomina12 http://www.sat.gob.mx/sitio_internet/cfd/nomina/nomina12.xsd',
-            Version: '1.2',
+            'Version': '1.2',
         };
     }
 

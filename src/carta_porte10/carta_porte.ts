@@ -18,7 +18,7 @@ export class CartaPorte extends AbstractElement {
             'xmlns:cartaporte': 'http://www.sat.gob.mx/cartaporte',
             'xsi:schemaLocation':
                 'http://www.sat.gob.mx/cartaporte http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte.xsd',
-            Version: '1.0',
+            'Version': '1.0',
         };
     }
     public getUbicaciones(): Ubicaciones {

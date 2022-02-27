@@ -29,7 +29,7 @@ export class ImpuestosLocales extends AbstractElement {
             'xmlns:implocal': 'http://www.sat.gob.mx/implocal',
             'xsi:schemaLocation':
                 'http://www.sat.gob.mx/implocal http://www.sat.gob.mx/sitio_internet/cfd/implocal/implocal.xsd',
-            version: '1.0',
+            'version': '1.0',
         };
     }
 }

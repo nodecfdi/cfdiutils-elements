@@ -42,7 +42,7 @@ describe('Elements.CartaPorte20', () => {
             'xmlns:cartaporte20': 'http://www.sat.gob.mx/CartaPorte20',
             'xsi:schemaLocation':
                 'http://www.sat.gob.mx/CartaPorte20 http://www.sat.gob.mx/sitio_internet/cfd/CartaPorte/CartaPorte20.xsd',
-            Version: '2.0',
+            'Version': '2.0',
         });
         expect(element).toElementHasChildSingle(Ubicaciones);
         expect(element).toElementHasChildSingle(Mercancias);

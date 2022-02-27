@@ -93,7 +93,7 @@ describe('Elements.Retenciones10.Retenciones', () => {
         const namespace = 'http://www.sat.gob.mx/esquemas/retencionpago/1';
         expect(element.attributes().get('Version')).toBe('1.0');
         expect(element.attributes().get('xmlns:retenciones')).toBe(namespace);
-        expect(element.attributes().get('xsi:schemaLocation')).toMatch(new RegExp(`^${namespace} http://?`))
+        expect(element.attributes().get('xsi:schemaLocation')).toMatch(new RegExp(`^${namespace} http://?`));
         expect(element.attributes().get('xsi:schemaLocation')).not.toBeUndefined();
     });
 

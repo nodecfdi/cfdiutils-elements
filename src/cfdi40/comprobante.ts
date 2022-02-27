@@ -41,7 +41,7 @@ export class Comprobante extends AbstractElement {
             'xmlns:cfdi': 'http://www.sat.gob.mx/cfd/4',
             'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
             'xsi:schemaLocation': 'http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd',
-            Version: '4.0',
+            'Version': '4.0',
         };
     }
     public getInformacionGlobal(): InformacionGlobal {
