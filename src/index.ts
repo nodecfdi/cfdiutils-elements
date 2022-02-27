@@ -2,6 +2,7 @@ import * as Cfdi33 from './cfdi33';
 import * as Cfdi40 from './cfdi40';
 import * as ImpLocal10 from './imp_local10';
 import * as Pagos10 from './pagos10';
+import * as Pagos20 from './pagos20';
 import * as Nomina12 from './nomina12';
 import * as CartaPorte20 from './carta_porte20';
 import * as CartaPorte10 from './carta_porte10';
@@ -17,4 +18,18 @@ export * from './common/abstract_element';
 export * from './common/element_interface';
 export * from './common/sumas_conceptos/sumas_conceptos';
 export * from './common/sumas_conceptos/sumas_conceptos_writer';
-export { Cfdi33, ImpLocal10, Pagos10, Nomina12, CartaPorte20, Retenciones10, Dividendos10, PagosAExtranjeros10, Tfd11, Cce11, CartaPorte10, Cfdi40 };
+export {
+    Cfdi33,
+    ImpLocal10,
+    Pagos10,
+    Pagos20,
+    Nomina12,
+    CartaPorte20,
+    Retenciones10,
+    Dividendos10,
+    PagosAExtranjeros10,
+    Tfd11,
+    Cce11,
+    CartaPorte10,
+    Cfdi40,
+};
