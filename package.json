@@ -1,6 +1,6 @@
 {
     "name": "@nodecfdi/cfdiutils-elements",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "Librería para contener las estructuras de datos que componen un cfdi",
     "main": "dist/cfdiutils-elements.cjs.js",
     "module": "dist/cfdiutils-elements.esm.js",

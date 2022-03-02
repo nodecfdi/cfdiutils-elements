@@ -1,5 +1,9 @@
 # @nodecfdi/cfdiutils-elements ChangeLog
 
+## 1.1.1
+- Minor refactoring code for last version of @nodecfdi/cfdiutils-common
+- updated dependencies
+
 ## 1.1.0
 
 - Added `Elements\Pagos20` Elements to work with "Complemento para recepción de Pagos 2.0".
