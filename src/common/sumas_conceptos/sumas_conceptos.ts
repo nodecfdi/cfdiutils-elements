@@ -71,15 +71,15 @@ export class SumasConceptos {
     }
 
     private addConcepto(concepto: CNodeInterface): void {
-        this.importes += Number.parseFloat(concepto.attributes().get('Importe') || '0');
-        if (concepto.attributes().has('Descuento')) {
+        this.importes += Number.parseFloat(concepto.get('Importe') || '0');
+        if (concepto.offsetExists('Descuento')) {
             this._foundAnyConceptWithDiscount = true;
         }
-        this.descuento += Number.parseFloat(concepto.attributes().get('Descuento') || '0');
+        this.descuento += Number.parseFloat(concepto.get('Descuento') || '0');
 
         const traslados = concepto.searchNodes('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado');
         traslados.forEach((traslado) => {
-            if (traslado.attributes().get('TipoFactor') !== 'Exento') {
+            if (traslado.get('TipoFactor') !== 'Exento') {
                 this.addTraslado(traslado);
             }
         });
@@ -99,9 +99,9 @@ export class SumasConceptos {
         const list: Record<string, string | number>[] = [];
         locales.forEach((local) => {
             list.push({
-                Impuesto: local.attributes().get(`ImpLoc${singular}`) || '',
-                Tasa: Number.parseFloat(local.attributes().get(`Tasade${singular}`) || '0'),
-                Importe: Number.parseFloat(local.attributes().get('Importe') || '0'),
+                Impuesto: local.get(`ImpLoc${singular}`),
+                Tasa: Number.parseFloat(local.get(`Tasade${singular}`) || '0'),
+                Importe: Number.parseFloat(local.get('Importe') || '0'),
             });
         });
         return list;
@@ -122,15 +122,15 @@ export class SumasConceptos {
     private addTraslado(traslado: CNodeInterface): void {
         const attributes = traslado.attributes();
         const key = SumasConceptos.impuestoKey(
-            attributes.get('Impuesto') || '',
+            attributes.get('Impuesto'),
             attributes.get('TipoFactor'),
             attributes.get('TasaOCuota')
         );
         if (!this.traslados[key]) {
             this.traslados[key] = {
-                Impuesto: attributes.get('Impuesto') || '',
-                TipoFactor: attributes.get('TipoFactor') || '',
-                TasaOCuota: attributes.get('TasaOCuota') || '',
+                Impuesto: attributes.get('Impuesto'),
+                TipoFactor: attributes.get('TipoFactor'),
+                TasaOCuota: attributes.get('TasaOCuota'),
                 Importe: 0.0,
                 Base: 0.0,
             };
@@ -140,14 +140,14 @@ export class SumasConceptos {
     }
 
     private addRetencion(retencion: CNodeInterface): void {
-        const key = SumasConceptos.impuestoKey(retencion.attributes().get('Impuesto') || '');
+        const key = SumasConceptos.impuestoKey(retencion.get('Impuesto'));
         if (!this.retenciones[key]) {
             this.retenciones[key] = {
-                Impuesto: retencion.attributes().get('Impuesto') || '',
+                Impuesto: retencion.get('Impuesto') || '',
                 Importe: 0.0,
             };
         }
-        (this.retenciones[key]['Importe'] as number) += Number.parseFloat(retencion.attributes().get('Importe') || '0');
+        (this.retenciones[key]['Importe'] as number) += Number.parseFloat(retencion.get('Importe') || '0');
     }
 
     public static impuestoKey(impuesto: string, tipoFactor = '', tasaOCuota = ''): string {

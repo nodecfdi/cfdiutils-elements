@@ -1,25 +1,25 @@
 import { Comprobante as Comprobante33 } from '../../cfdi33/comprobante';
 import { Comprobante as Comprobante40 } from '../../cfdi40/comprobante';
 import { SumasConceptos } from './sumas_conceptos';
+import { AbstractElement } from '../abstract_element';
 
 export class SumasConceptosWriter {
-    private comprobante: Comprobante33 | Comprobante40;
-    private sumas: SumasConceptos;
-    private precision: number;
-    private writeImpuestoBase: boolean;
+    private readonly comprobante: Comprobante33 | Comprobante40;
+    private readonly sumas: SumasConceptos;
+    private readonly precision: number;
+    private readonly writeImpuestoBase: boolean;
 
-    constructor(comprobante: Comprobante33 | Comprobante40, sumas: SumasConceptos, precision = 6) {
-       if(comprobante instanceof Comprobante33) {
-           this.writeImpuestoBase = false;
-       } else if( comprobante instanceof Comprobante40) {
-           this.writeImpuestoBase = true;
-       } else {
-           throw new Error('The argument $comprobante must be a Comprobante (CFDI 3.3 or CFDI 4.0) element');
-           
-       }
-       this.comprobante = comprobante;
-       this.sumas = sumas;
-       this.precision = precision;
+    constructor(comprobante: AbstractElement, sumas: SumasConceptos, precision = 6) {
+        if (comprobante instanceof Comprobante33) {
+            this.writeImpuestoBase = false;
+        } else if (comprobante instanceof Comprobante40) {
+            this.writeImpuestoBase = true;
+        } else {
+            throw new Error('The argument $comprobante must be a Comprobante (CFDI 3.3 or CFDI 4.0) element');
+        }
+        this.comprobante = comprobante;
+        this.sumas = sumas;
+        this.precision = precision;
     }
 
     public put(): void {
@@ -29,11 +29,11 @@ export class SumasConceptosWriter {
     }
 
     private putComprobanteSumas(): void {
-        this.comprobante.attributes().set('SubTotal', this.format(this.sumas.getSubTotal()));
-        this.comprobante.attributes().set('Total', this.format(this.sumas.getTotal()));
-        this.comprobante.attributes().set('Descuento', this.format(this.sumas.getDescuento()));
+        this.comprobante.set('SubTotal', this.format(this.sumas.getSubTotal()));
+        this.comprobante.set('Total', this.format(this.sumas.getTotal()));
+        this.comprobante.set('Descuento', this.format(this.sumas.getDescuento()));
         if (!this.sumas.foundAnyConceptWithDiscount() && !this.valueGreaterThanZero(this.sumas.getDescuento())) {
-            this.comprobante.attributes().delete('Descuento');
+            this.comprobante.unset('Descuento');
         }
     }
 
@@ -49,12 +49,12 @@ export class SumasConceptosWriter {
         impuestos.clear();
         // add traslados when needed
         if (this.sumas.hasTraslados()) {
-            impuestos.attributes().set('TotalImpuestosTrasladados', this.format(this.sumas.getImpuestosTrasladados()));
+            impuestos.set('TotalImpuestosTrasladados', this.format(this.sumas.getImpuestosTrasladados()));
             impuestos.getTraslados().multiTraslado(...this.getImpuestosContents(this.sumas.getTraslados()));
         }
         // add retenciones when needed
         if (this.sumas.hasRetenciones()) {
-            impuestos.attributes().set('TotalImpuestosRetenidos', this.format(this.sumas.getImpuestosRetenidos()));
+            impuestos.set('TotalImpuestosRetenidos', this.format(this.sumas.getImpuestosRetenidos()));
             impuestos.getRetenciones().multiRetencion(...this.getImpuestosContents(this.sumas.getRetenciones()));
         }
     }
@@ -72,8 +72,8 @@ export class SumasConceptosWriter {
             return;
         }
         // add attributes to ImpLocal
-        impLocal.attributes().set('TotaldeRetenciones', this.format(this.sumas.getLocalesImpuestosRetenidos()));
-        impLocal.attributes().set('TotaldeTraslados', this.format(this.sumas.getLocalesImpuestosTrasladados()));
+        impLocal.set('TotaldeRetenciones', this.format(this.sumas.getLocalesImpuestosRetenidos()));
+        impLocal.set('TotaldeTraslados', this.format(this.sumas.getLocalesImpuestosTrasladados()));
     }
 
     private getImpuestosContents(
