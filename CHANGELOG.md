@@ -1,5 +1,9 @@
 # @nodecfdi/cfdiutils-elements ChangeLog
 
+## 1.1.2
+- Update dependencies (target last version of @nodecfdi/cfdiutils-common)
+- Update scripts on package.json for use on CI github
+
 ## 1.1.1
 - Minor refactoring code for last version of @nodecfdi/cfdiutils-common
 - updated dependencies
