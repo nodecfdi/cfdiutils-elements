@@ -11,6 +11,7 @@ import * as Dividendos10 from './dividendos10';
 import * as PagosAExtranjeros10 from './pagosaextranjeros10';
 import * as Tfd11 from './tfd11';
 import * as Cce11 from './cce11';
+import * as PlataformasTecnologicas10 from './plataformas_tecnologicas10';
 
 export * from './cfdi33/traits/impuestos_trait';
 export * from './cfdi33/traits/informacion_aduanera_trait';
@@ -32,4 +33,5 @@ export {
     Cce11,
     CartaPorte10,
     Cfdi40,
+    PlataformasTecnologicas10,
 };
