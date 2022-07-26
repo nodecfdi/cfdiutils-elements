@@ -1,5 +1,5 @@
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
-import { AbstractElement } from '../common/abstract_element';
+import { AbstractElement } from '../common/abstract-element';
 import { Deduccion } from './deduccion';
 
 export class Deducciones extends AbstractElement {
@@ -10,6 +10,7 @@ export class Deducciones extends AbstractElement {
     public addDeduccion(attributes: Record<string, unknown> = {}): Deduccion {
         const deduccion = new Deduccion(attributes);
         this.addChild(deduccion);
+
         return deduccion;
     }
 
@@ -17,6 +18,7 @@ export class Deducciones extends AbstractElement {
         elementAttributes.forEach((attributes) => {
             this.addDeduccion(attributes);
         });
+
         return this;
     }
 }

@@ -1,6 +1,6 @@
-import { AbstractElement } from '../common/abstract_element';
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
-import { ImpRetenidos } from './imp_retenidos';
+import { AbstractElement } from '../common/abstract-element';
+import { ImpRetenidos } from './imp-retenidos';
 
 export class Totales extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
@@ -14,6 +14,7 @@ export class Totales extends AbstractElement {
     public addImpRetenidos(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []): ImpRetenidos {
         const subject = new ImpRetenidos(attributes, children);
         this.addChild(subject);
+
         return subject;
     }
 
@@ -21,6 +22,7 @@ export class Totales extends AbstractElement {
         elementAttributes.forEach((attributes) => {
             this.addImpRetenidos(attributes);
         });
+
         return this;
     }
 }

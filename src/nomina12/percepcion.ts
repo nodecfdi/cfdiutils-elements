@@ -1,14 +1,14 @@
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
-import { AbstractElement } from '../common/abstract_element';
-import { AccionesOTitulos } from './acciones_o_titulos';
-import { HorasExtra } from './horas_extra';
+import { AbstractElement } from '../common/abstract-element';
+import { AccionesOTitulos } from './acciones-o-titulos';
+import { HorasExtra } from './horas-extra';
 
 export class Percepcion extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('nomina12:Percepcion', attributes, children);
     }
 
-    public getChildrenOrder(): string[] {
+    public override getChildrenOrder(): string[] {
         return ['nomina12:AccionesOTitulos', 'nomina12:HorasExtra'];
     }
 
@@ -19,12 +19,14 @@ export class Percepcion extends AbstractElement {
     public addAccionesOTitulos(attributes: Record<string, unknown> = {}): AccionesOTitulos {
         const accionesOTitulos = this.getAccionesOTitulos();
         accionesOTitulos.addAttributes(attributes);
+
         return accionesOTitulos;
     }
 
     public addHorasExtras(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []): HorasExtra {
         const horasExtra = new HorasExtra(attributes, children);
         this.addChild(horasExtra);
+
         return horasExtra;
     }
 
@@ -32,6 +34,7 @@ export class Percepcion extends AbstractElement {
         elementAttributes.forEach((attributes) => {
             this.addHorasExtras(attributes);
         });
+
         return this;
     }
 }

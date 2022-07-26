@@ -1,5 +1,5 @@
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
-import { AbstractElement } from '../common/abstract_element';
+import { AbstractElement } from '../common/abstract-element';
 import { Incapacidad } from './incapacidad';
 
 export class Incapacidades extends AbstractElement {
@@ -10,6 +10,7 @@ export class Incapacidades extends AbstractElement {
     public addIncapacidad(elementAttributes: Record<string, unknown> = {}): Incapacidad {
         const incapacidad = new Incapacidad(elementAttributes);
         this.addChild(incapacidad);
+
         return incapacidad;
     }
 
@@ -17,6 +18,7 @@ export class Incapacidades extends AbstractElement {
         elementAttributes.forEach((attributes) => {
             this.addIncapacidad(attributes);
         });
+
         return this;
     }
 }

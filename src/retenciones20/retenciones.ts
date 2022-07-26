@@ -1,12 +1,12 @@
-import { AbstractElement } from '../common/abstract_element';
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
-import { CfdiRetenRelacionados } from './cfdi_reten_relacionados';
+import { AbstractElement } from '../common/abstract-element';
+import { CfdiRetenRelacionados } from './cfdi-reten-relacionados';
 import { Emisor } from './emisor';
 import { Receptor } from './receptor';
 import { Periodo } from './periodo';
 import { Complemento } from './complemento';
 import { Addenda } from './addenda';
-import { ImpRetenidos } from './imp_retenidos';
+import { ImpRetenidos } from './imp-retenidos';
 import { Totales } from './totales';
 
 export class Retenciones extends AbstractElement {
@@ -14,7 +14,7 @@ export class Retenciones extends AbstractElement {
         super('retenciones:Retenciones', attributes, children);
     }
 
-    public getChildrenOrder(): string[] {
+    public override getChildrenOrder(): string[] {
         return [
             'retenciones:CfdiRetenRelacionados',
             'retenciones:Emisor',
@@ -26,11 +26,12 @@ export class Retenciones extends AbstractElement {
         ];
     }
 
-    public getFixedAttributes(): Record<string, string> {
+    public override getFixedAttributes(): Record<string, string> {
         return {
             'xmlns:retenciones': 'http://www.sat.gob.mx/esquemas/retencionpago/2',
-            'xsi:schemaLocation': 'http://www.sat.gob.mx/esquemas/retencionpago/2 http://www.sat.gob.mx/esquemas/retencionpago/2/retencionpagov2.xsd',
-            'Version': '2.0',
+            'xsi:schemaLocation':
+                'http://www.sat.gob.mx/esquemas/retencionpago/2 http://www.sat.gob.mx/esquemas/retencionpago/2/retencionpagov2.xsd',
+            'Version': '2.0'
         };
     }
 
@@ -41,8 +42,10 @@ export class Retenciones extends AbstractElement {
     public addCfdiRetenRelacionados(attributes: Record<string, unknown> = {}): CfdiRetenRelacionados {
         const subject = this.getCfdiRetenRelacionados();
         subject.addAttributes(attributes);
+
         return subject;
     }
+
     public getEmisor(): Emisor {
         return this.helperGetOrAdd(new Emisor());
     }
@@ -50,8 +53,10 @@ export class Retenciones extends AbstractElement {
     public addEmisor(attributes: Record<string, unknown> = {}): Emisor {
         const subject = this.getEmisor();
         subject.addAttributes(attributes);
+
         return subject;
     }
+
     public getReceptor(): Receptor {
         return this.helperGetOrAdd(new Receptor());
     }
@@ -59,8 +64,10 @@ export class Retenciones extends AbstractElement {
     public addReceptor(attributes: Record<string, unknown> = {}): Receptor {
         const subject = this.getReceptor();
         subject.addAttributes(attributes);
+
         return subject;
     }
+
     public getPeriodo(): Periodo {
         return this.helperGetOrAdd(new Periodo());
     }
@@ -68,8 +75,10 @@ export class Retenciones extends AbstractElement {
     public addPeriodo(attributes: Record<string, unknown> = {}): Periodo {
         const subject = this.getPeriodo();
         subject.addAttributes(attributes);
+
         return subject;
     }
+
     public getTotales(): Totales {
         return this.helperGetOrAdd(new Totales());
     }
@@ -77,6 +86,7 @@ export class Retenciones extends AbstractElement {
     public addTotales(attributes: Record<string, unknown> = {}): Totales {
         const subject = this.getTotales();
         subject.addAttributes(attributes);
+
         return subject;
     }
 
@@ -84,9 +94,9 @@ export class Retenciones extends AbstractElement {
         return this.getTotales().addImpRetenidos(attributes);
     }
 
-    public multiImpRetenidos(...elementAttributes: Record<string, unknown>[]
-        ): Retenciones {
+    public multiImpRetenidos(...elementAttributes: Record<string, unknown>[]): Retenciones {
         this.getTotales().multiImpRetenidos(...elementAttributes);
+
         return this;
     }
 
@@ -96,6 +106,7 @@ export class Retenciones extends AbstractElement {
 
     public addComplemento(children: CNodeInterface): Retenciones {
         this.getComplemento().add(children);
+
         return this;
     }
 
@@ -105,6 +116,7 @@ export class Retenciones extends AbstractElement {
 
     public addAddenda(children: CNodeInterface): Retenciones {
         this.getAddenda().add(children);
+
         return this;
     }
 }

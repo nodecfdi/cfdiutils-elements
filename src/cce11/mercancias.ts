@@ -1,5 +1,5 @@
-import { AbstractElement } from '../common/abstract_element';
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { AbstractElement } from '../common/abstract-element';
 import { Mercancia } from './mercancia';
 
 export class Mercancias extends AbstractElement {
@@ -10,6 +10,7 @@ export class Mercancias extends AbstractElement {
     public addMercancia(attributes: Record<string, unknown> = {}): Mercancia {
         const subject = new Mercancia(attributes);
         this.addChild(subject);
+
         return subject;
     }
 }

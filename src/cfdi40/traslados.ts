@@ -1,5 +1,5 @@
-import { AbstractElement } from '../common/abstract_element';
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { AbstractElement } from '../common/abstract-element';
 import { Traslado } from './traslado';
 
 export class Traslados extends AbstractElement {
@@ -10,6 +10,7 @@ export class Traslados extends AbstractElement {
     public addTraslado(attributes: Record<string, unknown> = {}): Traslado {
         const subject = new Traslado(attributes);
         this.addChild(subject);
+
         return subject;
     }
 
@@ -17,6 +18,7 @@ export class Traslados extends AbstractElement {
         elementAttributes.forEach((attributes) => {
             this.addTraslado(attributes);
         });
+
         return this;
     }
 }

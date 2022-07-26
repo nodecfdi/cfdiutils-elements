@@ -1,9 +1,10 @@
-import { AbstractElement } from '../common/abstract_element';
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
-import { use } from 'typescript-mix';
-import { ImpuestosTrait } from './traits/impuestos_trait';
-import { CfdiRelacionados } from './cfdi_relacionados';
-import { CfdiRelacionado } from './cfdi_relacionado';
+import { Mixin } from 'ts-mixer';
+
+import { AbstractElement } from '../common/abstract-element';
+import { ImpuestosTrait } from './traits/impuestos-trait';
+import { CfdiRelacionados } from './cfdi-relacionados';
+import { CfdiRelacionado } from './cfdi-relacionado';
 import { Emisor } from './emisor';
 import { Receptor } from './receptor';
 import { Conceptos } from './conceptos';
@@ -12,11 +13,7 @@ import { Impuestos } from './impuestos';
 import { Complemento } from './complemento';
 import { Addenda } from './addenda';
 
-interface Comprobante extends AbstractElement, ImpuestosTrait {}
-
-class Comprobante extends AbstractElement {
-    @use(ImpuestosTrait) private this: unknown;
-
+class Comprobante extends Mixin(AbstractElement, ImpuestosTrait) {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cfdi:Comprobante', attributes, children);
     }
@@ -28,6 +25,7 @@ class Comprobante extends AbstractElement {
     public addCfdiRelacionados(attributes: Record<string, unknown> = {}): CfdiRelacionados {
         const cfdiRelacionados = this.getCfdiRelacionados();
         cfdiRelacionados.addAttributes(attributes);
+
         return cfdiRelacionados;
     }
 
@@ -37,6 +35,7 @@ class Comprobante extends AbstractElement {
 
     public multiCfdiRelacionado(...elementAttributes: Record<string, unknown>[]): Comprobante {
         this.getCfdiRelacionados().multiCfdiRelacionado(elementAttributes);
+
         return this;
     }
 
@@ -47,6 +46,7 @@ class Comprobante extends AbstractElement {
     public addEmisor(attributes: Record<string, unknown> = {}): Emisor {
         const emisor = this.getEmisor();
         emisor.addAttributes(attributes);
+
         return emisor;
     }
 
@@ -57,6 +57,7 @@ class Comprobante extends AbstractElement {
     public addReceptor(attributes: Record<string, unknown>): Receptor {
         const receptor = this.getReceptor();
         receptor.addAttributes(attributes);
+
         return receptor;
     }
 
@@ -75,6 +76,7 @@ class Comprobante extends AbstractElement {
     public addImpuestos(attributes: Record<string, unknown> = {}): Impuestos {
         const impuestos = this.getImpuestos();
         impuestos.addAttributes(attributes);
+
         return impuestos;
     }
 
@@ -84,6 +86,7 @@ class Comprobante extends AbstractElement {
 
     public addComplemento(children: CNodeInterface): Comprobante {
         this.getComplemento().add(children);
+
         return this;
     }
 
@@ -93,10 +96,11 @@ class Comprobante extends AbstractElement {
 
     public addAddenda(children: CNodeInterface): Comprobante {
         this.getAddenda().add(children);
+
         return this;
     }
 
-    public getChildrenOrder(): string[] {
+    public override getChildrenOrder(): string[] {
         return [
             'cfdi:CfdiRelacionados',
             'cfdi:Emisor',
@@ -104,16 +108,16 @@ class Comprobante extends AbstractElement {
             'cfdi:Conceptos',
             'cfdi:Impuestos',
             'cfdi:Complemento',
-            'cfdi:Addenda',
+            'cfdi:Addenda'
         ];
     }
 
-    public getFixedAttributes(): Record<string, string> {
+    public override getFixedAttributes(): Record<string, string> {
         return {
             'xmlns:cfdi': 'http://www.sat.gob.mx/cfd/3',
             'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
             'xsi:schemaLocation': 'http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd',
-            'Version': '3.3',
+            'Version': '3.3'
         };
     }
 }

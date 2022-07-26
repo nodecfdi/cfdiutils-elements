@@ -1,5 +1,5 @@
-import { AbstractElement } from '../common/abstract_element';
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { AbstractElement } from '../common/abstract-element';
 import { Totales } from './totales';
 import { Pago } from './pago';
 
@@ -8,16 +8,16 @@ export class Pagos extends AbstractElement {
         super('pago20:Pagos', attributes, children);
     }
 
-    public getChildrenOrder(): string[] {
+    public override getChildrenOrder(): string[] {
         return ['pago20:Totales', 'pago20:Pago'];
     }
 
-    public getFixedAttributes(): Record<string, string> {
+    public override getFixedAttributes(): Record<string, string> {
         return {
             'xmlns:pago20': 'http://www.sat.gob.mx/Pagos20',
             'xsi:schemaLocation':
                 'http://www.sat.gob.mx/Pagos20 http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos20.xsd',
-            'Version': '2.0',
+            'Version': '2.0'
         };
     }
 
@@ -28,12 +28,14 @@ export class Pagos extends AbstractElement {
     public addTotales(attributes: Record<string, unknown> = {}): Totales {
         const subject = this.getTotales();
         subject.addAttributes(attributes);
+
         return subject;
     }
 
     public addPago(attributes: Record<string, unknown> = {}): Pago {
         const subject = new Pago(attributes);
         this.addChild(subject);
+
         return subject;
     }
 
@@ -41,6 +43,7 @@ export class Pagos extends AbstractElement {
         elementAttributes.forEach((attributes) => {
             this.addPago(attributes);
         });
+
         return this;
     }
 }

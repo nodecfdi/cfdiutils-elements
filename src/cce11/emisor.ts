@@ -1,11 +1,9 @@
-import { AbstractElement } from '../common/abstract_element';
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
-import { use } from 'typescript-mix';
-import { DomicilioTrait } from './traits/domicilio_trait';
+import { Mixin } from 'ts-mixer';
+import { AbstractElement } from '../common/abstract-element';
+import { DomicilioTrait } from './traits/domicilio-trait';
 
-export class Emisor extends AbstractElement {
-    @use(DomicilioTrait) private this: unknown;
-
+export class Emisor extends Mixin(AbstractElement, DomicilioTrait) {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cce11:Emisor', attributes, children);
     }

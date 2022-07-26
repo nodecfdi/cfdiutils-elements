@@ -1,20 +1,17 @@
-import { AbstractElement } from '../common/abstract_element';
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { Mixin } from 'ts-mixer';
+
+import { AbstractElement } from '../common/abstract-element';
 import { Impuestos } from './impuestos';
-import { ACuentaTerceros } from './a_cuenta_terceros';
-import { InformacionAduanera } from './informacion_aduanera';
-import { CuentaPredial } from './cuenta_predial';
-import { ComplementoConcepto } from './complemento_concepto';
+import { ACuentaTerceros } from './a-cuenta-terceros';
+import { InformacionAduanera } from './informacion-aduanera';
+import { CuentaPredial } from './cuenta-predial';
+import { ComplementoConcepto } from './complemento-concepto';
 import { Parte } from './parte';
-import { use } from 'typescript-mix';
-import { ImpuestosTrait } from './traits/impuestos_trait';
-import { ConceptoImpuestos } from './concepto_impuestos';
+import { ImpuestosTrait } from './traits/impuestos-trait';
+import { ConceptoImpuestos } from './concepto-impuestos';
 
-interface Concepto extends AbstractElement, ImpuestosTrait {}
-
-class Concepto extends AbstractElement {
-    @use(ImpuestosTrait) private this: unknown;
-
+class Concepto extends Mixin(AbstractElement, ImpuestosTrait) {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cfdi:Concepto', attributes, children);
     }
@@ -23,14 +20,14 @@ class Concepto extends AbstractElement {
         return this.getImpuestos();
     }
 
-    public getChildrenOrder(): string[] {
+    public override getChildrenOrder(): string[] {
         return [
             'cfdi:Impuestos',
             'cfdi:ACuentaTerceros',
             'cfdi:InformacionAduanera',
             'cfdi:CuentaPredial',
             'cfdi:ComplementoConcepto',
-            'cfdi:Parte',
+            'cfdi:Parte'
         ];
     }
 
@@ -41,8 +38,10 @@ class Concepto extends AbstractElement {
     public addImpuestos(attributes: Record<string, unknown> = {}): ConceptoImpuestos {
         const subject = this.getImpuestos();
         subject.addAttributes(attributes);
+
         return subject;
     }
+
     public getACuentaTerceros(): ACuentaTerceros {
         return this.helperGetOrAdd(new ACuentaTerceros());
     }
@@ -50,12 +49,14 @@ class Concepto extends AbstractElement {
     public addACuentaTerceros(attributes: Record<string, unknown> = {}): ACuentaTerceros {
         const subject = this.getACuentaTerceros();
         subject.addAttributes(attributes);
+
         return subject;
     }
 
     public addInformacionAduanera(attributes: Record<string, unknown> = {}): InformacionAduanera {
         const subject = new InformacionAduanera(attributes);
         this.addChild(subject);
+
         return subject;
     }
 
@@ -63,12 +64,14 @@ class Concepto extends AbstractElement {
         elementAttributes.forEach((attributes) => {
             this.addInformacionAduanera(attributes);
         });
+
         return this;
     }
 
     public addCuentaPredial(attributes: Record<string, unknown> = {}): CuentaPredial {
         const subject = new CuentaPredial(attributes);
         this.addChild(subject);
+
         return subject;
     }
 
@@ -76,6 +79,7 @@ class Concepto extends AbstractElement {
         elementAttributes.forEach((attributes) => {
             this.addCuentaPredial(attributes);
         });
+
         return this;
     }
 
@@ -85,11 +89,14 @@ class Concepto extends AbstractElement {
 
     public addComplementoConcepto(child: CNodeInterface): Concepto {
         this.getComplementoConcepto().addChild(child);
+
         return this;
     }
+
     public addParte(attributes: Record<string, unknown> = {}): Parte {
         const subject = new Parte(attributes);
         this.addChild(subject);
+
         return subject;
     }
 
@@ -97,6 +104,7 @@ class Concepto extends AbstractElement {
         elementAttributes.forEach((attributes) => {
             this.addParte(attributes);
         });
+
         return this;
     }
 }

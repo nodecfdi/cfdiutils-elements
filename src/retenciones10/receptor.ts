@@ -1,5 +1,5 @@
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
-import { AbstractElement } from '../common/abstract_element';
+import { AbstractElement } from '../common/abstract-element';
 import { Extranjero } from './extranjero';
 import { Nacional } from './nacional';
 
@@ -13,12 +13,14 @@ export class Receptor extends AbstractElement {
         this.children().removeAll();
         this.addChild(nacional);
         this.attributes().set('Nacionalidad', 'Nacional');
+
         return nacional;
     }
 
     public addNacional(attributes: Record<string, unknown> = {}): Nacional {
         const nacional = this.getNacional();
         nacional.addAttributes(attributes);
+
         return nacional;
     }
 
@@ -27,12 +29,14 @@ export class Receptor extends AbstractElement {
         this.children().removeAll();
         this.addChild(extranjero);
         this.attributes().set('Nacionalidad', 'Extranjero');
+
         return extranjero;
     }
 
     public addExtranjero(attributes: Record<string, unknown> = {}): Extranjero {
         const extranjero = this.getExtranjero();
         extranjero.addAttributes(attributes);
+
         return extranjero;
     }
 }
