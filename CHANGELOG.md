@@ -1,15 +1,18 @@
 # @nodecfdi/cfdiutils-elements ChangeLog
 
 ## 1.2.0
+
 - Added `Elements\PlataformasTecnologicas10` Elements to work with "Complemento Servicios de Plataformas Tecnológicas"
 - Added `Elements\Retenciones20` Elements to work with "Retenciones e información de pagos 2.0"
 - Minor updates
 
 ## 1.1.2
+
 - Update dependencies (target last version of @nodecfdi/cfdiutils-common)
 - Update scripts on package.json for use on CI github
 
 ## 1.1.1
+
 - Minor refactoring code for last version of @nodecfdi/cfdiutils-common
 - updated dependencies
 
