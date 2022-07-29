@@ -1,4 +1,4 @@
-import { Deduccion, Deducciones } from '../../../src/nomina12';
+import { Deduccion, Deducciones } from '~/nomina12';
 
 describe('Elements.Nomina12.Deducciones', () => {
     let element: Deducciones;

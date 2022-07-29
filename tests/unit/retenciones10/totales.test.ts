@@ -1,5 +1,4 @@
-import '../../matchers/to_element_has_child';
-import { ImpRetenidos, Totales } from '../../../src/retenciones10';
+import { ImpRetenidos, Totales } from '~/retenciones10';
 
 describe('Elements.Retenciones10.Totales', () => {
     let element: Totales;
@@ -16,7 +15,7 @@ describe('Elements.Retenciones10.Totales', () => {
     test('add two imp retenidos', () => {
         expect(element.count()).toBe(0);
 
-        const first = element.addImpRetenidos({name: 'first'});
+        const first = element.addImpRetenidos({ name: 'first' });
         expect(first).toBeInstanceOf(ImpRetenidos);
         expect(first.attributes().get('name')).toBe('first');
         expect(element.count()).toBe(1);
@@ -28,7 +27,7 @@ describe('Elements.Retenciones10.Totales', () => {
     });
 
     test('add imp retenidos', () => {
-        const first = element.addImpRetenidos({var: 'FOO'});
+        const first = element.addImpRetenidos({ var: 'FOO' });
         expect(first).toBeInstanceOf(ImpRetenidos);
         expect(first.attributes().get('var')).toBe('FOO');
         expect(element.count()).toBe(1);

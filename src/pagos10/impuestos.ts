@@ -1,5 +1,5 @@
-import { AbstractElement } from '../common/abstract_element';
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { AbstractElement } from '../common/abstract-element';
 import { Traslados } from './traslados';
 import { Retenciones } from './retenciones';
 
@@ -8,7 +8,7 @@ export class Impuestos extends AbstractElement {
         super('pago10:Impuestos', attributes, children);
     }
 
-    public getChildrenOrder(): string[] {
+    public override getChildrenOrder(): string[] {
         return ['pago10:Retenciones', 'pago10:Traslados'];
     }
 

@@ -1,5 +1,6 @@
 import { CNode } from '@nodecfdi/cfdiutils-common';
-import { AccionesOTitulos, HorasExtra, Percepcion } from '../../../src/nomina12';
+
+import { AccionesOTitulos, HorasExtra, Percepcion } from '~/nomina12';
 
 describe('Elements.Nomina12.Percepcion', () => {
     let element: Percepcion;

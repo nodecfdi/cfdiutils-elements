@@ -1,5 +1,4 @@
-import '../../matchers/to_element_has_child';
-import { Extranjero, Nacional, Receptor } from '../../../src/retenciones10';
+import { Extranjero, Nacional, Receptor } from '~/retenciones10';
 
 describe('Elements.Retenciones10.Receptor', () => {
     let element: Receptor;

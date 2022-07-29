@@ -1,6 +1,6 @@
-import { AbstractElement } from '../common/abstract_element';
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
-import { InformacionAduanera } from './informacion_aduanera';
+import { AbstractElement } from '../common/abstract-element';
+import { InformacionAduanera } from './informacion-aduanera';
 
 export class Parte extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
@@ -10,6 +10,7 @@ export class Parte extends AbstractElement {
     public addInformacionAduanera(attributes: Record<string, unknown> = {}): InformacionAduanera {
         const subject = new InformacionAduanera(attributes);
         this.addChild(subject);
+
         return subject;
     }
 
@@ -17,6 +18,7 @@ export class Parte extends AbstractElement {
         elementAttributes.forEach((attributes) => {
             this.addInformacionAduanera(attributes);
         });
+
         return this;
     }
 }

@@ -1,5 +1,5 @@
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
-import { AbstractElement } from '../common/abstract_element';
+import { AbstractElement } from '../common/abstract-element';
 
 export class Complemento extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
@@ -8,6 +8,7 @@ export class Complemento extends AbstractElement {
 
     public add(child: CNodeInterface): Complemento {
         this.children().add(child);
+
         return this;
     }
 }

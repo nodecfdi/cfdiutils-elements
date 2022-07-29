@@ -1,5 +1,5 @@
-import { AbstractElement } from '../common/abstract_element';
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { AbstractElement } from '../common/abstract-element';
 import { Concepto } from './concepto';
 
 export class Conceptos extends AbstractElement {
@@ -10,6 +10,7 @@ export class Conceptos extends AbstractElement {
     public addConcepto(attributes: Record<string, unknown> = {}): Concepto {
         const subject = new Concepto(attributes);
         this.addChild(subject);
+
         return subject;
     }
 
@@ -17,6 +18,7 @@ export class Conceptos extends AbstractElement {
         elementAttributes.forEach((attributes) => {
             this.addConcepto(attributes);
         });
+
         return this;
     }
 }

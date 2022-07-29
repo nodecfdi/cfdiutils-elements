@@ -5,8 +5,8 @@ import {
     CuentaPredial,
     Impuestos,
     InformacionAduanera,
-    Parte,
-} from '../../../src/cfdi33';
+    Parte
+} from '~/cfdi33';
 
 describe('Elements.Cfdi33.Concepto', () => {
     let element: Concepto;
@@ -38,14 +38,14 @@ describe('Elements.Cfdi33.Concepto', () => {
         expect(parent.count()).toBe(0);
 
         const first = parent.addCuentaPredial({
-            id: 'first',
+            id: 'first'
         });
         expect(parent.count()).toBe(1);
         expect(first).toBeInstanceOf(CuentaPredial);
         expect(parent.searchAttribute('cfdi:CuentaPredial', 'id')).toBe('first');
 
         const second = parent.addCuentaPredial({
-            ID: 'BAR',
+            ID: 'BAR'
         });
         expect(second).toStrictEqual(first);
         expect(first.attributes().get('ID')).toBe('BAR');
@@ -63,14 +63,14 @@ describe('Elements.Cfdi33.Concepto', () => {
         expect(parent.count()).toBe(0);
 
         const first = parent.addComplementoConcepto({
-            ID: '123AD',
+            ID: '123AD'
         });
         expect(parent.count()).toBe(1);
         expect(first).toBeInstanceOf(ComplementoConcepto);
         expect(first.attributes().get('ID')).toBe('123AD');
 
         const second = parent.addComplementoConcepto({
-            ID: 'BAR',
+            ID: 'BAR'
         });
         expect(second).toStrictEqual(first);
         expect(second.attributes().get('ID')).toBe('BAR');
@@ -83,7 +83,7 @@ describe('Elements.Cfdi33.Concepto', () => {
 
         // add first child
         const first = parent.addParte({
-            name: 'first',
+            name: 'first'
         });
         expect(first).toBeInstanceOf(Parte);
         expect(first.attributes().get('name')).toBe('first');

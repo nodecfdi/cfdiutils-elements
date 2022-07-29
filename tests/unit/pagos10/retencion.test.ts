@@ -1,4 +1,4 @@
-import { Retencion } from '../../../src/pagos10';
+import { Retencion } from '~/pagos10';
 
 describe('Elements.Pagos10.Retencion', () => {
     test('get element name', () => {

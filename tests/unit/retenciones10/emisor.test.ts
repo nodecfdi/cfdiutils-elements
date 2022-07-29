@@ -1,4 +1,4 @@
-import { Emisor } from '../../../src/retenciones10';
+import { Emisor } from '~/retenciones10';
 
 describe('Elements.Retenciones10.Emisor', () => {
     let element: Emisor;

@@ -1,4 +1,4 @@
-import { Impuestos, Retenciones, Traslados } from '../../../src/pagos10';
+import { Impuestos, Retenciones, Traslados } from '~/pagos10';
 
 describe('Elements.Pagos10.Impuestos', () => {
     let element: Impuestos;

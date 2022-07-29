@@ -1,4 +1,4 @@
-import { Deducciones, Emisor, Incapacidades, Nomina, OtrosPagos, Percepciones, Receptor } from '../../../src/nomina12';
+import { Deducciones, Emisor, Incapacidades, Nomina, OtrosPagos, Percepciones, Receptor } from '~/nomina12';
 
 describe('Elements.Nomina12.Nomina', () => {
     let element: Nomina;
@@ -19,7 +19,7 @@ describe('Elements.Nomina12.Nomina', () => {
             'nomina12:Percepciones',
             'nomina12:Deducciones',
             'nomina12:OtrosPagos',
-            'nomina12:Incapacidades',
+            'nomina12:Incapacidades'
         ];
         expect(element.getChildrenOrder()).toStrictEqual(expected);
     });

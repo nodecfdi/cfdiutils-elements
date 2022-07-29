@@ -1,16 +1,15 @@
-import { AbstractElement } from '../common/abstract_element';
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
-import { use } from 'typescript-mix';
-import { InformacionAduaneraTrait } from './traits/informacion_aduanera_trait';
+import { Mixin } from 'ts-mixer';
 
-interface Parte extends AbstractElement, InformacionAduaneraTrait {}
+import { AbstractElement } from '../common/abstract-element';
+import { InformacionAduaneraTrait } from './traits/informacion-aduanera-trait';
 
-class Parte extends AbstractElement {
-    @use(InformacionAduaneraTrait) private this: unknown;
-
+class TParte extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cfdi:Parte', attributes, children);
     }
 }
+
+class Parte extends Mixin(TParte, InformacionAduaneraTrait) {}
 
 export { Parte };

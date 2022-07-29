@@ -1,4 +1,3 @@
-import '../../matchers/to_element_has_child';
 import {
     ACuentaTerceros,
     Addenda,
@@ -20,8 +19,8 @@ import {
     Retencion,
     Retenciones,
     Traslado,
-    Traslados,
-} from '../../../src/cfdi40';
+    Traslados
+} from '~/cfdi40';
 
 describe('Elements.CFDI40', () => {
     test('comprobante', () => {
@@ -35,13 +34,13 @@ describe('Elements.CFDI40', () => {
             'cfdi:Conceptos',
             'cfdi:Impuestos',
             'cfdi:Complemento',
-            'cfdi:Addenda',
+            'cfdi:Addenda'
         ]);
         expect(element.getFixedAttributes()).toStrictEqual({
             'xmlns:cfdi': 'http://www.sat.gob.mx/cfd/4',
             'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
             'xsi:schemaLocation': 'http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd',
-            'Version': '4.0',
+            'Version': '4.0'
         });
         expect(element).toElementHasChildSingle(InformacionGlobal);
         expect(element).toElementHasChildMultiple(CfdiRelacionados);
@@ -94,7 +93,7 @@ describe('Elements.CFDI40', () => {
             'cfdi:InformacionAduanera',
             'cfdi:CuentaPredial',
             'cfdi:ComplementoConcepto',
-            'cfdi:Parte',
+            'cfdi:Parte'
         ]);
         expect(element).toElementHasChildSingle(ConceptoImpuestos, 'getImpuestos', 'addImpuestos');
         expect(element).toElementHasChildSingle(ACuentaTerceros);
@@ -163,10 +162,7 @@ describe('Elements.CFDI40', () => {
     test('impuestos', () => {
         const element = new Impuestos();
         expect(element.getElementName()).toBe('cfdi:Impuestos');
-        expect(element.getChildrenOrder()).toStrictEqual([
-            'cfdi:Retenciones',
-            'cfdi:Traslados',
-        ]);
+        expect(element.getChildrenOrder()).toStrictEqual(['cfdi:Retenciones', 'cfdi:Traslados']);
         expect(element).toElementHasChildSingle(Retenciones);
         expect(element).toElementHasChildSingle(Traslados);
     });

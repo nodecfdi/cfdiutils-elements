@@ -1,5 +1,5 @@
-import { AbstractElement } from '../common/abstract_element';
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { AbstractElement } from '../common/abstract-element';
 import { Retencion } from './retencion';
 
 export class Retenciones extends AbstractElement {
@@ -10,6 +10,7 @@ export class Retenciones extends AbstractElement {
     public addRetencion(attributes: Record<string, unknown> = {}): Retencion {
         const retencion = new Retencion(attributes);
         this.addChild(retencion);
+
         return retencion;
     }
 
@@ -17,6 +18,7 @@ export class Retenciones extends AbstractElement {
         elementAttributes.forEach((attributes) => {
             this.addRetencion(attributes);
         });
+
         return this;
     }
 }

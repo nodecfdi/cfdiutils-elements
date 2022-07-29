@@ -1,4 +1,4 @@
-import { Concepto, Conceptos } from '../../../src/cfdi33';
+import { Concepto, Conceptos } from '~/cfdi33';
 
 describe('Elements.Cfdi33.Conceptos', () => {
     let element: Conceptos;
@@ -18,7 +18,7 @@ describe('Elements.Cfdi33.Conceptos', () => {
 
         // add first child
         const first = parent.addConcepto({
-            name: 'first',
+            name: 'first'
         });
         expect(first).toBeInstanceOf(Concepto);
         expect(first.attributes().get('name')).toBe('first');

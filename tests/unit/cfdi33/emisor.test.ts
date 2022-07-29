@@ -1,4 +1,4 @@
-import { Emisor } from '../../../src/cfdi33';
+import { Emisor } from '~/cfdi33';
 
 describe('Elements.Cfdi33.Emisor', () => {
     test('get element name', () => {

@@ -1,6 +1,6 @@
 import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
-import { AbstractElement } from '../common/abstract_element';
-import { DividOUtil } from './divid_o_util';
+import { AbstractElement } from '../common/abstract-element';
+import { DividOUtil } from './divid-o-util';
 import { Remanente } from './remanente';
 
 export class Dividendos extends AbstractElement {
@@ -15,6 +15,7 @@ export class Dividendos extends AbstractElement {
     public addDividOUtil(attributes: Record<string, unknown> = {}): DividOUtil {
         const subject = this.getDividOUtil();
         subject.addAttributes(attributes);
+
         return subject;
     }
 
@@ -25,19 +26,20 @@ export class Dividendos extends AbstractElement {
     public addRemanente(attributes: Record<string, unknown> = {}): Remanente {
         const subject = this.getRemanente();
         subject.addAttributes(attributes);
+
         return subject;
     }
 
-    public getChildrenOrder(): string[] {
+    public override getChildrenOrder(): string[] {
         return ['dividendos:DividOUtil', 'dividendos:Remanente'];
     }
 
-    public getFixedAttributes(): Record<string, string> {
+    public override getFixedAttributes(): Record<string, string> {
         return {
             'xmlns:dividendos': 'http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos',
             'xsi:schemaLocation':
                 'http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos http://www.sat.gob.mx/esquemas/retencionpago/1/dividendos/dividendos.xsd',
-            'Version': '1.0',
+            'Version': '1.0'
         };
     }
 }

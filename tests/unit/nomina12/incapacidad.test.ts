@@ -1,4 +1,4 @@
-import { Incapacidad } from '../../../src/nomina12';
+import { Incapacidad } from '~/nomina12';
 
 describe('Elements.Nomina12.Incapacidad', () => {
     let element: Incapacidad;

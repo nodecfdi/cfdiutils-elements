@@ -1,4 +1,4 @@
-import { Traslado, Traslados } from '../../../src/pagos10';
+import { Traslado, Traslados } from '~/pagos10';
 
 describe('Elements.Pagos10.Traslados', () => {
     let element: Traslados;
@@ -17,7 +17,7 @@ describe('Elements.Pagos10.Traslados', () => {
 
         // add first child
         const first = element.addTraslado({
-            name: 'first',
+            name: 'first'
         });
         expect(first).toBeInstanceOf(Traslado);
         expect(first.attributes().get('name')).toBe('first');

@@ -1,4 +1,4 @@
-import { Pago, Pagos } from '../../../src/pagos10';
+import { Pago, Pagos } from '~/pagos10';
 
 describe('Elements.Pagos10.Pagos', () => {
     let element: Pagos;

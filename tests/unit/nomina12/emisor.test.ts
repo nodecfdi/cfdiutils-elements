@@ -1,5 +1,4 @@
-import { Emisor } from '../../../src/nomina12';
-import { EntidadSNCF } from '../../../src/nomina12';
+import { Emisor, EntidadSNCF } from '~/nomina12';
 
 describe('Elements.Nomina12.Emisor', () => {
     let element: Emisor;

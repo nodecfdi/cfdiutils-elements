@@ -1,1 +1,1 @@
-export * from './tfd11/timbre_fiscal_digital';
+export * from './tfd11/timbre-fiscal-digital';
