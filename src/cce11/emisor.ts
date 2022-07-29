@@ -3,8 +3,13 @@ import { Mixin } from 'ts-mixer';
 import { AbstractElement } from '../common/abstract-element';
 import { DomicilioTrait } from './traits/domicilio-trait';
 
-export class Emisor extends Mixin(AbstractElement, DomicilioTrait) {
-    constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
-        super('cce11:Emisor', attributes, children);
-    }
-}
+class Emisor extends Mixin(
+    class extends AbstractElement {
+        constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
+            super('cce11:Emisor', attributes, children);
+        }
+    },
+    DomicilioTrait
+) {}
+
+export { Emisor };
