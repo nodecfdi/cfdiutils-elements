@@ -1,4 +1,4 @@
-import { Retencion, Retenciones } from '../../../src/cfdi33';
+import { Retencion, Retenciones } from '~/cfdi33';
 
 describe('Elements.Cfdi33.Retenciones', () => {
     test('get element name', () => {
@@ -15,7 +15,7 @@ describe('Elements.Cfdi33.Retenciones', () => {
 
         // add first child
         const first = element.addRetencion({
-            name: 'first',
+            name: 'first'
         });
         expect(first).toBeInstanceOf(Retencion);
         expect(first.attributes().get('name')).toBe('first');

@@ -1,4 +1,4 @@
-import { Traslado } from '../../../src/cfdi33';
+import { Traslado } from '~/cfdi33';
 
 describe('Elements.Cfdi33.Traslado', () => {
     test('get element name', () => {

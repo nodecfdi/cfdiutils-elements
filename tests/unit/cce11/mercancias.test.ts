@@ -1,4 +1,4 @@
-import { Mercancias, Mercancia } from '../../../src/cce11';
+import { Mercancias, Mercancia } from '~/cce11';
 
 describe('Elements.CCE11.Mercancias', () => {
     let element: Mercancias;

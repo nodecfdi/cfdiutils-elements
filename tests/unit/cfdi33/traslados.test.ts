@@ -1,4 +1,4 @@
-import { Traslado, Traslados } from '../../../src/cfdi33';
+import { Traslado, Traslados } from '~/cfdi33';
 
 describe('Elements.Cfdi33.Traslados', () => {
     test('get element name', () => {
@@ -15,7 +15,7 @@ describe('Elements.Cfdi33.Traslados', () => {
 
         // add first child
         const first = element.addTraslado({
-            name: 'first',
+            name: 'first'
         });
         expect(first).toBeInstanceOf(Traslado);
         expect(first.attributes().get('name')).toBe('first');

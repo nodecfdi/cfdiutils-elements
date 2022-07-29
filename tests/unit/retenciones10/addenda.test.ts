@@ -1,5 +1,5 @@
 import { CNode } from '@nodecfdi/cfdiutils-common';
-import { Addenda } from '../../../src/retenciones10';
+import { Addenda } from '~/retenciones10';
 
 describe('Elements.Retenciones10.Addenda', () => {
     let element: Addenda;

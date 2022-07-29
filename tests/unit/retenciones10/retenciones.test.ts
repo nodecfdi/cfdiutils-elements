@@ -1,15 +1,5 @@
-import '../../matchers/to_element_has_child';
-import {
-    Addenda,
-    Complemento,
-    Emisor,
-    ImpRetenidos,
-    Periodo,
-    Receptor,
-    Retenciones,
-    Totales,
-} from '../../../src/retenciones10';
 import { CNode } from '@nodecfdi/cfdiutils-common';
+import { Addenda, Complemento, Emisor, ImpRetenidos, Periodo, Receptor, Retenciones, Totales } from '~/retenciones10';
 
 describe('Elements.Retenciones10.Retenciones', () => {
     let element: Retenciones;

@@ -1,4 +1,4 @@
-import {Periodo } from '../../../src/retenciones10';
+import { Periodo } from '~/retenciones10';
 
 describe('Elements.Retenciones10.Emisor', () => {
     let element: Periodo;

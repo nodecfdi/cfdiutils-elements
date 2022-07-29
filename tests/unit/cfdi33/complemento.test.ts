@@ -1,5 +1,5 @@
-import { Complemento } from '../../../src/cfdi33';
 import { CNode } from '@nodecfdi/cfdiutils-common';
+import { Complemento } from '~/cfdi33';
 
 describe('Elements.Cfdi33.Complemento', () => {
     test('get element name', () => {

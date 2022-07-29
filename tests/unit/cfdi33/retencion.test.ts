@@ -1,4 +1,4 @@
-import { Retencion } from '../../../src/cfdi33';
+import { Retencion } from '~/cfdi33';
 
 describe('Elements.Cfdi33.Retencion', () => {
     test('get element name', () => {

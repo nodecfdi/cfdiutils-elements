@@ -1,5 +1,5 @@
 import { CNode } from '@nodecfdi/cfdiutils-common';
-import { Complemento } from '../../../src/retenciones10';
+import { Complemento } from '~/retenciones10';
 
 describe('Elements.Retenciones10.Complemento', () => {
     let element: Complemento;

@@ -1,4 +1,4 @@
-import { Retencion, Retenciones } from '../../../src/pagos10';
+import { Retencion, Retenciones } from '~/pagos10';
 
 describe('Elements.Pagos10.Retenciones', () => {
     let element: Retenciones;
@@ -17,7 +17,7 @@ describe('Elements.Pagos10.Retenciones', () => {
 
         // add first child
         const first = element.addRetencion({
-            name: 'first',
+            name: 'first'
         });
         expect(first).toBeInstanceOf(Retencion);
         expect(first.attributes().get('name')).toBe('first');

@@ -1,4 +1,3 @@
-import '../../matchers/to_element_has_child';
 import {
     DoctoRelacionado,
     ImpuestosDR,
@@ -13,8 +12,8 @@ import {
     TrasladoDR,
     TrasladoP,
     TrasladosDR,
-    TrasladosP,
-} from '../../../src/pagos20';
+    TrasladosP
+} from '~/pagos20';
 
 describe('Elements.Pago20', () => {
     test('pagos', () => {
@@ -25,7 +24,7 @@ describe('Elements.Pago20', () => {
             'xmlns:pago20': 'http://www.sat.gob.mx/Pagos20',
             'xsi:schemaLocation':
                 'http://www.sat.gob.mx/Pagos20 http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos20.xsd',
-            'Version': '2.0',
+            'Version': '2.0'
         });
 
         expect(element).toElementHasChildSingle(Totales);

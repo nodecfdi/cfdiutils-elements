@@ -1,5 +1,16 @@
-import { Addenda, CfdiRetenRelacionados, Complemento, Emisor, Extranjero, ImpRetenidos, Nacional, Periodo, Receptor, Retenciones, Totales } from '../../../src/retenciones20';
-import '../../matchers/to_element_has_child';
+import {
+    Addenda,
+    CfdiRetenRelacionados,
+    Complemento,
+    Emisor,
+    Extranjero,
+    ImpRetenidos,
+    Nacional,
+    Periodo,
+    Receptor,
+    Retenciones,
+    Totales
+} from '~/retenciones20';
 
 describe('Elements.Retenciones20', () => {
     test('retenciones', () => {
@@ -8,8 +19,9 @@ describe('Elements.Retenciones20', () => {
         expect(element.getElementName()).toBe('retenciones:Retenciones');
         expect(element.getFixedAttributes()).toStrictEqual({
             'xmlns:retenciones': 'http://www.sat.gob.mx/esquemas/retencionpago/2',
-            'xsi:schemaLocation': 'http://www.sat.gob.mx/esquemas/retencionpago/2 http://www.sat.gob.mx/esquemas/retencionpago/2/retencionpagov2.xsd',
-            'Version': '2.0',
+            'xsi:schemaLocation':
+                'http://www.sat.gob.mx/esquemas/retencionpago/2 http://www.sat.gob.mx/esquemas/retencionpago/2/retencionpagov2.xsd',
+            'Version': '2.0'
         });
         expect(element.getChildrenOrder()).toStrictEqual([
             'retenciones:CfdiRetenRelacionados',
@@ -18,7 +30,7 @@ describe('Elements.Retenciones20', () => {
             'retenciones:Periodo',
             'retenciones:Totales',
             'retenciones:Complemento',
-            'retenciones:Addenda',
+            'retenciones:Addenda'
         ]);
         expect(element).toElementHasChildSingle(CfdiRetenRelacionados);
         expect(element).toElementHasChildSingle(Emisor);
@@ -85,7 +97,6 @@ describe('Elements.Retenciones20', () => {
         expect(element.getElementName()).toBe('retenciones:Complemento');
     });
 
-
     test('addenda', () => {
         const element = new Addenda();
         expect(element.name()).toBe('retenciones:Addenda');
@@ -94,20 +105,24 @@ describe('Elements.Retenciones20', () => {
 
     test('shorcut retencion imp retenido', () => {
         const element = new Retenciones();
-        const first = element.addImpRetenidos({ 'id': '1' });
+        const first = element.addImpRetenidos({ id: '1' });
 
         expect(element.getTotales().children().length).toBe(1);
         expect(element.getTotales().children().exists(first)).toBeTruthy();
 
-        const second = element.addImpRetenidos({ 'id': '2' });
+        const second = element.addImpRetenidos({ id: '2' });
 
         expect(element.getTotales().children().length).toBe(2);
         expect(element.getTotales().children().exists(second)).toBeTruthy();
 
-        expect(element).toBe(element.multiImpRetenidos({ 'id': '3' }, { 'id': '4' }));
+        expect(element).toBe(element.multiImpRetenidos({ id: '3' }, { id: '4' }));
         expect(element.getTotales().children().length).toBe(4);
 
-        expect(element.getTotales().children().map((element) => element.get('id'))).toStrictEqual(['1', '2', '3', '4']);
-
+        expect(
+            element
+                .getTotales()
+                .children()
+                .map((ele) => ele.get('id'))
+        ).toStrictEqual(['1', '2', '3', '4']);
     });
 });

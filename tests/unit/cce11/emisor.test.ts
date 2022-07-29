@@ -1,5 +1,4 @@
-import '../../matchers/to_element_has_child';
-import { Domicilio, Emisor } from '../../../src/cce11';
+import { Domicilio, Emisor } from '~/cce11';
 
 describe('Elements.CCE11.Emisor', () => {
     let element: Emisor;
@@ -15,5 +14,5 @@ describe('Elements.CCE11.Emisor', () => {
 
     test('domicilio', () => {
         expect(element).toElementHasChildSingle(Domicilio);
-     });
+    });
 });

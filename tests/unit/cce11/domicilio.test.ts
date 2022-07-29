@@ -1,4 +1,4 @@
-import { Domicilio } from '../../../src/cce11';
+import { Domicilio } from '~/cce11';
 
 describe('Elements.CCE11.Domicilio', () => {
     let element: Domicilio;

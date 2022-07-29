@@ -1,4 +1,4 @@
-import { Traslado } from '../../../src/pagos10';
+import { Traslado } from '~/pagos10';
 
 describe('Elements.Pagos10.Traslado', () => {
     test('get element name', () => {

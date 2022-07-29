@@ -1,3 +1,4 @@
+import { CNode } from '@nodecfdi/cfdiutils-common';
 import {
     Addenda,
     CfdiRelacionado,
@@ -8,9 +9,8 @@ import {
     Conceptos,
     Emisor,
     Impuestos,
-    Receptor,
-} from '../../../src/cfdi33';
-import { CNode } from '@nodecfdi/cfdiutils-common';
+    Receptor
+} from '~/cfdi33';
 
 describe('Elements.Cfdi33.Comprobante', () => {
     let element: Comprobante;
@@ -24,7 +24,7 @@ describe('Elements.Cfdi33.Comprobante', () => {
     });
 
     test('get cfdi-relacionados', () => {
-        expect(element.searchNode('cfdi:CfdiRelacionados'));
+        expect(element.searchNode('cfdi:CfdiRelacionados')).toBeUndefined();
         const child = element.getCfdiRelacionados();
         expect(child).toBeInstanceOf(CfdiRelacionados);
         expect(element.searchNode('cfdi:CfdiRelacionados')).toStrictEqual(child);
@@ -32,7 +32,7 @@ describe('Elements.Cfdi33.Comprobante', () => {
 
     test('add relacionado', () => {
         const first = element.addCfdiRelacionado({
-            UUID: 'FOO',
+            UUID: 'FOO'
         });
         expect(first).toBeInstanceOf(CfdiRelacionado);
         expect(first.attributes().get('UUID')).toBe('FOO');
@@ -56,13 +56,13 @@ describe('Elements.Cfdi33.Comprobante', () => {
 
     test('add emisor', () => {
         const first = element.addEmisor({
-            Rfc: 'FOO',
+            Rfc: 'FOO'
         });
         expect(first).toBeInstanceOf(Emisor);
         expect(first.attributes().get('Rfc')).toBe('FOO');
 
         const second = element.addEmisor({
-            Rfc: 'BAR',
+            Rfc: 'BAR'
         });
         expect(second).toStrictEqual(first);
         expect(first.attributes().get('Rfc')).toBe('BAR');
@@ -77,13 +77,13 @@ describe('Elements.Cfdi33.Comprobante', () => {
 
     test('add receptor', () => {
         const first = element.addReceptor({
-            Rfc: 'BAZ',
+            Rfc: 'BAZ'
         });
         expect(first).toBeInstanceOf(Receptor);
         expect(first.attributes().get('Rfc')).toBe('BAZ');
 
         const second = element.addReceptor({
-            Rfc: 'BAR',
+            Rfc: 'BAR'
         });
         expect(second).toStrictEqual(first);
         expect(first.attributes().get('Rfc')).toBe('BAR');
@@ -105,13 +105,13 @@ describe('Elements.Cfdi33.Comprobante', () => {
 
     test('add impuestos', () => {
         const first = element.addImpuestos({
-            Foo: 'Bar',
+            Foo: 'Bar'
         });
         expect(first).toBeInstanceOf(Impuestos);
         expect(first.attributes().get('Foo')).toBe('Bar');
 
         const second = element.addImpuestos({
-            Foo: 'BAR',
+            Foo: 'BAR'
         });
         expect(second).toStrictEqual(first);
         expect(first.attributes().get('Foo')).toBe('BAR');

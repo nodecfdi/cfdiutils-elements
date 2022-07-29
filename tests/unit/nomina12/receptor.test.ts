@@ -1,4 +1,4 @@
-import { Receptor, SubContratacion } from '../../../src/nomina12';
+import { Receptor, SubContratacion } from '~/nomina12';
 
 describe('Elements.Nomina12.Receptor', () => {
     let element: Receptor;

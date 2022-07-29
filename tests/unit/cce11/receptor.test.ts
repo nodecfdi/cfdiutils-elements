@@ -1,5 +1,4 @@
-import '../../matchers/to_element_has_child';
-import { Domicilio, Receptor } from '../../../src/cce11';
+import { Domicilio, Receptor } from '~/cce11';
 
 describe('Elements.CCE11.Receptor', () => {
     let element: Receptor;
@@ -15,5 +14,5 @@ describe('Elements.CCE11.Receptor', () => {
 
     test('domicilio', () => {
         expect(element).toElementHasChildSingle(Domicilio);
-     });
+    });
 });

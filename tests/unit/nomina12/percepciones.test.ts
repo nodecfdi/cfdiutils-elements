@@ -1,5 +1,6 @@
 import { CNode } from '@nodecfdi/cfdiutils-common';
-import { JubilacionPensionRetiro, Percepcion, Percepciones, SeparacionIndemnizacion } from '../../../src/nomina12';
+
+import { JubilacionPensionRetiro, Percepcion, Percepciones, SeparacionIndemnizacion } from '~/nomina12';
 
 describe('Elements.Nomina12.Percepciones', () => {
     let element: Percepciones;
@@ -17,7 +18,7 @@ describe('Elements.Nomina12.Percepciones', () => {
         const expected = [
             'nomina12:Percepcion',
             'nomina12:JubilacionPensionRetiro',
-            'nomina12:SeparacionIndemnizacion',
+            'nomina12:SeparacionIndemnizacion'
         ];
         expect(element.getChildrenOrder()).toStrictEqual(expected);
     });
