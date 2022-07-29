@@ -13,4 +13,12 @@ export class Mercancia extends AbstractElement {
 
         return subject;
     }
+
+    public multiDescripcionesEspecificas(...elementAttributes: Record<string, unknown>[]): this {
+        elementAttributes.forEach((attributes) => {
+            this.addDescripcionesEspecificas(attributes);
+        });
+
+        return this;
+    }
 }

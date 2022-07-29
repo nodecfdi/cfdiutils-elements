@@ -14,7 +14,7 @@ export class CfdiRelacionados extends AbstractElement {
         return cfdiRelacionado;
     }
 
-    public multiCfdiRelacionado(elementAttributes: Record<string, unknown>[] = []): CfdiRelacionados {
+    public multiCfdiRelacionado(...elementAttributes: Record<string, unknown>[]): this {
         elementAttributes.forEach((attributes) => {
             this.addCfdiRelacionado(attributes);
         });

@@ -25,48 +25,32 @@ describe('Elements.CCE11.ComercioExterior', () => {
     });
 
     test('propietario', () => {
-        expect(element.count()).toBe(0);
-
-        const first = element.addPropietario({ id: 'first' });
-        expect(first).toBeInstanceOf(Propietario);
-        expect(first.attributes().get('id')).toBe('first');
-        expect(element.count()).toBe(1);
-
-        const second = element.addPropietario({ id: 'second' });
-        expect(second.attributes().get('id')).toBe('second');
-        expect(element.count()).toBe(2);
-        expect(first).not.toBe(second);
+        expect(element).toElementHasChildMultiple(Propietario);
     });
 
     test('destinatario', () => {
-        expect(element.count()).toBe(0);
-
-        const first = element.addDestinatario({ id: 'first' });
-        expect(first).toBeInstanceOf(Destinatario);
-        expect(first.attributes().get('id')).toBe('first');
-        expect(element.count()).toBe(1);
-
-        const second = element.addDestinatario({ id: 'second' });
-        expect(second.attributes().get('id')).toBe('second');
-        expect(element.count()).toBe(2);
-        expect(first).not.toBe(second);
+        expect(element).toElementHasChildMultiple(Destinatario);
     });
 
-    test('add Mercancia', () => {
+    test('add Mercancia shortcut', () => {
         const mercancias = element.getMercancias();
+
+        const empty = element.addMercancia();
+        expect(empty).toBeInstanceOf(Mercancia);
+        expect(mercancias.count()).toBe(1);
 
         const first = element.addMercancia({ foo: 'bar' });
         expect(first).toBeInstanceOf(Mercancia);
-        expect(mercancias.count()).toBe(1);
+        expect(mercancias.count()).toBe(2);
         expect(first.attributes().get('foo')).toBe('bar');
-        expect(first).toBe(mercancias.children().get(0));
+        expect(first).toBe(mercancias.children().get(1));
 
         const second = element.addMercancia();
-        expect(first).toBe(mercancias.children().get(0));
+        expect(first).toBe(mercancias.children().get(1));
 
-        expect(mercancias.count()).toBe(2);
+        expect(mercancias.count()).toBe(3);
         expect(first).not.toBe(second);
-        expect(second).toBe(mercancias.children().get(1));
+        expect(second).toBe(mercancias.children().get(2));
     });
 
     test('children order', () => {

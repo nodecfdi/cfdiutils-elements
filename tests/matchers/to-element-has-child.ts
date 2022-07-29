@@ -21,11 +21,16 @@ const matchers = {
         expect(instance).toBe((received[getter] as unknown as () => T)());
 
         const adder = (adderParam as keyof T) ?? (`add${childClassBaseName}` as keyof T);
+        const empty = (received[adder] as unknown as (attributes?: Record<string, unknown>) => T)();
+
+        expect(empty.attributes().size).toBe(0);
+
         const second = (received[adder] as unknown as (attributes: Record<string, unknown>) => T)({
             foo: 'bar'
         });
         expect(second).toBeInstanceOf(expected);
         expect(second.attributes().get('foo')).toBe('bar');
+        expect(second.attributes().size).toBe(1);
 
         return { message: (): string => '', pass: true };
     },
@@ -67,20 +72,24 @@ const matchers = {
         const childClassBaseName = expected.name;
         const adder = `add${childClassBaseName}` as keyof T;
 
+        const empty = (received[adder] as unknown as (attributes?: Record<string, unknown>) => AbstractElement)();
+        expect(empty).toBeInstanceOf(expected);
+        expect(empty.attributes().size).toBe(0);
+
         const first = (received[adder] as unknown as (attributes: Record<string, unknown>) => AbstractElement)({
             id: 'first'
         });
         expect(first).toBeInstanceOf(expected);
         expect(first.attributes().get('id')).toBe('first');
 
-        expect(received.children().length).toBe(1);
+        expect(received.children().length).toBe(2);
 
         const second = (received[adder] as unknown as (attributes: Record<string, unknown>) => AbstractElement)({
             id: 'second'
         });
         expect(second).not.toBe(first);
         expect(second.attributes().get('id')).toBe('second');
-        expect(received.children().length).toBe(2);
+        expect(received.children().length).toBe(3);
 
         const multi = `multi${childClassBaseName}` as keyof T;
         const sameAsElement = (
@@ -88,7 +97,7 @@ const matchers = {
         )({ id: 'third' }, { id: 'fourth' });
 
         expect(received).toBe(sameAsElement);
-        expect(received.children().length).toBe(4);
+        expect(received.children().length).toBe(5);
 
         return { message: (): string => '', pass: true };
     }

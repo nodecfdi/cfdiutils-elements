@@ -103,7 +103,7 @@ describe('Elements.Retenciones20', () => {
         expect(element.getElementName()).toBe('retenciones:Addenda');
     });
 
-    test('shorcut retencion imp retenido', () => {
+    test('shortcut retencion imp retenido', () => {
         const element = new Retenciones();
         const first = element.addImpRetenidos({ id: '1' });
 

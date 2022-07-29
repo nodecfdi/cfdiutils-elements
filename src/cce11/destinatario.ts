@@ -13,4 +13,12 @@ export class Destinatario extends AbstractElement {
 
         return subject;
     }
+
+    public multiDomicilio(...elementAttributes: Record<string, unknown>[]): this {
+        elementAttributes.forEach((attributes) => {
+            this.addDomicilio(attributes);
+        });
+
+        return this;
+    }
 }

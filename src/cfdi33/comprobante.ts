@@ -34,7 +34,7 @@ class TComprobante extends AbstractElement {
     }
 
     public multiCfdiRelacionado(...elementAttributes: Record<string, unknown>[]): this {
-        this.getCfdiRelacionados().multiCfdiRelacionado(elementAttributes);
+        this.getCfdiRelacionados().multiCfdiRelacionado(...elementAttributes);
 
         return this;
     }
@@ -54,7 +54,7 @@ class TComprobante extends AbstractElement {
         return this.helperGetOrAdd(new Receptor());
     }
 
-    public addReceptor(attributes: Record<string, unknown>): Receptor {
+    public addReceptor(attributes: Record<string, unknown> = {}): Receptor {
         const receptor = this.getReceptor();
         receptor.addAttributes(attributes);
 
@@ -63,6 +63,13 @@ class TComprobante extends AbstractElement {
 
     public getConceptos(): Conceptos {
         return this.helperGetOrAdd(new Conceptos());
+    }
+
+    public addConceptos(attributes: Record<string, unknown> = {}): Conceptos {
+        const subject = this.getConceptos();
+        subject.addAttributes(attributes);
+
+        return subject;
     }
 
     public addConcepto(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []): Concepto {

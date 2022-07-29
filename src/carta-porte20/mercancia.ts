@@ -68,7 +68,7 @@ export class Mercancia extends AbstractElement {
         return this.helperGetOrAdd(new DetalleMercancia());
     }
 
-    public addDetalleMercancia(attributes: Record<string, unknown>): DetalleMercancia {
+    public addDetalleMercancia(attributes: Record<string, unknown> = {}): DetalleMercancia {
         const subject = this.getDetalleMercancia();
         subject.addAttributes(attributes);
 

@@ -28,7 +28,7 @@ export class Autotransporte extends AbstractElement {
         return this.helperGetOrAdd(new Seguros());
     }
 
-    public addSeguros(attributes: Record<string, unknown>): Seguros {
+    public addSeguros(attributes: Record<string, unknown> = {}): Seguros {
         const subject = this.getSeguros();
         subject.addAttributes(attributes);
 

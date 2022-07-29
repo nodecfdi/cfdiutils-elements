@@ -13,4 +13,12 @@ export class Mercancias extends AbstractElement {
 
         return subject;
     }
+
+    public multiMercancia(...elementAttributes: Record<string, unknown>[]): this {
+        elementAttributes.forEach((attributes) => {
+            this.addMercancia(attributes);
+        });
+
+        return this;
+    }
 }

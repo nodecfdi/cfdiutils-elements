@@ -1,4 +1,3 @@
-import { CNode } from '@nodecfdi/cfdiutils-common';
 import {
     Addenda,
     CfdiRelacionado,
@@ -23,101 +22,46 @@ describe('Elements.Cfdi33.Comprobante', () => {
         expect(element.getElementName()).toBe('cfdi:Comprobante');
     });
 
-    test('get cfdi-relacionados', () => {
-        expect(element.searchNode('cfdi:CfdiRelacionados')).toBeUndefined();
-        const child = element.getCfdiRelacionados();
-        expect(child).toBeInstanceOf(CfdiRelacionados);
-        expect(element.searchNode('cfdi:CfdiRelacionados')).toStrictEqual(child);
+    test('cfdi-relacionados', () => {
+        expect(element).toElementHasChildSingle(CfdiRelacionados);
     });
 
-    test('add relacionado', () => {
+    test('cfdi relacionado shortcut', () => {
+        const empty = element.addCfdiRelacionado();
+        expect(empty).toBeInstanceOf(CfdiRelacionado);
+        expect(empty.attributes().size).toBe(0);
+
         const first = element.addCfdiRelacionado({
             UUID: 'FOO'
         });
         expect(first).toBeInstanceOf(CfdiRelacionado);
         expect(first.attributes().get('UUID')).toBe('FOO');
-        expect(element.getCfdiRelacionados().count()).toBe(1);
-    });
+        expect(element.getCfdiRelacionados().count()).toBe(2);
 
-    test('multi relacionado', () => {
         const self = element.multiCfdiRelacionado({ UUID: 'FOO' }, { UUID: 'BAR' });
         expect(self).toStrictEqual(element);
-        expect(element.getCfdiRelacionados().count()).toBe(2);
-        expect(element.getCfdiRelacionados().children().get(0).attributes().get('UUID')).toBe('FOO');
-        expect(element.getCfdiRelacionados().children().get(1).attributes().get('UUID')).toBe('BAR');
+        expect(element.getCfdiRelacionados().count()).toBe(4);
+        expect(element.getCfdiRelacionados().children().get(2).attributes().get('UUID')).toBe('FOO');
+        expect(element.getCfdiRelacionados().children().get(3).attributes().get('UUID')).toBe('BAR');
     });
 
-    test('get emisor', () => {
-        expect(element.searchNode('cfdi:Emisor')).toBeUndefined();
-        const child = element.getEmisor();
-        expect(child).toBeInstanceOf(Emisor);
-        expect(element.searchNode('cfdi:Emisor')).toStrictEqual(child);
+    test('emisor', () => {
+        expect(element).toElementHasChildSingle(Emisor);
     });
 
-    test('add emisor', () => {
-        const first = element.addEmisor({
-            Rfc: 'FOO'
-        });
-        expect(first).toBeInstanceOf(Emisor);
-        expect(first.attributes().get('Rfc')).toBe('FOO');
-
-        const second = element.addEmisor({
-            Rfc: 'BAR'
-        });
-        expect(second).toStrictEqual(first);
-        expect(first.attributes().get('Rfc')).toBe('BAR');
+    test('receptor', () => {
+        expect(element).toElementHasChildSingle(Receptor);
     });
 
-    test('get receptor', () => {
-        expect(element.searchNode('cfdi:Receptor')).toBeUndefined();
-        const child = element.getReceptor();
-        expect(child).toBeInstanceOf(Receptor);
-        expect(element.searchNode('cfdi:Receptor')).toStrictEqual(child);
+    test('conceptos', () => {
+        expect(element).toElementHasChildSingle(Conceptos);
     });
 
-    test('add receptor', () => {
-        const first = element.addReceptor({
-            Rfc: 'BAZ'
-        });
-        expect(first).toBeInstanceOf(Receptor);
-        expect(first.attributes().get('Rfc')).toBe('BAZ');
-
-        const second = element.addReceptor({
-            Rfc: 'BAR'
-        });
-        expect(second).toStrictEqual(first);
-        expect(first.attributes().get('Rfc')).toBe('BAR');
+    test('impuestos', () => {
+        expect(element).toElementHasChildSingle(Impuestos);
     });
 
-    test('get conceptos', () => {
-        expect(element.searchNode('cfdi:Conceptos')).toBeUndefined();
-        const child = element.getConceptos();
-        expect(child).toBeInstanceOf(Conceptos);
-        expect(element.searchNode('cfdi:Conceptos')).toStrictEqual(child);
-    });
-
-    test('get impuestos', () => {
-        expect(element.searchNode('cfdi:Impuestos')).toBeUndefined();
-        const child = element.getImpuestos();
-        expect(child).toBeInstanceOf(Impuestos);
-        expect(element.searchNode('cfdi:Impuestos')).toStrictEqual(child);
-    });
-
-    test('add impuestos', () => {
-        const first = element.addImpuestos({
-            Foo: 'Bar'
-        });
-        expect(first).toBeInstanceOf(Impuestos);
-        expect(first.attributes().get('Foo')).toBe('Bar');
-
-        const second = element.addImpuestos({
-            Foo: 'BAR'
-        });
-        expect(second).toStrictEqual(first);
-        expect(first.attributes().get('Foo')).toBe('BAR');
-    });
-
-    test('add concepto', () => {
+    test('add concepto shortcut', () => {
         expect(element.count()).toBe(0);
 
         const first = element.addConcepto({ name: 'FOO' });
@@ -126,38 +70,12 @@ describe('Elements.Cfdi33.Comprobante', () => {
         expect(element.count()).toBe(1);
     });
 
-    test('get complemento', () => {
-        expect(element.searchNode('cfdi:Complemento')).toBeUndefined();
-        const child = element.getComplemento();
-        expect(child).toBeInstanceOf(Complemento);
-        expect(element.searchNode('cfdi:Complemento')).toStrictEqual(child);
+    test('complemento', () => {
+        expect(element).toElementHasChildSingleAddChild(Complemento);
     });
 
-    test('add complemento', () => {
-        expect(element.count()).toBe(0);
-
-        const child = new CNode('first');
-        const addReturn = element.addComplemento(child);
-        expect(element.count()).toBe(1);
-        expect(element.searchNode('cfdi:Complemento', 'first')).toStrictEqual(child);
-        expect(element).toStrictEqual(addReturn);
-    });
-
-    test('get addenda', () => {
-        expect(element.searchNode('cfdi:Addenda')).toBeUndefined();
-        const child = element.getAddenda();
-        expect(child).toBeInstanceOf(Addenda);
-        expect(element.searchNode('cfdi:Addenda')).toStrictEqual(child);
-    });
-
-    test('add addenda', () => {
-        expect(element.count()).toBe(0);
-
-        const child = new CNode('first');
-        const addReturn = element.addAddenda(child);
-        expect(element.count()).toBe(1);
-        expect(element.searchNode('cfdi:Addenda', 'first')).toStrictEqual(child);
-        expect(element).toStrictEqual(addReturn);
+    test('addenda', () => {
+        expect(element).toElementHasChildSingleAddChild(Addenda);
     });
 
     test('has fixed attributes', () => {

@@ -41,11 +41,27 @@ export class ComercioExterior extends AbstractElement {
         return subject;
     }
 
+    public multiPropietario(...elementAttributes: Record<string, unknown>[]): this {
+        elementAttributes.forEach((attributes) => {
+            this.addPropietario(attributes);
+        });
+
+        return this;
+    }
+
     public addDestinatario(attributes: Record<string, unknown> = {}): Destinatario {
         const subject = new Destinatario(attributes);
         this.addChild(subject);
 
         return subject;
+    }
+
+    public multiDestinatario(...elementAttributes: Record<string, unknown>[]): this {
+        elementAttributes.forEach((attributes) => {
+            this.addDestinatario(attributes);
+        });
+
+        return this;
     }
 
     public getMercancias(): Mercancias {

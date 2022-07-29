@@ -8,7 +8,7 @@ export abstract class DomicilioTrait {
         return this.helperGetOrAdd(new Domicilio());
     }
 
-    public addDomicilio(attributes: Record<string, unknown>): Domicilio {
+    public addDomicilio(attributes: Record<string, unknown> = {}): Domicilio {
         const subject = this.getDomicilio();
         subject.addAttributes(attributes);
 

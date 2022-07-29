@@ -26,7 +26,7 @@ export class CartaPorte extends AbstractElement {
         return this.helperGetOrAdd(new Ubicaciones());
     }
 
-    public addUbicaciones(attributes: Record<string, unknown>): Ubicaciones {
+    public addUbicaciones(attributes: Record<string, unknown> = {}): Ubicaciones {
         const subject = this.getUbicaciones();
         subject.addAttributes(attributes);
 
@@ -37,7 +37,7 @@ export class CartaPorte extends AbstractElement {
         return this.helperGetOrAdd(new Mercancias());
     }
 
-    public addMercancias(attributes: Record<string, unknown>): Mercancias {
+    public addMercancias(attributes: Record<string, unknown> = {}): Mercancias {
         const subject = this.getMercancias();
         subject.addAttributes(attributes);
 
@@ -48,7 +48,7 @@ export class CartaPorte extends AbstractElement {
         return this.helperGetOrAdd(new FiguraTransporte());
     }
 
-    public addFiguraTransporte(attributes: Record<string, unknown>): FiguraTransporte {
+    public addFiguraTransporte(attributes: Record<string, unknown> = {}): FiguraTransporte {
         const subject = this.getFiguraTransporte();
         subject.addAttributes(attributes);
 
