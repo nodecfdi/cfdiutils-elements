@@ -1,5 +1,21 @@
 # @nodecfdi/cfdiutils-elements ChangeLog
 
+## 1.3.0
+
+### DOM Agnostic
+
+- Added support to DOM agnostic
+- Update dependency @nodecfdi/cfdiutils-common for support to DOM agnostic
+
+### CI
+
+- Update workflow for use pnpm and better test coverage
+- Added Sonarcloud for better continuous code quality
+
+### Build
+
+- Replace rollup bundle for microbundle for generation of library
+
 ## 1.2.0
 
 - Added `Elements\PlataformasTecnologicas10` Elements to work with "Complemento Servicios de Plataformas Tecnológicas"
