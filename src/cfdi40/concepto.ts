@@ -11,105 +11,104 @@ import { Parte } from './parte';
 import { ImpuestosTrait } from './traits/impuestos-trait';
 import { ConceptoImpuestos } from './concepto-impuestos';
 
-class Concepto extends Mixin(
-    class extends AbstractElement {
-        constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
-            super('cfdi:Concepto', attributes, children);
-        }
+class TConcepto extends AbstractElement {
+    constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
+        super('cfdi:Concepto', attributes, children);
+    }
 
-        public getElementImpuestos(): Impuestos {
-            return this.getImpuestos();
-        }
+    public getElementImpuestos(): Impuestos {
+        return this.getImpuestos();
+    }
 
-        public override getChildrenOrder(): string[] {
-            return [
-                'cfdi:Impuestos',
-                'cfdi:ACuentaTerceros',
-                'cfdi:InformacionAduanera',
-                'cfdi:CuentaPredial',
-                'cfdi:ComplementoConcepto',
-                'cfdi:Parte'
-            ];
-        }
+    public override getChildrenOrder(): string[] {
+        return [
+            'cfdi:Impuestos',
+            'cfdi:ACuentaTerceros',
+            'cfdi:InformacionAduanera',
+            'cfdi:CuentaPredial',
+            'cfdi:ComplementoConcepto',
+            'cfdi:Parte'
+        ];
+    }
 
-        public getImpuestos(): ConceptoImpuestos {
-            return this.helperGetOrAdd(new ConceptoImpuestos());
-        }
+    public getImpuestos(): ConceptoImpuestos {
+        return this.helperGetOrAdd(new ConceptoImpuestos());
+    }
 
-        public addImpuestos(attributes: Record<string, unknown> = {}): ConceptoImpuestos {
-            const subject = this.getImpuestos();
-            subject.addAttributes(attributes);
+    public addImpuestos(attributes: Record<string, unknown> = {}): ConceptoImpuestos {
+        const subject = this.getImpuestos();
+        subject.addAttributes(attributes);
 
-            return subject;
-        }
+        return subject;
+    }
 
-        public getACuentaTerceros(): ACuentaTerceros {
-            return this.helperGetOrAdd(new ACuentaTerceros());
-        }
+    public getACuentaTerceros(): ACuentaTerceros {
+        return this.helperGetOrAdd(new ACuentaTerceros());
+    }
 
-        public addACuentaTerceros(attributes: Record<string, unknown> = {}): ACuentaTerceros {
-            const subject = this.getACuentaTerceros();
-            subject.addAttributes(attributes);
+    public addACuentaTerceros(attributes: Record<string, unknown> = {}): ACuentaTerceros {
+        const subject = this.getACuentaTerceros();
+        subject.addAttributes(attributes);
 
-            return subject;
-        }
+        return subject;
+    }
 
-        public addInformacionAduanera(attributes: Record<string, unknown> = {}): InformacionAduanera {
-            const subject = new InformacionAduanera(attributes);
-            this.addChild(subject);
+    public addInformacionAduanera(attributes: Record<string, unknown> = {}): InformacionAduanera {
+        const subject = new InformacionAduanera(attributes);
+        this.addChild(subject);
 
-            return subject;
-        }
+        return subject;
+    }
 
-        public multiInformacionAduanera(...elementAttributes: Record<string, unknown>[]): this {
-            elementAttributes.forEach((attributes) => {
-                this.addInformacionAduanera(attributes);
-            });
+    public multiInformacionAduanera(...elementAttributes: Record<string, unknown>[]): this {
+        elementAttributes.forEach((attributes) => {
+            this.addInformacionAduanera(attributes);
+        });
 
-            return this;
-        }
+        return this;
+    }
 
-        public addCuentaPredial(attributes: Record<string, unknown> = {}): CuentaPredial {
-            const subject = new CuentaPredial(attributes);
-            this.addChild(subject);
+    public addCuentaPredial(attributes: Record<string, unknown> = {}): CuentaPredial {
+        const subject = new CuentaPredial(attributes);
+        this.addChild(subject);
 
-            return subject;
-        }
+        return subject;
+    }
 
-        public multiCuentaPredial(...elementAttributes: Record<string, unknown>[]): this {
-            elementAttributes.forEach((attributes) => {
-                this.addCuentaPredial(attributes);
-            });
+    public multiCuentaPredial(...elementAttributes: Record<string, unknown>[]): this {
+        elementAttributes.forEach((attributes) => {
+            this.addCuentaPredial(attributes);
+        });
 
-            return this;
-        }
+        return this;
+    }
 
-        public getComplementoConcepto(): ComplementoConcepto {
-            return this.helperGetOrAdd(new ComplementoConcepto());
-        }
+    public getComplementoConcepto(): ComplementoConcepto {
+        return this.helperGetOrAdd(new ComplementoConcepto());
+    }
 
-        public addComplementoConcepto(child: CNodeInterface): this {
-            this.getComplementoConcepto().addChild(child);
+    public addComplementoConcepto(child: CNodeInterface): this {
+        this.getComplementoConcepto().addChild(child);
 
-            return this;
-        }
+        return this;
+    }
 
-        public addParte(attributes: Record<string, unknown> = {}): Parte {
-            const subject = new Parte(attributes);
-            this.addChild(subject);
+    public addParte(attributes: Record<string, unknown> = {}): Parte {
+        const subject = new Parte(attributes);
+        this.addChild(subject);
 
-            return subject;
-        }
+        return subject;
+    }
 
-        public multiParte(...elementAttributes: Record<string, unknown>[]): this {
-            elementAttributes.forEach((attributes) => {
-                this.addParte(attributes);
-            });
+    public multiParte(...elementAttributes: Record<string, unknown>[]): this {
+        elementAttributes.forEach((attributes) => {
+            this.addParte(attributes);
+        });
 
-            return this;
-        }
-    },
-    ImpuestosTrait
-) {}
+        return this;
+    }
+}
+
+class Concepto extends Mixin(TConcepto, ImpuestosTrait) {}
 
 export { Concepto };
