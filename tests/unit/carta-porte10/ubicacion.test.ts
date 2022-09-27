@@ -11,6 +11,11 @@ describe('Elements.CartaPorte10.Ubicacion', () => {
             'cartaporte:Destino',
             'cartaporte:Domicilio'
         ]);
+        expect(element.children().getOrder()).toStrictEqual([
+            'cartaporte:Origen',
+            'cartaporte:Destino',
+            'cartaporte:Domicilio'
+        ]);
 
         expect(element).toElementHasChildSingle(Origen);
         expect(element).toElementHasChildSingle(Destino);

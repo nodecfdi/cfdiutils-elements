@@ -40,6 +40,7 @@ describe('Elements.Pago20', () => {
         const element = new Pago();
         expect(element.getElementName()).toBe('pago20:Pago');
         expect(element.getChildrenOrder()).toStrictEqual(['pago20:DoctoRelacionado', 'pago20:ImpuestosP']);
+        expect(element.children().getOrder()).toStrictEqual(['pago20:DoctoRelacionado', 'pago20:ImpuestosP']);
         expect(element).toElementHasChildMultiple(DoctoRelacionado);
         expect(element).toElementHasChildSingle(ImpuestosP);
     });
@@ -54,6 +55,7 @@ describe('Elements.Pago20', () => {
         const element = new ImpuestosDR();
         expect(element.getElementName()).toBe('pago20:ImpuestosDR');
         expect(element.getChildrenOrder()).toStrictEqual(['pago20:RetencionesDR', 'pago20:TrasladosDR']);
+        expect(element.children().getOrder()).toStrictEqual(['pago20:RetencionesDR', 'pago20:TrasladosDR']);
         expect(element).toElementHasChildSingle(RetencionesDR);
         expect(element).toElementHasChildSingle(TrasladosDR);
     });
@@ -84,6 +86,7 @@ describe('Elements.Pago20', () => {
         const element = new ImpuestosP();
         expect(element.getElementName()).toBe('pago20:ImpuestosP');
         expect(element.getChildrenOrder()).toStrictEqual(['pago20:RetencionesP', 'pago20:TrasladosP']);
+        expect(element.children().getOrder()).toStrictEqual(['pago20:RetencionesP', 'pago20:TrasladosP']);
         expect(element).toElementHasChildSingle(RetencionesP);
         expect(element).toElementHasChildSingle(TrasladosP);
     });

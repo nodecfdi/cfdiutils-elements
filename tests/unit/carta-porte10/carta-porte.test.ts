@@ -11,6 +11,11 @@ describe('Elements.CartaPorte10.CartaPorte', () => {
             'cartaporte:Mercancias',
             'cartaporte:FiguraTransporte'
         ]);
+        expect(element.children().getOrder()).toStrictEqual([
+            'cartaporte:Ubicaciones',
+            'cartaporte:Mercancias',
+            'cartaporte:FiguraTransporte'
+        ]);
 
         expect(element.getFixedAttributes()).toStrictEqual({
             'xmlns:cartaporte': 'http://www.sat.gob.mx/cartaporte',

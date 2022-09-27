@@ -17,6 +17,7 @@ describe('Elements.Nomina12.Percepcion', () => {
     test('children order', () => {
         const expected = ['nomina12:AccionesOTitulos', 'nomina12:HorasExtra'];
         expect(element.getChildrenOrder()).toStrictEqual(expected);
+        expect(element.children().getOrder()).toStrictEqual(expected);
     });
 
     test('get acciones o titulos', () => {

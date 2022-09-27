@@ -36,6 +36,11 @@ describe('Elements.CartaPorte20', () => {
             'cartaporte20:Mercancias',
             'cartaporte20:FiguraTransporte'
         ]);
+        expect(element.children().getOrder()).toStrictEqual([
+            'cartaporte20:Ubicaciones',
+            'cartaporte20:Mercancias',
+            'cartaporte20:FiguraTransporte'
+        ]);
 
         expect(element.getFixedAttributes()).toStrictEqual({
             'xmlns:cartaporte20': 'http://www.sat.gob.mx/CartaPorte20',
@@ -61,6 +66,13 @@ describe('Elements.CartaPorte20', () => {
         expect(element.getElementName()).toBe('cartaporte20:Mercancias');
 
         expect(element.getChildrenOrder()).toStrictEqual([
+            'cartaporte20:Mercancia',
+            'cartaporte20:Autotransporte',
+            'cartaporte20:TransporteMaritimo',
+            'cartaporte20:TransporteAereo',
+            'cartaporte20:TransporteFerroviario'
+        ]);
+        expect(element.children().getOrder()).toStrictEqual([
             'cartaporte20:Mercancia',
             'cartaporte20:Autotransporte',
             'cartaporte20:TransporteMaritimo',
@@ -102,6 +114,12 @@ describe('Elements.CartaPorte20', () => {
             'cartaporte20:CantidadTransporta',
             'cartaporte20:DetalleMercancia'
         ]);
+        expect(element.children().getOrder()).toStrictEqual([
+            'cartaporte20:Pedimentos',
+            'cartaporte20:GuiasIdentificacion',
+            'cartaporte20:CantidadTransporta',
+            'cartaporte20:DetalleMercancia'
+        ]);
 
         expect(element).toElementHasChildMultiple(Pedimentos);
         expect(element).toElementHasChildMultiple(GuiasIdentificacion);
@@ -115,6 +133,11 @@ describe('Elements.CartaPorte20', () => {
         expect(element.getElementName()).toBe('cartaporte20:Autotransporte');
 
         expect(element.getChildrenOrder()).toStrictEqual([
+            'cartaporte20:IdentificacionVehicular',
+            'cartaporte20:Seguros',
+            'cartaporte20:Remolques'
+        ]);
+        expect(element.children().getOrder()).toStrictEqual([
             'cartaporte20:IdentificacionVehicular',
             'cartaporte20:Seguros',
             'cartaporte20:Remolques'
@@ -145,6 +168,7 @@ describe('Elements.CartaPorte20', () => {
         expect(element.getElementName()).toBe('cartaporte20:TransporteFerroviario');
 
         expect(element.getChildrenOrder()).toStrictEqual(['cartaporte20:DerechosDePaso', 'cartaporte20:Carro']);
+        expect(element.children().getOrder()).toStrictEqual(['cartaporte20:DerechosDePaso', 'cartaporte20:Carro']);
 
         expect(element).toElementHasChildMultiple(DerechosDePaso);
         expect(element).toElementHasChildMultiple(Carro);
@@ -162,6 +186,10 @@ describe('Elements.CartaPorte20', () => {
         expect(element.getElementName()).toBe('cartaporte20:TiposFigura');
 
         expect(element.getChildrenOrder()).toStrictEqual(['cartaporte20:PartesTransporte', 'cartaporte20:Domicilio']);
+        expect(element.children().getOrder()).toStrictEqual([
+            'cartaporte20:PartesTransporte',
+            'cartaporte20:Domicilio'
+        ]);
 
         expect(element).toElementHasChildMultiple(PartesTransporte);
         expect(element).toElementHasChildSingle(Domicilio);

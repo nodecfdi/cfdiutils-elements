@@ -1,11 +1,47 @@
-import { Impuestos } from './impuestos';
+import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { Mixin } from 'ts-mixer';
 
-export class ConceptoImpuestos extends Impuestos {
-    public override getElementImpuestos(): this {
+import { AbstractElement } from '../common/abstract-element';
+import { Traslados } from './traslados';
+import { Retenciones } from './retenciones';
+import { ImpuestosTrait } from './traits/impuestos-trait';
+
+class TConceptoImpuestos extends AbstractElement {
+    constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
+        super('cfdi:Impuestos', attributes, children);
+    }
+
+    public getElementImpuestos(): this {
         return this;
     }
 
     public override getChildrenOrder(): string[] {
         return ['cfdi:Traslados', 'cfdi:Retenciones'];
     }
+
+    public getTraslados(): Traslados {
+        return this.helperGetOrAdd(new Traslados());
+    }
+
+    public addTraslados(attributes: Record<string, unknown> = {}): Traslados {
+        const subject = this.getTraslados();
+        subject.addAttributes(attributes);
+
+        return subject;
+    }
+
+    public getRetenciones(): Retenciones {
+        return this.helperGetOrAdd(new Retenciones());
+    }
+
+    public addRetenciones(attributes: Record<string, unknown> = {}): Retenciones {
+        const subject = this.getRetenciones();
+        subject.addAttributes(attributes);
+
+        return subject;
+    }
 }
+
+class ConceptoImpuestos extends Mixin(TConceptoImpuestos, ImpuestosTrait) {}
+
+export { ConceptoImpuestos };
