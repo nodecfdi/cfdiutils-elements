@@ -32,6 +32,15 @@ describe('Elements.Retenciones20', () => {
             'retenciones:Complemento',
             'retenciones:Addenda'
         ]);
+        expect(element.children().getOrder()).toStrictEqual([
+            'retenciones:CfdiRetenRelacionados',
+            'retenciones:Emisor',
+            'retenciones:Receptor',
+            'retenciones:Periodo',
+            'retenciones:Totales',
+            'retenciones:Complemento',
+            'retenciones:Addenda'
+        ]);
         expect(element).toElementHasChildSingle(CfdiRetenRelacionados);
         expect(element).toElementHasChildSingle(Emisor);
         expect(element).toElementHasChildSingle(Receptor);

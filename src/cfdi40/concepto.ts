@@ -2,7 +2,6 @@ import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { Mixin } from 'ts-mixer';
 
 import { AbstractElement } from '../common/abstract-element';
-import { Impuestos } from './impuestos';
 import { ACuentaTerceros } from './a-cuenta-terceros';
 import { InformacionAduanera } from './informacion-aduanera';
 import { CuentaPredial } from './cuenta-predial';
@@ -16,7 +15,7 @@ class TConcepto extends AbstractElement {
         super('cfdi:Concepto', attributes, children);
     }
 
-    public getElementImpuestos(): Impuestos {
+    public getElementImpuestos(): ConceptoImpuestos {
         return this.getImpuestos();
     }
 

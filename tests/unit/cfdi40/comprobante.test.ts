@@ -36,6 +36,16 @@ describe('Elements.CFDI40', () => {
             'cfdi:Complemento',
             'cfdi:Addenda'
         ]);
+        expect(element.children().getOrder()).toStrictEqual([
+            'cfdi:InformacionGlobal',
+            'cfdi:CfdiRelacionados',
+            'cfdi:Emisor',
+            'cfdi:Receptor',
+            'cfdi:Conceptos',
+            'cfdi:Impuestos',
+            'cfdi:Complemento',
+            'cfdi:Addenda'
+        ]);
         expect(element.getFixedAttributes()).toStrictEqual({
             'xmlns:cfdi': 'http://www.sat.gob.mx/cfd/4',
             'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
@@ -95,6 +105,14 @@ describe('Elements.CFDI40', () => {
             'cfdi:ComplementoConcepto',
             'cfdi:Parte'
         ]);
+        expect(element.children().getOrder()).toStrictEqual([
+            'cfdi:Impuestos',
+            'cfdi:ACuentaTerceros',
+            'cfdi:InformacionAduanera',
+            'cfdi:CuentaPredial',
+            'cfdi:ComplementoConcepto',
+            'cfdi:Parte'
+        ]);
         expect(element).toElementHasChildSingle(ConceptoImpuestos, 'getImpuestos', 'addImpuestos');
         expect(element).toElementHasChildSingle(ACuentaTerceros);
         expect(element).toElementHasChildMultiple(InformacionAduanera);
@@ -107,6 +125,7 @@ describe('Elements.CFDI40', () => {
         const element = new ConceptoImpuestos();
         expect(element.getElementName()).toBe('cfdi:Impuestos');
         expect(element.getChildrenOrder()).toStrictEqual(['cfdi:Traslados', 'cfdi:Retenciones']);
+        expect(element.children().getOrder()).toStrictEqual(['cfdi:Traslados', 'cfdi:Retenciones']);
         expect(element).toElementHasChildSingle(Traslados);
         expect(element).toElementHasChildSingle(Retenciones);
     });
@@ -163,6 +182,7 @@ describe('Elements.CFDI40', () => {
         const element = new Impuestos();
         expect(element.getElementName()).toBe('cfdi:Impuestos');
         expect(element.getChildrenOrder()).toStrictEqual(['cfdi:Retenciones', 'cfdi:Traslados']);
+        expect(element.children().getOrder()).toStrictEqual(['cfdi:Retenciones', 'cfdi:Traslados']);
         expect(element).toElementHasChildSingle(Retenciones);
         expect(element).toElementHasChildSingle(Traslados);
     });

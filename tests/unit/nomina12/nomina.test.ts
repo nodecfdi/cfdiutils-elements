@@ -22,6 +22,7 @@ describe('Elements.Nomina12.Nomina', () => {
             'nomina12:Incapacidades'
         ];
         expect(element.getChildrenOrder()).toStrictEqual(expected);
+        expect(element.children().getOrder()).toStrictEqual(expected);
     });
 
     test('fixed version', () => {

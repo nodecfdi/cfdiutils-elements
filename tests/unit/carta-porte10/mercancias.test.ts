@@ -20,6 +20,13 @@ describe('Elements.CartaPorte10.Mercancias', () => {
             'cartaporte:TransporteAereo',
             'cartaporte:TransporteFerroviario'
         ]);
+        expect(element.children().getOrder()).toStrictEqual([
+            'cartaporte:Mercancia',
+            'cartaporte:AutotransporteFederal',
+            'cartaporte:TransporteMaritimo',
+            'cartaporte:TransporteAereo',
+            'cartaporte:TransporteFerroviario'
+        ]);
 
         expect(element).toElementHasChildMultiple(Mercancia);
         expect(element).toElementHasChildSingle(AutotransporteFederal);

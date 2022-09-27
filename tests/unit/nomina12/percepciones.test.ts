@@ -21,6 +21,7 @@ describe('Elements.Nomina12.Percepciones', () => {
             'nomina12:SeparacionIndemnizacion'
         ];
         expect(element.getChildrenOrder()).toStrictEqual(expected);
+        expect(element.children().getOrder()).toStrictEqual(expected);
     });
 
     test('add percepcion', () => {

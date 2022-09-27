@@ -1,5 +1,11 @@
 # @nodecfdi/cfdiutils-elements ChangeLog
 
+## 1.3.1
+
+- fixed problem with traits on multiple inheritance lose children order
+- Update dependencies
+- Update test with double check on order of children nodes
+
 ## 1.3.0
 
 ### DOM Agnostic
