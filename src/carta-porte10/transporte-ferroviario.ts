@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { DerechosDePaso } from './derechos-de-paso';
 import { Carro } from './carro';
@@ -15,10 +15,10 @@ export class TransporteFerroviario extends AbstractElement {
         return subject;
     }
 
-    public multiDerechosDePaso(...elementAttributes: Record<string, unknown>[]): TransporteFerroviario {
-        elementAttributes.forEach((attributes) => {
+    public multiDerechosDePaso(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addDerechosDePaso(attributes);
-        });
+        }
 
         return this;
     }
@@ -30,10 +30,10 @@ export class TransporteFerroviario extends AbstractElement {
         return subject;
     }
 
-    public multiCarro(...elementAttributes: Record<string, unknown>[]): TransporteFerroviario {
-        elementAttributes.forEach((attributes) => {
+    public multiCarro(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addCarro(attributes);
-        });
+        }
 
         return this;
     }

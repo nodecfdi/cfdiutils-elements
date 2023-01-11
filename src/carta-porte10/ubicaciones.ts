@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { Ubicacion } from './ubicacion';
 
@@ -14,10 +14,10 @@ export class Ubicaciones extends AbstractElement {
         return subject;
     }
 
-    public multiUbicacion(...elementAttributes: Record<string, unknown>[]): Ubicaciones {
-        elementAttributes.forEach((attributes) => {
+    public multiUbicacion(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addUbicacion(attributes);
-        });
+        }
 
         return this;
     }

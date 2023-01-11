@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { Remolque } from './remolque';
 
@@ -14,10 +14,10 @@ export class Remolques extends AbstractElement {
         return subject;
     }
 
-    public multiRemolque(...elementAttributes: Record<string, unknown>[]): Remolques {
-        elementAttributes.forEach((attributes) => {
+    public multiRemolque(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addRemolque(attributes);
-        });
+        }
 
         return this;
     }

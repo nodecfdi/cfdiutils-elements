@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { Operadores } from './operadores';
 import { Propietario } from './propietario';
@@ -17,10 +17,10 @@ export class FiguraTransporte extends AbstractElement {
         return subject;
     }
 
-    public multiOperadores(...elementAttributes: Record<string, unknown>[]): FiguraTransporte {
-        elementAttributes.forEach((attributes) => {
+    public multiOperadores(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addOperadores(attributes);
-        });
+        }
 
         return this;
     }
@@ -32,10 +32,10 @@ export class FiguraTransporte extends AbstractElement {
         return subject;
     }
 
-    public multiPropietario(...elementAttributes: Record<string, unknown>[]): FiguraTransporte {
-        elementAttributes.forEach((attributes) => {
+    public multiPropietario(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addPropietario(attributes);
-        });
+        }
 
         return this;
     }
@@ -47,10 +47,10 @@ export class FiguraTransporte extends AbstractElement {
         return subject;
     }
 
-    public multiArrendatario(...elementAttributes: Record<string, unknown>[]): FiguraTransporte {
-        elementAttributes.forEach((attributes) => {
+    public multiArrendatario(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addArrendatario(attributes);
-        });
+        }
 
         return this;
     }
@@ -62,10 +62,10 @@ export class FiguraTransporte extends AbstractElement {
         return subject;
     }
 
-    public multiNotificado(...elementAttributes: Record<string, unknown>[]): FiguraTransporte {
-        elementAttributes.forEach((attributes) => {
+    public multiNotificado(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addNotificado(attributes);
-        });
+        }
 
         return this;
     }
