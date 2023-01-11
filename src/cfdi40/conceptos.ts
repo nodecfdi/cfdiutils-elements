@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { Concepto } from './concepto';
 
@@ -14,10 +14,10 @@ export class Conceptos extends AbstractElement {
         return subject;
     }
 
-    public multiConcepto(...elementAttributes: Record<string, unknown>[]): Conceptos {
-        elementAttributes.forEach((attributes) => {
+    public multiConcepto(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addConcepto(attributes);
-        });
+        }
 
         return this;
     }

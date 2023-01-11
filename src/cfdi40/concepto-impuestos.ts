@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { Mixin } from 'ts-mixer';
 
 import { AbstractElement } from '../common/abstract-element';
