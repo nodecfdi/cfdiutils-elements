@@ -15,7 +15,7 @@ export class SumasConceptosWriter {
         } else if (comprobante instanceof Comprobante40) {
             this.writeImpuestoBase = true;
         } else {
-            throw new TypeError('The argument $comprobante must be a Comprobante (CFDI 3.3 or CFDI 4.0) element');
+            throw new TypeError('The argument comprobante must be a Comprobante (CFDI 3.3 or CFDI 4.0) element');
         }
 
         this.comprobante = comprobante;

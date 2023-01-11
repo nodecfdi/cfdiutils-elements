@@ -2,6 +2,7 @@ import { CNode, install, XmlNodeUtils } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 
 import { Comprobante, SumasConceptosWriter } from '~/cfdi40';
+import { Comprobante as Comprobante33 } from '~/cfdi33';
 import { SumasConceptos } from '~/common/sumas-conceptos/sumas-conceptos';
 import { ImpuestosLocales } from '~/imp-local10/impuestos-locales';
 
@@ -20,6 +21,14 @@ describe('Cfdi40.SumasConceptosWriter', () => {
         expect(writer.getPrecision()).toBe(precision);
         expect(writer.getSumasConceptos()).toStrictEqual(sumasConceptos);
         expect(writer.hasWriteImpuestosBase()).toBeTruthy();
+    });
+
+    test('constructor throws error on pass another comprobante different of cfdi40', () => {
+        const comprobante = new Comprobante33();
+        const sumasConceptos = new SumasConceptos(comprobante);
+        const writer = new SumasConceptosWriter(comprobante as unknown as Comprobante, sumasConceptos);
+        expect(() => writer.getComprobante()).toThrow(TypeError);
+        expect(() => writer.getComprobante()).toThrow('Property comprobante is not instance of Comprobante40');
     });
 
     test('format', () => {
