@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { Domicilio } from './domicilio';
 
@@ -14,10 +14,10 @@ export class Destinatario extends AbstractElement {
         return subject;
     }
 
-    public multiDomicilio(...elementAttributes: Record<string, unknown>[]): this {
-        elementAttributes.forEach((attributes) => {
+    public multiDomicilio(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addDomicilio(attributes);
-        });
+        }
 
         return this;
     }

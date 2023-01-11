@@ -1,9 +1,7 @@
-import { ElementInterface } from '../../common/element-interface';
+import { type ElementInterface } from '../../common/element-interface';
 import { Domicilio } from '../domicilio';
 
 export abstract class DomicilioTrait {
-    protected abstract helperGetOrAdd(element: ElementInterface): Domicilio;
-
     public getDomicilio(): Domicilio {
         return this.helperGetOrAdd(new Domicilio());
     }
@@ -14,4 +12,6 @@ export abstract class DomicilioTrait {
 
         return subject;
     }
+
+    protected abstract helperGetOrAdd(element: ElementInterface): Domicilio;
 }
