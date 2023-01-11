@@ -1,9 +1,9 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 
-export interface ElementInterface extends CNodeInterface {
+export type ElementInterface = {
     getElementName(): string;
 
     getFixedAttributes(): Record<string, string>;
 
     getChildrenOrder(): string[];
-}
+} & CNodeInterface;

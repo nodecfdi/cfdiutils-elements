@@ -15,8 +15,8 @@ describe('SumasConceptos', () => {
         expect(sc.getImpuestosTrasladados()).toBe(0);
         expect(sc.getLocalesImpuestosRetenidos()).toBe(0);
         expect(sc.getLocalesImpuestosTrasladados()).toBe(0);
-        expect([...Object.values(sc.getRetenciones())]).toHaveLength(0);
-        expect([...Object.values(sc.getTraslados())]).toHaveLength(0);
+        expect(Object.values(sc.getRetenciones())).toHaveLength(0);
+        expect(Object.values(sc.getTraslados())).toHaveLength(0);
         expect(sc.getLocalesRetenciones()).toHaveLength(0);
         expect(sc.getLocalesTraslados()).toHaveLength(0);
         expect(sc.hasRetenciones()).toBeFalsy();
@@ -60,7 +60,7 @@ describe('SumasConceptos', () => {
             expect(sc.getImpuestosTrasladados()).toBe(traslados);
             expect(sc.getTotal()).toBe(total);
 
-            // these are zero
+            // These are zero
             expect(sc.getDescuento()).toBe(0);
             expect(sc.getImpuestosRetenidos()).toBe(0);
             expect([...Object.entries(sc.getRetenciones())]).toHaveLength(0);
@@ -94,7 +94,7 @@ describe('SumasConceptos', () => {
             });
         const impuestosLocales = new ImpuestosLocales();
         impuestosLocales.addTrasladoLocal({
-            ImpLocTrasladado: 'IH', // fixed, taken from a sample,
+            ImpLocTrasladado: 'IH', // Fixed, taken from a sample,
             TasadeTraslado: '2.5',
             Importe: (333.33 * 0.025).toFixed(2)
         });
@@ -110,7 +110,7 @@ describe('SumasConceptos', () => {
         expect(sc.getLocalesImpuestosTrasladados()).toBe(8.33);
         expect(sc.getTotal()).toBe(Number((333.33 + 53.33 + 8.33).toFixed(2)));
 
-        // these are zero
+        // These are zero
         expect(sc.getDescuento()).toBe(0);
         expect(sc.getImpuestosRetenidos()).toBe(0);
         expect([...Object.entries(sc.getRetenciones())]).toHaveLength(0);
@@ -124,7 +124,7 @@ describe('SumasConceptos', () => {
         comprobante.addConcepto({ Importe: '222.22' });
         expect(new SumasConceptos(comprobante).foundAnyConceptWithDiscount()).toBeFalsy();
 
-        // now add the attribute Descuento
+        // Now add the attribute Descuento
         comprobante.addConcepto({ Importe: '333.33', Descuento: '' });
         expect(new SumasConceptos(comprobante).foundAnyConceptWithDiscount()).toBeTruthy();
     });
@@ -149,41 +149,37 @@ describe('SumasConceptos', () => {
         const sumas = new SumasConceptos(comprobante, 3);
 
         expect(sumas.hasTraslados()).toBeTruthy();
-        expect(sumas.getImpuestosTrasladados()).toBe(10.0);
-        expect(sumas.getTraslados()['002:Tasa:0.160000']['Importe']).toBe((10.0).toFixed(3));
-        expect(sumas.getTraslados()['002:Tasa:0.160000']['Base']).toBe((62.5).toFixed(3));
+        expect(sumas.getImpuestosTrasladados()).toBe(10);
+        expect(sumas.getTraslados()['002:Tasa:0.160000'].Importe).toBe((10).toFixed(3));
+        expect(sumas.getTraslados()['002:Tasa:0.160000'].Base).toBe((62.5).toFixed(3));
     });
 
     test('impuesto with traslados Tasa and Exento', () => {
         const comprobante = new Comprobante();
-        comprobante.addConcepto().multiTraslado(
-            ...[
+        comprobante
+            .addConcepto()
+            .multiTraslado(
                 { Impuesto: '002', TipoFactor: 'Exento' },
                 { Impuesto: '002', TipoFactor: 'Tasa', TasaOCuota: '0.160000', Base: '1000', Importe: '160' }
-            ]
-        );
-        comprobante.addConcepto().multiTraslado(
-            ...[
-                {
-                    Impuesto: '002',
-                    TipoFactor: 'Tasa',
-                    TasaOCuota: '0.160000',
-                    Base: '1000',
-                    Importe: '160'
-                }
-            ]
-        );
+            );
+        comprobante.addConcepto().multiTraslado({
+            Impuesto: '002',
+            TipoFactor: 'Tasa',
+            TasaOCuota: '0.160000',
+            Base: '1000',
+            Importe: '160'
+        });
 
         const sumas = new SumasConceptos(comprobante, 2);
         expect(sumas.hasTraslados()).toBeTruthy();
-        expect(sumas.getImpuestosTrasladados()).toBe(320.0);
+        expect(sumas.getImpuestosTrasladados()).toBe(320);
         expect([...Object.entries(sumas.getTraslados())]).toHaveLength(1);
     });
 
     test('impuesto with Traslados and only Exento', () => {
         const comprobante = new Comprobante();
-        comprobante.addConcepto().multiTraslado(...[{ Impuesto: '002', TipoFactor: 'Exento' }]);
-        comprobante.addConcepto().multiTraslado(...[{ Impuesto: '002', TipoFactor: 'Exento' }]);
+        comprobante.addConcepto().multiTraslado({ Impuesto: '002', TipoFactor: 'Exento' });
+        comprobante.addConcepto().multiTraslado({ Impuesto: '002', TipoFactor: 'Exento' });
 
         const sumas = new SumasConceptos(comprobante, 2);
         expect(sumas.hasTraslados()).toBeFalsy();
