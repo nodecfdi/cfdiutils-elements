@@ -1,17 +1,17 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { Mixin } from 'ts-mixer';
 
 import { AbstractElement } from '../common/abstract-element';
 import { ImpuestosTrait } from './traits/impuestos-trait';
 import { CfdiRelacionados } from './cfdi-relacionados';
-import { CfdiRelacionado } from './cfdi-relacionado';
+import { type CfdiRelacionado } from './cfdi-relacionado';
 import { Emisor } from './emisor';
 import { Receptor } from './receptor';
 import { Conceptos } from './conceptos';
-import { Concepto } from './concepto';
+import { type Concepto } from './concepto';
 import { Impuestos } from './impuestos';
 import { Complemento } from './complemento';
 import { Addenda } from './addenda';
-import { Mixin } from 'ts-mixer';
 
 class TComprobante extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
@@ -33,7 +33,7 @@ class TComprobante extends AbstractElement {
         return this.getCfdiRelacionados().addCfdiRelacionado(attributes);
     }
 
-    public multiCfdiRelacionado(...elementAttributes: Record<string, unknown>[]): this {
+    public multiCfdiRelacionado(...elementAttributes: Array<Record<string, unknown>>): this {
         this.getCfdiRelacionados().multiCfdiRelacionado(...elementAttributes);
 
         return this;

@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { CfdiRelacionado } from './cfdi-relacionado';
 
@@ -14,10 +14,10 @@ export class CfdiRelacionados extends AbstractElement {
         return cfdiRelacionado;
     }
 
-    public multiCfdiRelacionado(...elementAttributes: Record<string, unknown>[]): this {
-        elementAttributes.forEach((attributes) => {
+    public multiCfdiRelacionado(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addCfdiRelacionado(attributes);
-        });
+        }
 
         return this;
     }

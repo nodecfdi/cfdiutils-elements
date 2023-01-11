@@ -87,7 +87,7 @@ describe('Elements.Cfdi33.Comprobante', () => {
     });
 
     test('children order', () => {
-        // add in inverse order
+        // Add in inverse order
         element.getAddenda();
         element.getComplemento();
         element.getImpuestos();
@@ -96,7 +96,7 @@ describe('Elements.Cfdi33.Comprobante', () => {
         element.getEmisor();
         element.getCfdiRelacionados();
 
-        // retrieve in correct order
+        // Retrieve in correct order
         expect(element.children().get(0)).toBeInstanceOf(CfdiRelacionados);
         expect(element.children().get(1)).toBeInstanceOf(Emisor);
         expect(element.children().get(2)).toBeInstanceOf(Receptor);

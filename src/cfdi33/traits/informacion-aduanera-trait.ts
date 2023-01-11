@@ -1,9 +1,7 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { InformacionAduanera } from '../informacion-aduanera';
 
 export abstract class InformacionAduaneraTrait {
-    public abstract addChild(node: CNodeInterface): CNodeInterface;
-
     public addInformacionAduanera(attributes: Record<string, unknown> = {}): InformacionAduanera {
         const informacionAduanera = new InformacionAduanera(attributes);
         this.addChild(informacionAduanera);
@@ -11,11 +9,13 @@ export abstract class InformacionAduaneraTrait {
         return informacionAduanera;
     }
 
-    public multiInformacionAduanera(...elementAttributes: Record<string, unknown>[]): this {
-        elementAttributes.forEach((attributes) => {
+    public multiInformacionAduanera(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addInformacionAduanera(attributes);
-        });
+        }
 
         return this;
     }
+
+    public abstract addChild(node: CNodeInterface): CNodeInterface;
 }

@@ -53,11 +53,11 @@ describe('Elements.Cfdi33.Trait.ImpuestosTrait', () => {
     test('children get order', () => {
         const element = new UseImpuestos();
 
-        // add in inverse order
+        // Add in inverse order
         element.addRetencion();
         element.addTraslado();
 
-        // retrieve in correct order
+        // Retrieve in correct order
         const impuestos = element.getImpuestos();
         expect(impuestos.children().get(0)).toBeInstanceOf(Retenciones);
         expect(impuestos.children().get(1)).toBeInstanceOf(Traslados);

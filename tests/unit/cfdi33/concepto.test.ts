@@ -26,62 +26,20 @@ describe('Elements.Cfdi33.Concepto', () => {
         expect(element.searchNode('cfdi:Impuestos')).toStrictEqual(child);
     });
 
-    test('get cuenta predial', () => {
-        expect(element.searchNode('cfdi:CuentaPredial')).toBeUndefined();
-        const child = element.getCuentaPredial();
-        expect(child).toBeInstanceOf(CuentaPredial);
-        expect(element.searchNode('cfdi:CuentaPredial')).toStrictEqual(child);
+    test('cuenta predial', () => {
+        expect(element).toElementHasChildSingle(CuentaPredial);
     });
 
-    test('add cuenta predial', () => {
-        const parent = element;
-        expect(parent.count()).toBe(0);
-
-        const first = parent.addCuentaPredial({
-            id: 'first'
-        });
-        expect(parent.count()).toBe(1);
-        expect(first).toBeInstanceOf(CuentaPredial);
-        expect(parent.searchAttribute('cfdi:CuentaPredial', 'id')).toBe('first');
-
-        const second = parent.addCuentaPredial({
-            ID: 'BAR'
-        });
-        expect(second).toStrictEqual(first);
-        expect(first.attributes().get('ID')).toBe('BAR');
-    });
-
-    test('get complemento concepto', () => {
-        expect(element.searchNode('cfdi:ComplementoConcepto')).toBeUndefined();
-        const child = element.getComplementoConcepto();
-        expect(child).toBeInstanceOf(ComplementoConcepto);
-        expect(element.searchNode('cfdi:ComplementoConcepto')).toStrictEqual(child);
-    });
-
-    test('add complemento concepto', () => {
-        const parent = element;
-        expect(parent.count()).toBe(0);
-
-        const first = parent.addComplementoConcepto({
-            ID: '123AD'
-        });
-        expect(parent.count()).toBe(1);
-        expect(first).toBeInstanceOf(ComplementoConcepto);
-        expect(first.attributes().get('ID')).toBe('123AD');
-
-        const second = parent.addComplementoConcepto({
-            ID: 'BAR'
-        });
-        expect(second).toStrictEqual(first);
-        expect(second.attributes().get('ID')).toBe('BAR');
+    test('complemento concepto', () => {
+        expect(element).toElementHasChildSingle(ComplementoConcepto);
     });
 
     test('add parte', () => {
-        // no child's
+        // No child's
         const parent = element;
         expect(parent.count()).toBe(0);
 
-        // add first child
+        // Add first child
         const first = parent.addParte({
             name: 'first'
         });
@@ -89,7 +47,7 @@ describe('Elements.Cfdi33.Concepto', () => {
         expect(first.attributes().get('name')).toBe('first');
         expect(parent.count()).toBe(1);
 
-        // add second child
+        // Add second child
         parent.addParte();
         expect(parent.count()).toBe(2);
     });
@@ -104,14 +62,14 @@ describe('Elements.Cfdi33.Concepto', () => {
     });
 
     test('children order', () => {
-        // add in inverse order
+        // Add in inverse order
         element.addParte();
         element.getComplementoConcepto();
         element.getCuentaPredial();
         element.addInformacionAduanera();
         element.getImpuestos();
 
-        // retrieve in correct order
+        // Retrieve in correct order
         expect(element.children().get(0)).toBeInstanceOf(Impuestos);
         expect(element.children().get(1)).toBeInstanceOf(InformacionAduanera);
         expect(element.children().get(2)).toBeInstanceOf(CuentaPredial);
