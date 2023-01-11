@@ -1,7 +1,8 @@
 import { CNode } from '@nodecfdi/cfdiutils-common';
 
 import { SumasConceptos } from '~/common/sumas-conceptos/sumas-conceptos';
-import { Comprobante } from '~/cfdi33';
+import { Comprobante as Comprobante33 } from '~/cfdi33';
+import { Comprobante as Comprobante40 } from '~/cfdi40';
 import { ImpuestosLocales } from '~/imp-local10/impuestos-locales';
 
 describe('SumasConceptos', () => {
@@ -32,7 +33,7 @@ describe('SumasConceptos', () => {
     ])(
         'with concepts decimals %s',
         (_test: string, taxDecimals: number, subtotal: number, traslados: number, total: number) => {
-            const comprobante = new Comprobante();
+            const comprobante = new Comprobante33();
             comprobante
                 .addConcepto({
                     Importe: '111.11'
@@ -69,7 +70,7 @@ describe('SumasConceptos', () => {
 
     test('with impuestos locales', () => {
         const taxDecimals = 4;
-        const comprobante = new Comprobante();
+        const comprobante = new Comprobante33();
         comprobante
             .addConcepto({
                 Importe: '111.11'
@@ -118,8 +119,58 @@ describe('SumasConceptos', () => {
         expect(sc.getLocalesRetenciones()).toHaveLength(0);
     });
 
+    test('with impuestos locales and importe not defined', () => {
+        const taxDecimals = 4;
+        const comprobante = new Comprobante33();
+        comprobante
+            .addConcepto({
+                Importe: '111.11'
+            })
+            .addTraslado({
+                Base: '111.11',
+                Impuesto: '002',
+                TipoFactor: 'Tasa',
+                TasaOCuota: '0.160000',
+                Importe: (111.11 * 0.16).toFixed(taxDecimals)
+            });
+        comprobante
+            .addConcepto({
+                Importe: '222.22'
+            })
+            .addTraslado({
+                Base: '222.22',
+                Impuesto: '002',
+                TipoFactor: 'Tasa',
+                TasaOCuota: '0.160000',
+                Importe: (222.22 * 0.16).toFixed(taxDecimals)
+            });
+        const impuestosLocales = new ImpuestosLocales();
+        impuestosLocales.addTrasladoLocal({
+            ImpLocTrasladado: 'IH', // Fixed, taken from a sample,
+            TasadeTraslado: '2.5'
+        });
+        comprobante.getComplemento().add(impuestosLocales);
+        const sc = new SumasConceptos(comprobante, 2);
+
+        expect([...Object.entries(sc.getTraslados())]).toHaveLength(1);
+        expect(sc.hasTraslados()).toBeTruthy();
+        expect(sc.getLocalesTraslados()).toHaveLength(1);
+
+        expect(sc.getSubTotal()).toBe(333.33);
+        expect(sc.getImpuestosTrasladados()).toBe(53.33);
+        expect(sc.getLocalesImpuestosTrasladados()).toBe(0);
+        expect(sc.getTotal()).toBe(Number((333.33 + 53.33).toFixed(2)));
+
+        // These are zero
+        expect(sc.getDescuento()).toBe(0);
+        expect(sc.getImpuestosRetenidos()).toBe(0);
+        expect([...Object.entries(sc.getRetenciones())]).toHaveLength(0);
+        expect(sc.getLocalesImpuestosRetenidos()).toBe(0);
+        expect(sc.getLocalesRetenciones()).toHaveLength(0);
+    });
+
     test('found any concept with discount', () => {
-        const comprobante = new Comprobante();
+        const comprobante = new Comprobante40();
         comprobante.addConcepto({ Importe: '111.11' });
         comprobante.addConcepto({ Importe: '222.22' });
         expect(new SumasConceptos(comprobante).foundAnyConceptWithDiscount()).toBeFalsy();
@@ -130,7 +181,7 @@ describe('SumasConceptos', () => {
     });
 
     test('impuesto importe with more decimals than the precision is rounded', () => {
-        const comprobante = new Comprobante();
+        const comprobante = new Comprobante40();
         comprobante.addConcepto().addTraslado({
             Base: '48.611106',
             Importe: '7.777777',
@@ -155,7 +206,7 @@ describe('SumasConceptos', () => {
     });
 
     test('impuesto with traslados Tasa and Exento', () => {
-        const comprobante = new Comprobante();
+        const comprobante = new Comprobante33();
         comprobante
             .addConcepto()
             .multiTraslado(
@@ -177,7 +228,7 @@ describe('SumasConceptos', () => {
     });
 
     test('impuesto with Traslados and only Exento', () => {
-        const comprobante = new Comprobante();
+        const comprobante = new Comprobante40();
         comprobante.addConcepto().multiTraslado({ Impuesto: '002', TipoFactor: 'Exento' });
         comprobante.addConcepto().multiTraslado({ Impuesto: '002', TipoFactor: 'Exento' });
 
@@ -185,5 +236,52 @@ describe('SumasConceptos', () => {
         expect(sumas.hasTraslados()).toBeFalsy();
         expect(sumas.getImpuestosTrasladados()).toBe(0);
         expect([...Object.entries(sumas.getTraslados())]).toHaveLength(0);
+    });
+
+    test('impuesto with Retenciones', () => {
+        const comprobante = new Comprobante33();
+        comprobante.addConcepto().multiRetencion({
+            Base: '1000.00',
+            Impuesto: '001',
+            TipoFactor: 'Tasa',
+            TasaOCuota: '0.04000',
+            Importe: '40.00'
+        });
+
+        const sumas = new SumasConceptos(comprobante, 2);
+        expect(sumas.hasRetenciones()).toBeTruthy();
+        expect(sumas.getImpuestosRetenidos()).toBe(40);
+    });
+
+    test('impuesto with Retenciones and traslados but not importe or base', () => {
+        const comprobante = new Comprobante33();
+        comprobante.addConcepto().multiRetencion(
+            {
+                Impuesto: '001',
+                TipoFactor: 'Tasa',
+                TasaOCuota: '0.04000'
+            },
+            {
+                Impuesto: '002',
+                TipoFactor: 'Tasa',
+                TasaOCuota: '0.100000'
+            }
+        );
+        comprobante.addConcepto().multiRetencion({
+            Impuesto: '001',
+            TipoFactor: 'Tasa',
+            TasaOCuota: '0.04000'
+        });
+        comprobante.addConcepto().multiTraslado({
+            Impuesto: '002',
+            TipoFactor: 'Tasa',
+            TasaOCuota: '0.160000'
+        });
+
+        const sumas = new SumasConceptos(comprobante, 2);
+        expect(sumas.hasRetenciones()).toBeTruthy();
+        expect(sumas.hasTraslados()).toBeTruthy();
+        expect(sumas.getImpuestosRetenidos()).toBe(0);
+        expect(sumas.getImpuestosTrasladados()).toBe(0);
     });
 });

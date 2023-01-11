@@ -107,24 +107,18 @@ export class SumasConceptos {
         }
 
         this.localesTraslados = this.populateImpuestosLocales(comprobante, 'TrasladosLocales', 'Traslado');
-        this.localesImpuestosTraslados = this.localesTraslados.reduce(
-            (a: number, b) => a + (Number(b.Importe) || 0),
-            0
-        );
+        this.localesImpuestosTraslados = this.localesTraslados.reduce((a: number, b) => a + Number(b.Importe), 0);
         this.localesRetenciones = this.populateImpuestosLocales(comprobante, 'RetencionesLocales', 'Retenido');
-        this.localesImpuestosRetenidos = this.localesRetenciones.reduce(
-            (a: number, b) => a + (Number(b.Importe) || 0),
-            0
-        );
+        this.localesImpuestosRetenidos = this.localesRetenciones.reduce((a: number, b) => a + Number(b.Importe), 0);
 
         this.traslados = this.roundImpuestosGroup(this.traslados);
         this.retenciones = this.roundImpuestosGroup(this.retenciones);
         this.impuestosTrasladados = Object.values(this.traslados)
-            .map((v) => Number(v.Importe) || 0)
-            .reduce((a: number, b) => a + (b || 0), 0);
+            .map((v) => Number(v.Importe))
+            .reduce((a: number, b) => a + b, 0);
         this.impuestosRetenidos = Object.values(this.retenciones)
-            .map((v) => Number(v.Importe) || 0)
-            .reduce((a: number, b) => a + (b || 0), 0);
+            .map((v) => Number(v.Importe))
+            .reduce((a: number, b) => a + b, 0);
 
         this.impuestosTrasladados = Number(this.impuestosTrasladados.toFixed(this.precision));
         this.impuestosRetenidos = Number(this.impuestosRetenidos.toFixed(this.precision));
@@ -146,12 +140,18 @@ export class SumasConceptos {
     }
 
     private addConcepto(concepto: CNodeInterface): void {
-        this.importes += Number.parseFloat(concepto.get('Importe') || '0');
+        const conceptoImporte = Number.isNaN(Number.parseFloat(concepto.get('Importe')))
+            ? '0'
+            : concepto.get('Importe');
+        this.importes += Number.parseFloat(conceptoImporte);
         if (concepto.offsetExists('Descuento')) {
             this._foundAnyConceptWithDiscount = true;
         }
 
-        this.descuento += Number.parseFloat(concepto.get('Descuento') || '0');
+        const conceptoDescuento = Number.isNaN(Number.parseFloat(concepto.get('Descuento')))
+            ? '0'
+            : concepto.get('Descuento');
+        this.descuento += Number.parseFloat(conceptoDescuento);
 
         const traslados = concepto.searchNodes('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado');
         for (const traslado of traslados) {
@@ -174,10 +174,15 @@ export class SumasConceptos {
         const locales = comprobante.searchNodes('cfdi:Complemento', 'implocal:ImpuestosLocales', `implocal:${plural}`);
         const list: Array<Record<string, string | number>> = [];
         for (const local of locales) {
+            const importeValue = Number.isNaN(Number.parseFloat(local.get('Importe'))) ? '0' : local.get('Importe');
+            const tasaValue = Number.isNaN(Number.parseFloat(local.get(`Tasade${singular}`)))
+                ? '0'
+                : local.get(`Tasade${singular}`);
+
             list.push({
                 Impuesto: local.get(`ImpLoc${singular}`),
-                Tasa: Number.parseFloat(local.get(`Tasade${singular}`) || '0'),
-                Importe: Number.parseFloat(local.get('Importe') || '0')
+                Tasa: Number.parseFloat(tasaValue),
+                Importe: Number.parseFloat(importeValue)
             });
         }
 
@@ -214,19 +219,27 @@ export class SumasConceptos {
             };
         }
 
-        (this.traslados[key].Importe as number) += Number.parseFloat(attributes.get('Importe') || '0');
-        (this.traslados[key].Base as number) += Number.parseFloat(attributes.get('Base') || '0');
+        const attributeImporte = Number.isNaN(Number.parseFloat(attributes.get('Importe')))
+            ? '0'
+            : attributes.get('Importe');
+        (this.traslados[key].Importe as number) += Number.parseFloat(attributeImporte);
+
+        const attributeBase = Number.isNaN(Number.parseFloat(attributes.get('Base'))) ? '0' : attributes.get('Base');
+        (this.traslados[key].Base as number) += Number.parseFloat(attributeBase);
     }
 
     private addRetencion(retencion: CNodeInterface): void {
         const key = SumasConceptos.impuestoKey(retencion.get('Impuesto'));
         if (!this.retenciones[key]) {
             this.retenciones[key] = {
-                Impuesto: retencion.get('Impuesto') || '',
+                Impuesto: retencion.get('Impuesto'),
                 Importe: 0
             };
         }
 
-        (this.retenciones[key].Importe as number) += Number.parseFloat(retencion.get('Importe') || '0');
+        const retencionImporte = Number.isNaN(Number.parseFloat(retencion.get('Importe')))
+            ? '0'
+            : retencion.get('Importe');
+        (this.retenciones[key].Importe as number) += Number.parseFloat(retencionImporte);
     }
 }
