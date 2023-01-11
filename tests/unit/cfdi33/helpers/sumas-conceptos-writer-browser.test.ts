@@ -1,13 +1,16 @@
+/**
+ * \@vitest-environment jsdom
+ */
+
 import { CNode, XmlNodeUtils, install } from '@nodecfdi/cfdiutils-common';
-import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 
 import { Comprobante, SumasConceptosWriter } from '~/cfdi33';
 import { SumasConceptos } from '~/common/sumas-conceptos/sumas-conceptos';
 import { ImpuestosLocales } from '~/imp-local10/impuestos-locales';
 
-describe('Cfdi33.SumasConceptosWriter', () => {
+describe('Cfdi33.SumasConceptosWriter.Browser', () => {
     beforeAll(() => {
-        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+        install(new DOMParser(), new XMLSerializer(), document.implementation);
     });
 
     test('constructor', () => {

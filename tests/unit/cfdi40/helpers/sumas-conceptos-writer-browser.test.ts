@@ -1,13 +1,16 @@
-import { CNode, XmlNodeUtils, install } from '@nodecfdi/cfdiutils-common';
-import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
+/**
+ * \@vitest-environment jsdom
+ */
 
-import { Comprobante, SumasConceptosWriter } from '~/cfdi33';
+import { CNode, install, XmlNodeUtils } from '@nodecfdi/cfdiutils-common';
+
+import { Comprobante, SumasConceptosWriter } from '~/cfdi40';
 import { SumasConceptos } from '~/common/sumas-conceptos/sumas-conceptos';
 import { ImpuestosLocales } from '~/imp-local10/impuestos-locales';
 
-describe('Cfdi33.SumasConceptosWriter', () => {
+describe('Cfdi40.SumasConceptosWriter.Browser', () => {
     beforeAll(() => {
-        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+        install(new DOMParser(), new XMLSerializer(), document.implementation);
     });
 
     test('constructor', () => {
@@ -19,7 +22,7 @@ describe('Cfdi33.SumasConceptosWriter', () => {
 
         expect(writer.getPrecision()).toBe(precision);
         expect(writer.getSumasConceptos()).toStrictEqual(sumasConceptos);
-        expect(writer.hasWriteImpuestosBase()).toBeFalsy();
+        expect(writer.hasWriteImpuestosBase()).toBeTruthy();
     });
 
     test('format', () => {
@@ -42,9 +45,9 @@ describe('Cfdi33.SumasConceptosWriter', () => {
         const writer = new SumasConceptosWriter(comprobante, sumasConceptos, precision);
         writer.put();
 
-        expect(comprobante.get('SubTotal')).toBe('0.00');
-        expect(comprobante.offsetExists('Descuento')).toBeFalsy();
-        expect(comprobante.get('Total')).toBe('0.00');
+        expect(comprobante.attributes().get('SubTotal')).toBe('0.00');
+        expect(comprobante.attributes().has('Descuento')).toBeFalsy();
+        expect(comprobante.attributes().get('Total')).toBe('0.00');
         expect(comprobante.searchNode('cfdi:Impuestos')).toBeUndefined();
     });
 
@@ -58,9 +61,9 @@ describe('Cfdi33.SumasConceptosWriter', () => {
         const writer = new SumasConceptosWriter(comprobante, sumasConceptos, precision);
         writer.put();
 
-        expect(comprobante.get('SubTotal')).toBe('3000.00');
-        expect(comprobante.get('Descuento')).toBe('3000.00');
-        expect(comprobante.get('Total')).toBe('0.00');
+        expect(comprobante.attributes().get('SubTotal')).toBe('3000.00');
+        expect(comprobante.attributes().get('Descuento')).toBe('3000.00');
+        expect(comprobante.attributes().get('Total')).toBe('0.00');
         expect(comprobante.searchNode('cfdi:Impuestos')).toBeUndefined();
     });
 
@@ -86,14 +89,14 @@ describe('Cfdi33.SumasConceptosWriter', () => {
         const writer = new SumasConceptosWriter(comprobante, sumasConceptos, precision);
         writer.put();
 
-        expect(comprobante.get('SubTotal')).toBe('3000.00');
-        expect(comprobante.offsetExists('Descuento')).toBeFalsy();
-        expect(comprobante.get('Total')).toBe('3000.00');
+        expect(comprobante.attributes().get('SubTotal')).toBe('3000.00');
+        expect(comprobante.attributes().has('Descuento')).toBeFalsy();
+        expect(comprobante.attributes().get('Total')).toBe('3000.00');
         expect(comprobante.searchNode('cfdi:Impuestos')).not.toBeUndefined();
         const impuestos = comprobante.getImpuestos();
-        expect(impuestos.offsetExists('TotalImpuestosTrasladados')).toBeTruthy();
-        expect(impuestos.get('TotalImpuestosTrasladados')).toBe('0.00');
-        expect(impuestos.offsetExists('TotalImpuestosRetenidos')).toBeFalsy();
+        expect(impuestos.attributes().has('TotalImpuestosTrasladados')).toBeTruthy();
+        expect(impuestos.attributes().get('TotalImpuestosTrasladados')).toBe('0.00');
+        expect(impuestos.attributes().has('TotalImpuestosRetenidos')).toBeFalsy();
     });
 
     test('put with conceptos impuestos', () => {
@@ -118,14 +121,14 @@ describe('Cfdi33.SumasConceptosWriter', () => {
         const writer = new SumasConceptosWriter(comprobante, sumasConceptos, precision);
         writer.put();
 
-        expect(comprobante.get('SubTotal')).toBe('6000.00');
-        expect(comprobante.get('Descuento')).toBe('3000.00');
-        expect(comprobante.get('Total')).toBe('3480.00');
+        expect(comprobante.attributes().get('SubTotal')).toBe('6000.00');
+        expect(comprobante.attributes().get('Descuento')).toBe('3000.00');
+        expect(comprobante.attributes().get('Total')).toBe('3480.00');
         expect(comprobante.searchNode('cfdi:Impuestos')).not.toBeUndefined();
         const impuestos = comprobante.getImpuestos();
-        expect(impuestos.offsetExists('TotalImpuestosTrasladados')).toBeTruthy();
-        expect(impuestos.get('TotalImpuestosTrasladados')).toBe('480.00');
-        expect(impuestos.offsetExists('TotalImpuestosRetenidos')).toBeFalsy();
+        expect(impuestos.attributes().has('TotalImpuestosTrasladados')).toBeTruthy();
+        expect(impuestos.attributes().get('TotalImpuestosTrasladados')).toBe('480.00');
+        expect(impuestos.attributes().has('TotalImpuestosRetenidos')).toBeFalsy();
     });
 
     test('descuento with value zero exists if a concepto has descuento', () => {
@@ -138,7 +141,7 @@ describe('Cfdi33.SumasConceptosWriter', () => {
         const writer = new SumasConceptosWriter(comprobante, sumasConceptos, precision);
         writer.put();
 
-        expect(comprobante.get('Descuento')).toBe('0.00');
+        expect(comprobante.attributes().get('Descuento')).toBe('0.00');
     });
 
     test('descuento not set if all conceptos does not have descuento', () => {
@@ -152,10 +155,10 @@ describe('Cfdi33.SumasConceptosWriter', () => {
         writer.put();
 
         // The Comprobante@Descuento attribute must not exist since there is no Descuento in concepts
-        expect(comprobante.offsetExists('Descuento')).toBeFalsy();
+        expect(comprobante.attributes().has('Descuento')).toBeFalsy();
     });
 
-    test('on complemento impuestos importe sum is rounded cfdi', () => {
+    test('on complemento impuestos importe sum is rounded', () => {
         const comprobante = new Comprobante();
         comprobante.addConcepto().addTraslado({
             Base: '48.611106',
@@ -182,7 +185,7 @@ describe('Cfdi33.SumasConceptosWriter', () => {
         expect(comprobante.searchAttribute('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado', 'Importe')).toBe(
             '10.000'
         );
-        expect(traslado?.get('Base')).toBe('62.500');
+        expect(traslado?.attributes().get('Base')).toBe('62.500');
     });
 
     test('conceptos only with traslados exentos does not write traslados', () => {
@@ -236,8 +239,8 @@ describe('Cfdi33.SumasConceptosWriter', () => {
         const writer = new SumasConceptosWriter(comprobante, sumas, precision);
         writer.put();
 
-        expect(impLocal.get('TotaldeRetenciones')).toBe('54.86');
-        expect(impLocal.get('TotaldeTraslados')).toBe('54.86');
+        expect(impLocal.attributes().get('TotaldeRetenciones')).toBe('54.86');
+        expect(impLocal.attributes().get('TotaldeTraslados')).toBe('54.86');
     });
 
     test('remove impLocal complement when is empty and preserves others complements', () => {

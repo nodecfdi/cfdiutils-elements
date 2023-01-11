@@ -28,10 +28,10 @@ describe('Cfdi40.SumasConceptosWriter', () => {
         const sumasConceptos = new SumasConceptos(comprobante, precision);
         const writer = new SumasConceptosWriter(comprobante, sumasConceptos, precision);
 
-        expect(writer.format(1.2345664)).toBe('1.234566');
-        expect(writer.format(1.2345665)).toBe('1.234567');
-        expect(writer.format(1.2345674)).toBe('1.234567');
-        expect(writer.format(1.2345675)).toBe('1.234568');
+        expect(writer.format(1.234_566_4)).toBe('1.234566');
+        expect(writer.format(1.234_566_5)).toBe('1.234567');
+        expect(writer.format(1.234_567_4)).toBe('1.234567');
+        expect(writer.format(1.234_567_5)).toBe('1.234568');
         expect(writer.format(1)).toBe('1.000000');
     });
 
@@ -130,8 +130,8 @@ describe('Cfdi40.SumasConceptosWriter', () => {
 
     test('descuento with value zero exists if a concepto has descuento', () => {
         const comprobante = new Comprobante();
-        comprobante.addConcepto({}); // first concepto does not have Descuento
-        comprobante.addConcepto({ Descuento: '' }); // second concepto has Descuento
+        comprobante.addConcepto({}); // First concepto does not have Descuento
+        comprobante.addConcepto({ Descuento: '' }); // Second concepto has Descuento
 
         const precision = 2;
         const sumasConceptos = new SumasConceptos(comprobante, precision);
@@ -142,16 +142,16 @@ describe('Cfdi40.SumasConceptosWriter', () => {
     });
 
     test('descuento not set if all conceptos does not have descuento', () => {
-        const comprobante = new Comprobante({ Descuento: '' }); // set value with discount
-        comprobante.addConcepto(); // first concepto does not have Descuento
-        comprobante.addConcepto(); // second concepto does not have Descuento neither
+        const comprobante = new Comprobante({ Descuento: '' }); // Set value with discount
+        comprobante.addConcepto(); // First concepto does not have Descuento
+        comprobante.addConcepto(); // Second concepto does not have Descuento neither
 
         const precision = 2;
         const sumasConceptos = new SumasConceptos(comprobante, precision);
         const writer = new SumasConceptosWriter(comprobante, sumasConceptos, precision);
         writer.put();
 
-        // the Comprobante@Descuento attribute must not exist since there is no Descuento in concepts
+        // The Comprobante@Descuento attribute must not exist since there is no Descuento in concepts
         expect(comprobante.attributes().has('Descuento')).toBeFalsy();
     });
 
@@ -228,6 +228,7 @@ describe('Cfdi40.SumasConceptosWriter', () => {
                 TasadeTraslado: '2.50'
             });
         }
+
         comprobante.addComplemento(impLocal);
 
         const precision = 2;
