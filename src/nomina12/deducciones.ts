@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { Deduccion } from './deduccion';
 
@@ -14,10 +14,10 @@ export class Deducciones extends AbstractElement {
         return deduccion;
     }
 
-    public multiDeduccion(elementAttributes: Record<string, unknown>[] = []): Deducciones {
-        elementAttributes.forEach((attributes) => {
+    public multiDeduccion(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addDeduccion(attributes);
-        });
+        }
 
         return this;
     }

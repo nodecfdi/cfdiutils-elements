@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { Incapacidad } from './incapacidad';
 
@@ -14,10 +14,10 @@ export class Incapacidades extends AbstractElement {
         return incapacidad;
     }
 
-    public multiIncapacidad(elementAttributes: Record<string, unknown>[] = []): Incapacidades {
-        elementAttributes.forEach((attributes) => {
+    public multiIncapacidad(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addIncapacidad(attributes);
-        });
+        }
 
         return this;
     }
