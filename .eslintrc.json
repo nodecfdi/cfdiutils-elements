@@ -8,6 +8,7 @@
     },
     "rules": {
         // Eslint suite rules
+        "max-params": ["error", 5],
         "semi": "error",
         "quotes": [
             "error",
@@ -34,6 +35,10 @@
                     "constructors": "no-public"
                 }
             }
+        ],
+        "@typescript-eslint/naming-convention": [
+            "error",
+            { "selector": "class", "format": ["PascalCase", "camelCase"] }
         ],
 
         // Unicorn rules
