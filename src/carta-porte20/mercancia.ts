@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { CantidadTransporta } from './cantidad-transporta';
 import { DetalleMercancia } from './detalle-mercancia';
@@ -26,10 +26,10 @@ export class Mercancia extends AbstractElement {
         return subject;
     }
 
-    public multiPedimentos(...elementAttributes: Record<string, unknown>[]): Mercancia {
-        elementAttributes.forEach((attributes) => {
+    public multiPedimentos(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addPedimentos(attributes);
-        });
+        }
 
         return this;
     }
@@ -41,10 +41,10 @@ export class Mercancia extends AbstractElement {
         return subject;
     }
 
-    public multiGuiasIdentificacion(...elementAttributes: Record<string, unknown>[]): Mercancia {
-        elementAttributes.forEach((attributes) => {
+    public multiGuiasIdentificacion(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addGuiasIdentificacion(attributes);
-        });
+        }
 
         return this;
     }
@@ -56,10 +56,10 @@ export class Mercancia extends AbstractElement {
         return subject;
     }
 
-    public multiCantidadTransporta(...elementAttributes: Record<string, unknown>[]): Mercancia {
-        elementAttributes.forEach((attributes) => {
+    public multiCantidadTransporta(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addCantidadTransporta(attributes);
-        });
+        }
 
         return this;
     }

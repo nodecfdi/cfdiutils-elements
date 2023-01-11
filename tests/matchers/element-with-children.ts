@@ -3,19 +3,6 @@ import { CNode } from '@nodecfdi/cfdiutils-common';
 import { type AbstractElement } from '~/common/abstract-element';
 
 expect.extend({
-    /**
-     * Assert element returns last added child.
-     *
-     * - Validate element instance of expected class.
-     * - Validate when getter method is called again return same already created instance.
-     * - Validate size of attributes on empty instance is 0.
-     * - Validate size of attributes increments when new instance has attributes.
-     *
-     * @param received - Instance
-     * @param expected - Child class expected
-     * @param getterParameter - Function name for getter
-     * @param adderParameter - Function name for adder
-     */
     toElementHasChildSingle<T extends AbstractElement>(
         received: T,
         expected: CallableFunction,
@@ -49,17 +36,6 @@ expect.extend({
         };
     },
 
-    /**
-     * Assert element add two children to given element.
-     *
-     * - Validate element instance of expected class.
-     * - Validate when getter method is called again return same already created instance.
-     * - Validate element adder return initial instance with new children.
-     * - Validate element adder add to stack second child.
-     *
-     * @param received - Instance
-     * @param expected - Child class expected
-     */
     toElementHasChildSingleAddChild<T extends AbstractElement>(received: T, expected: CallableFunction) {
         received.children().removeAll();
         // Complemento
@@ -105,20 +81,6 @@ expect.extend({
         return { message: (): string => '', pass: true };
     },
 
-    /**
-     * Assert element returns all added children.
-     *
-     * - Validate first child is instance of expected class.
-     * - Validate first child attributes equals to 0.
-     * - Validate second child with one attribute again instance of expected class.
-     * - Validate second child has expected attribute.
-     * - Validate element instance contains two children.
-     * - Validate first child is not equal to second child.
-     * - Validate element instance method multiChildClassName add children to same expected received instance with new children added
-     *
-     * @param received - Instance
-     * @param expected - Child class expected
-     */
     toElementHasChildMultiple<T extends AbstractElement>(received: T, expected: CallableFunction) {
         received.children().removeAll();
 
@@ -181,12 +143,49 @@ expect.extend({
 });
 
 export type TestingLibraryMatchers<E, R> = {
+    /**
+     * Assert element returns last added child.
+     *
+     * - Validate element instance of expected class.
+     * - Validate when getter method is called again return same already created instance.
+     * - Validate size of attributes on empty instance is 0.
+     * - Validate size of attributes increments when new instance has attributes.
+     *
+     * @param expected - Child class expected
+     * @param getterParameter - Function name for getter
+     * @param adderParameter - Function name for adder
+     */
     toElementHasChildSingle<T extends AbstractElement>(
         expected: new () => T,
         getterParameter?: string,
         adderParameter?: string
     ): R;
+
+    /**
+     * Assert element add two children to given element.
+     *
+     * - Validate element instance of expected class.
+     * - Validate when getter method is called again return same already created instance.
+     * - Validate element adder return initial instance with new children.
+     * - Validate element adder add to stack second child.
+     *
+     * @param expected - Child class expected
+     */
     toElementHasChildSingleAddChild<T extends AbstractElement>(expected: new () => T): R;
+
+    /**
+     * Assert element returns all added children.
+     *
+     * - Validate first child is instance of expected class.
+     * - Validate first child attributes equals to 0.
+     * - Validate second child with one attribute again instance of expected class.
+     * - Validate second child has expected attribute.
+     * - Validate element instance contains two children.
+     * - Validate first child is not equal to second child.
+     * - Validate element instance method multiChildClassName add children to same expected received instance with new children added
+     *
+     * @param expected - Child class expected
+     */
     toElementHasChildMultiple<T extends AbstractElement>(expected: new () => T): R;
 } & Record<string, any>;
 
