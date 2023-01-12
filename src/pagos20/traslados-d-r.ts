@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { TrasladoDR } from './traslado-d-r';
 
@@ -14,10 +14,10 @@ export class TrasladosDR extends AbstractElement {
         return subject;
     }
 
-    public multiTrasladoDR(...elementAttributes: Record<string, unknown>[]): TrasladosDR {
-        elementAttributes.forEach((attributes) => {
+    public multiTrasladoDR(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addTrasladoDR(attributes);
-        });
+        }
 
         return this;
     }
