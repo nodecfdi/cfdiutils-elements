@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { DetallesDelServicio } from './detalles-del-servicio';
 
@@ -14,10 +14,10 @@ export class Servicios extends AbstractElement {
         return subject;
     }
 
-    public multiDetallesDelServicio(...elementAttributes: Record<string, unknown>[]): Servicios {
-        elementAttributes.forEach((attributes) => {
+    public multiDetallesDelServicio(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addDetallesDelServicio(attributes);
-        });
+        }
 
         return this;
     }

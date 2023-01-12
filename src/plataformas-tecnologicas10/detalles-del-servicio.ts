@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { ImpuestosTrasladadosdelServicio } from './impuestos-trasladados-del-servicio';
 import { ContribucionGubernamental } from './contribucion-gubernamental';
