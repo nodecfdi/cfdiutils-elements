@@ -1,4 +1,3 @@
-import { CNode } from '@nodecfdi/cfdiutils-common';
 import { Addenda, Complemento, Emisor, ImpRetenidos, Periodo, Receptor, Retenciones, Totales } from '~/retenciones10';
 
 describe('Elements.Retenciones10.Retenciones', () => {
@@ -30,13 +29,19 @@ describe('Elements.Retenciones10.Retenciones', () => {
     });
 
     test('imp retenidos', () => {
+        const empty = element.addImpRetenidos();
+        expect(empty).toBeInstanceOf(ImpRetenidos);
+
         const first = element.addImpRetenidos({ uuid: 'FOO' });
         expect(first).toBeInstanceOf(ImpRetenidos);
         expect(first.attributes().get('uuid')).toBe('FOO');
-        expect(element.getTotales().count()).toBe(1);
+        expect(element.getTotales().count()).toBe(2);
     });
 
     test('multi imp retenidos', () => {
+        const emptySelf = element.multiImpRetenidos();
+        expect(emptySelf).toBe(element);
+
         const self = element.multiImpRetenidos([{ uuid: 'FOO' }, { uuid: 'BAR' }]);
         expect(self).toBe(element);
         const parent = element.getTotales();
@@ -46,37 +51,11 @@ describe('Elements.Retenciones10.Retenciones', () => {
     });
 
     test('get complemento', () => {
-        expect(element.searchNode('retenciones:Complemento')).toBeUndefined();
-        const child = element.getComplemento();
-        expect(child).toBeInstanceOf(Complemento);
-        expect(element.searchNode('retenciones:Complemento')).toBe(child);
-    });
-
-    test('add complemento', () => {
-        expect(element.count()).toBe(0);
-
-        const child = new CNode('first');
-        const addReturn = element.addComplemento(child);
-        expect(element.count()).toBe(1);
-        expect(addReturn).toBe(element);
-        expect(element.searchNode('retenciones:Complemento', 'first')).toBe(child);
+        expect(element).toElementHasChildSingleAddChild(Complemento);
     });
 
     test('get addenda', () => {
-        expect(element.searchNode('retenciones:Addenda')).toBeUndefined();
-        const child = element.getAddenda();
-        expect(child).toBeInstanceOf(Addenda);
-        expect(element.searchNode('retenciones:Addenda')).toBe(child);
-    });
-
-    test('add addenda', () => {
-        expect(element.count()).toBe(0);
-
-        const child = new CNode('first');
-        const addReturn = element.addAddenda(child);
-        expect(element.count()).toBe(1);
-        expect(addReturn).toBe(element);
-        expect(element.searchNode('retenciones:Addenda', 'first')).toBe(child);
+        expect(element).toElementHasChildSingleAddChild(Addenda);
     });
 
     test('has fixed attributes', () => {

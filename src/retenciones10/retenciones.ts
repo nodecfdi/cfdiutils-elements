@@ -1,10 +1,10 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { Emisor } from './emisor';
 import { AbstractElement } from '../common/abstract-element';
 import { Receptor } from './receptor';
 import { Periodo } from './periodo';
 import { Totales } from './totales';
-import { ImpRetenidos } from './imp-retenidos';
+import { type ImpRetenidos } from './imp-retenidos';
 import { Complemento } from './complemento';
 import { Addenda } from './addenda';
 
@@ -61,7 +61,7 @@ export class Retenciones extends AbstractElement {
         return this.getTotales().addImpRetenidos(attributes);
     }
 
-    public multiImpRetenidos(elementAttributes: Record<string, unknown>[] = []): Retenciones {
+    public multiImpRetenidos(elementAttributes: Array<Record<string, unknown>> = []): this {
         this.getTotales().multiImpRetenidos(...elementAttributes);
 
         return this;
@@ -71,7 +71,7 @@ export class Retenciones extends AbstractElement {
         return this.helperGetOrAdd(new Complemento());
     }
 
-    public addComplemento(children: CNodeInterface): Retenciones {
+    public addComplemento(children: CNodeInterface): this {
         this.getComplemento().add(children);
 
         return this;
@@ -81,7 +81,7 @@ export class Retenciones extends AbstractElement {
         return this.helperGetOrAdd(new Addenda());
     }
 
-    public addAddenda(children: CNodeInterface): Retenciones {
+    public addAddenda(children: CNodeInterface): this {
         this.getAddenda().add(children);
 
         return this;
