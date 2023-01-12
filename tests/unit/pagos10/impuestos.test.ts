@@ -26,11 +26,11 @@ describe('Elements.Pagos10.Impuestos', () => {
     });
 
     test('children order', () => {
-        // add in inverse order
+        // Add in inverse order
         element.getTraslados();
         element.getRetenciones();
 
-        // retrieve in correct order
+        // Retrieve in correct order
         expect(element.children().get(0)).toBeInstanceOf(Retenciones);
         expect(element.children().get(1)).toBeInstanceOf(Traslados);
     });
