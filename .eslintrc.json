@@ -49,6 +49,7 @@
                 "checkArrowFunctions": false
             }
         ],
+        "unicorn/prefer-export-from": "off",
 
         // TSDOC rules
         "tsdoc/syntax": "warn"

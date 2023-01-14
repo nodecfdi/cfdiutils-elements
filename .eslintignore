@@ -5,5 +5,5 @@ docs
 temp
 
 # Config files
-tsup.config.ts
+rollup.config.mjs
 vitest.config.ts
