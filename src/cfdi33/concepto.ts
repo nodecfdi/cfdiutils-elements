@@ -9,19 +9,33 @@ import { CuentaPredial } from './cuenta-predial';
 import { ComplementoConcepto } from './complemento-concepto';
 import { Parte } from './parte';
 
-class TConcepto extends AbstractElement {
+class Concepto extends Mixin<
+    unknown[],
+    AbstractElement,
+    typeof AbstractElement,
+    unknown[],
+    InformacionAduaneraTrait,
+    typeof InformacionAduaneraTrait,
+    unknown[],
+    ImpuestosTrait,
+    typeof ImpuestosTrait
+>(
+    class extends AbstractElement {
+        public override getChildrenOrder(): string[] {
+            return [
+                'cfdi:Impuestos',
+                'cfdi:InformacionAduanera',
+                'cfdi:CuentaPredial',
+                'cfdi:ComplementoConcepto',
+                'cfdi:Parte'
+            ];
+        }
+    },
+    InformacionAduaneraTrait,
+    ImpuestosTrait
+) {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cfdi:Concepto', attributes, children);
-    }
-
-    public override getChildrenOrder(): string[] {
-        return [
-            'cfdi:Impuestos',
-            'cfdi:InformacionAduanera',
-            'cfdi:CuentaPredial',
-            'cfdi:ComplementoConcepto',
-            'cfdi:Parte'
-        ];
     }
 
     public getImpuestos(): ConceptoImpuestos {
@@ -69,7 +83,5 @@ class TConcepto extends AbstractElement {
         return this;
     }
 }
-
-class Concepto extends Mixin(TConcepto, InformacionAduaneraTrait, ImpuestosTrait) {}
 
 export { Concepto };

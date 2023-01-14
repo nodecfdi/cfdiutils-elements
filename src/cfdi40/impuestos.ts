@@ -6,17 +6,27 @@ import { Traslados } from './traslados';
 import { Retenciones } from './retenciones';
 import { ImpuestosTrait } from './traits/impuestos-trait';
 
-class TImpuestos extends AbstractElement {
+class Impuestos extends Mixin<
+    unknown[],
+    AbstractElement,
+    typeof AbstractElement,
+    unknown[],
+    ImpuestosTrait,
+    typeof ImpuestosTrait
+>(
+    class extends AbstractElement {
+        public override getChildrenOrder(): string[] {
+            return ['cfdi:Retenciones', 'cfdi:Traslados'];
+        }
+    },
+    ImpuestosTrait
+) {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cfdi:Impuestos', attributes, children);
     }
 
     public getElementImpuestos(): this {
         return this;
-    }
-
-    public override getChildrenOrder(): string[] {
-        return ['cfdi:Retenciones', 'cfdi:Traslados'];
     }
 
     public getTraslados(): Traslados {
@@ -41,7 +51,5 @@ class TImpuestos extends AbstractElement {
         return subject;
     }
 }
-
-class Impuestos extends Mixin(TImpuestos, ImpuestosTrait) {}
 
 export { Impuestos };

@@ -13,35 +13,46 @@ import { Addenda } from './addenda';
 import { ImpuestosTrait } from './traits/impuestos-trait';
 import { type Concepto } from './concepto';
 
-class TComprobante extends AbstractElement {
+class Comprobante extends Mixin<
+    unknown[],
+    AbstractElement,
+    typeof AbstractElement,
+    unknown[],
+    ImpuestosTrait,
+    typeof ImpuestosTrait
+>(
+    class extends AbstractElement {
+        public override getChildrenOrder(): string[] {
+            return [
+                'cfdi:InformacionGlobal',
+                'cfdi:CfdiRelacionados',
+                'cfdi:Emisor',
+                'cfdi:Receptor',
+                'cfdi:Conceptos',
+                'cfdi:Impuestos',
+                'cfdi:Complemento',
+                'cfdi:Addenda'
+            ];
+        }
+
+        public override getFixedAttributes(): Record<string, string> {
+            return {
+                'xmlns:cfdi': 'http://www.sat.gob.mx/cfd/4',
+                'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+                'xsi:schemaLocation':
+                    'http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd',
+                'Version': '4.0'
+            };
+        }
+    },
+    ImpuestosTrait
+) {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cfdi:Comprobante', attributes, children);
     }
 
     public getElementImpuestos(): Impuestos {
         return this.getImpuestos();
-    }
-
-    public override getChildrenOrder(): string[] {
-        return [
-            'cfdi:InformacionGlobal',
-            'cfdi:CfdiRelacionados',
-            'cfdi:Emisor',
-            'cfdi:Receptor',
-            'cfdi:Conceptos',
-            'cfdi:Impuestos',
-            'cfdi:Complemento',
-            'cfdi:Addenda'
-        ];
-    }
-
-    public override getFixedAttributes(): Record<string, string> {
-        return {
-            'xmlns:cfdi': 'http://www.sat.gob.mx/cfd/4',
-            'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-            'xsi:schemaLocation': 'http://www.sat.gob.mx/cfd/4 http://www.sat.gob.mx/sitio_internet/cfd/4/cfdv40.xsd',
-            'Version': '4.0'
-        };
     }
 
     public getInformacionGlobal(): InformacionGlobal {
@@ -138,7 +149,5 @@ class TComprobante extends AbstractElement {
         return this.getConceptos().addConcepto(attributes);
     }
 }
-
-class Comprobante extends Mixin(TComprobante, ImpuestosTrait) {}
 
 export { Comprobante };
