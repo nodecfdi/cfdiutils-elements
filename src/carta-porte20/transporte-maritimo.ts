@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { Contenedor } from './contenedor';
 
@@ -14,10 +14,10 @@ export class TransporteMaritimo extends AbstractElement {
         return subject;
     }
 
-    public multiContenedor(...elementAttributes: Record<string, unknown>[]): TransporteMaritimo {
-        elementAttributes.forEach((attributes) => {
+    public multiContenedor(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addContenedor(attributes);
-        });
+        }
 
         return this;
     }

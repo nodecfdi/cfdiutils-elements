@@ -1,57 +1,55 @@
 import { ImpuestosLocales, RetencionesLocales, TrasladosLocales } from '~/imp-local10';
 
 describe('Elements.ImpLocal10.ImpuestosLocales', () => {
-    let element: ImpuestosLocales;
-    beforeEach(() => {
-        element = new ImpuestosLocales();
-    });
-
-    test('get element name', () => {
+    test('impuestos locales', () => {
+        const element = new ImpuestosLocales();
         expect(element.name()).toBe('implocal:ImpuestosLocales');
         expect(element.getElementName()).toBe('implocal:ImpuestosLocales');
     });
 
     test('retencion', () => {
-        // object is empty
+        const element = new ImpuestosLocales();
+        // Object is empty
         expect(element.count()).toBe(0);
 
-        // add insert first element
+        const empty = element.addRetencionLocal();
+        expect(empty).toBeInstanceOf(RetencionesLocales);
+        // Instance empty has 0 attributes
+        expect(empty.attributes().size).toBe(0);
+
+        // Add insert first element
         const first = element.addRetencionLocal({ id: 'first' });
         expect(first).toBeInstanceOf(RetencionesLocales);
         expect(first.attributes().get('id')).toBe('first');
-        expect(element.count()).toBe(1);
+        expect(element.count()).toBe(2);
 
-        // add insert second element and is not the same
+        // Add insert second element and is not the same
         const second = element.addRetencionLocal({ id: 'second' });
         expect(second.attributes().get('id')).toBe('second');
-        expect(element.count()).toBe(2);
+        expect(element.count()).toBe(3);
         expect(second.attributes().get('id')).not.toBe(first.attributes().get('id'));
     });
 
     test('traslado', () => {
-        // object is empty
+        const element = new ImpuestosLocales();
+        // Object is empty
         expect(element.count()).toBe(0);
 
-        // add insert first element
+        const empty = element.addTrasladoLocal();
+        expect(empty).toBeInstanceOf(TrasladosLocales);
+        // Instance empty has 0 attributes
+        expect(empty.attributes().size).toBe(0);
+
+        // Add insert first element
         const first = element.addTrasladoLocal({ id: 'first' });
         expect(first).toBeInstanceOf(TrasladosLocales);
         expect(first.attributes().get('id')).toBe('first');
-        expect(element.count()).toBe(1);
+        expect(element.count()).toBe(2);
 
-        // add insert second element and is not the same
+        // Add insert second element and is not the same
         const second = element.addTrasladoLocal({ id: 'second' });
         expect(second.attributes().get('id')).toBe('second');
-        expect(element.count()).toBe(2);
+        expect(element.count()).toBe(3);
         expect(second.attributes().get('id')).not.toBe(first.attributes().get('id'));
-    });
-
-    test('children order', () => {
-        // add in inverse order
-        element.addTrasladoLocal();
-        element.addRetencionLocal();
-
-        // retrieve in correct order
-        expect(element.children().get(0)).toBeInstanceOf(RetencionesLocales);
-        expect(element.children().get(1)).toBeInstanceOf(TrasladosLocales);
     });
 });

@@ -1,15 +1,13 @@
-import { Impuestos } from '../impuestos';
-import { Traslado } from '../traslado';
-import { Retencion } from '../retencion';
+import { type Impuestos } from '../impuestos';
+import { type Traslado } from '../traslado';
+import { type Retencion } from '../retencion';
 
 export abstract class ImpuestosTrait {
-    public abstract getElementImpuestos(): Impuestos;
-
     public addTraslado(attributes: Record<string, unknown> = {}): Traslado {
         return this.getElementImpuestos().getTraslados().addTraslado(attributes);
     }
 
-    public multiTraslado(...elementAttributes: Record<string, unknown>[]): this {
+    public multiTraslado(...elementAttributes: Array<Record<string, unknown>>): this {
         this.getElementImpuestos()
             .getTraslados()
             .multiTraslado(...elementAttributes);
@@ -21,11 +19,13 @@ export abstract class ImpuestosTrait {
         return this.getElementImpuestos().getRetenciones().addRetencion(attributes);
     }
 
-    public multiRetencion(...elementAttributes: Record<string, unknown>[]): this {
+    public multiRetencion(...elementAttributes: Array<Record<string, unknown>>): this {
         this.getElementImpuestos()
             .getRetenciones()
             .multiRetencion(...elementAttributes);
 
         return this;
     }
+
+    public abstract getElementImpuestos(): Impuestos;
 }

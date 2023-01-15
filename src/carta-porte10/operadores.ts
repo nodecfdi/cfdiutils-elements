@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { Operador } from './operador';
 
@@ -14,10 +14,10 @@ export class Operadores extends AbstractElement {
         return subject;
     }
 
-    public multiOperador(...elementAttributes: Record<string, unknown>[]): Operadores {
-        elementAttributes.forEach((attributes) => {
+    public multiOperador(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addOperador(attributes);
-        });
+        }
 
         return this;
     }

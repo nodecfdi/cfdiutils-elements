@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { DoctoRelacionado } from './docto-relacionado';
 import { ImpuestosP } from './impuestos-p';
@@ -19,10 +19,10 @@ export class Pago extends AbstractElement {
         return subject;
     }
 
-    public multiDoctoRelacionado(...elementAttributes: Record<string, unknown>[]): Pago {
-        elementAttributes.forEach((attributes) => {
+    public multiDoctoRelacionado(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addDoctoRelacionado(attributes);
-        });
+        }
 
         return this;
     }

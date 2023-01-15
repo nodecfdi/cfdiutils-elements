@@ -1,19 +1,51 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { Mixin } from 'ts-mixer';
 
 import { AbstractElement } from '../common/abstract-element';
 import { ImpuestosTrait } from './traits/impuestos-trait';
 import { CfdiRelacionados } from './cfdi-relacionados';
-import { CfdiRelacionado } from './cfdi-relacionado';
+import { type CfdiRelacionado } from './cfdi-relacionado';
 import { Emisor } from './emisor';
 import { Receptor } from './receptor';
 import { Conceptos } from './conceptos';
-import { Concepto } from './concepto';
+import { type Concepto } from './concepto';
 import { Impuestos } from './impuestos';
 import { Complemento } from './complemento';
 import { Addenda } from './addenda';
-import { Mixin } from 'ts-mixer';
 
-class TComprobante extends AbstractElement {
+class Comprobante extends Mixin<
+    unknown[],
+    AbstractElement,
+    typeof AbstractElement,
+    unknown[],
+    ImpuestosTrait,
+    typeof ImpuestosTrait
+>(
+    class extends AbstractElement {
+        public override getChildrenOrder(): string[] {
+            return [
+                'cfdi:CfdiRelacionados',
+                'cfdi:Emisor',
+                'cfdi:Receptor',
+                'cfdi:Conceptos',
+                'cfdi:Impuestos',
+                'cfdi:Complemento',
+                'cfdi:Addenda'
+            ];
+        }
+
+        public override getFixedAttributes(): Record<string, string> {
+            return {
+                'xmlns:cfdi': 'http://www.sat.gob.mx/cfd/3',
+                'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+                'xsi:schemaLocation':
+                    'http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd',
+                'Version': '3.3'
+            };
+        }
+    },
+    ImpuestosTrait
+) {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cfdi:Comprobante', attributes, children);
     }
@@ -33,7 +65,7 @@ class TComprobante extends AbstractElement {
         return this.getCfdiRelacionados().addCfdiRelacionado(attributes);
     }
 
-    public multiCfdiRelacionado(...elementAttributes: Record<string, unknown>[]): this {
+    public multiCfdiRelacionado(...elementAttributes: Array<Record<string, unknown>>): this {
         this.getCfdiRelacionados().multiCfdiRelacionado(...elementAttributes);
 
         return this;
@@ -106,29 +138,6 @@ class TComprobante extends AbstractElement {
 
         return this;
     }
-
-    public override getChildrenOrder(): string[] {
-        return [
-            'cfdi:CfdiRelacionados',
-            'cfdi:Emisor',
-            'cfdi:Receptor',
-            'cfdi:Conceptos',
-            'cfdi:Impuestos',
-            'cfdi:Complemento',
-            'cfdi:Addenda'
-        ];
-    }
-
-    public override getFixedAttributes(): Record<string, string> {
-        return {
-            'xmlns:cfdi': 'http://www.sat.gob.mx/cfd/3',
-            'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-            'xsi:schemaLocation': 'http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd',
-            'Version': '3.3'
-        };
-    }
 }
-
-class Comprobante extends Mixin(TComprobante, ImpuestosTrait) {}
 
 export { Comprobante };

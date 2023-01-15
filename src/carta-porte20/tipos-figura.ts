@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { Domicilio } from './domicilio';
 import { PartesTransporte } from './partes-transporte';
@@ -19,10 +19,10 @@ export class TiposFigura extends AbstractElement {
         return subject;
     }
 
-    public multiPartesTransporte(...elementAttributes: Record<string, unknown>[]): TiposFigura {
-        elementAttributes.forEach((attributes) => {
+    public multiPartesTransporte(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addPartesTransporte(attributes);
-        });
+        }
 
         return this;
     }

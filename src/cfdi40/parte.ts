@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { InformacionAduanera } from './informacion-aduanera';
 
@@ -14,10 +14,10 @@ export class Parte extends AbstractElement {
         return subject;
     }
 
-    public multiInformacionAduanera(...elementAttributes: Record<string, unknown>[]): Parte {
-        elementAttributes.forEach((attributes) => {
+    public multiInformacionAduanera(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addInformacionAduanera(attributes);
-        });
+        }
 
         return this;
     }

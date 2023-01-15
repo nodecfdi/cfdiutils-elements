@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { Mixin } from 'ts-mixer';
 
 import { AbstractElement } from '../common/abstract-element';
@@ -10,24 +10,34 @@ import { Parte } from './parte';
 import { ImpuestosTrait } from './traits/impuestos-trait';
 import { ConceptoImpuestos } from './concepto-impuestos';
 
-class TConcepto extends AbstractElement {
+class Concepto extends Mixin<
+    unknown[],
+    AbstractElement,
+    typeof AbstractElement,
+    unknown[],
+    ImpuestosTrait,
+    typeof ImpuestosTrait
+>(
+    class extends AbstractElement {
+        public override getChildrenOrder(): string[] {
+            return [
+                'cfdi:Impuestos',
+                'cfdi:ACuentaTerceros',
+                'cfdi:InformacionAduanera',
+                'cfdi:CuentaPredial',
+                'cfdi:ComplementoConcepto',
+                'cfdi:Parte'
+            ];
+        }
+    },
+    ImpuestosTrait
+) {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
         super('cfdi:Concepto', attributes, children);
     }
 
     public getElementImpuestos(): ConceptoImpuestos {
         return this.getImpuestos();
-    }
-
-    public override getChildrenOrder(): string[] {
-        return [
-            'cfdi:Impuestos',
-            'cfdi:ACuentaTerceros',
-            'cfdi:InformacionAduanera',
-            'cfdi:CuentaPredial',
-            'cfdi:ComplementoConcepto',
-            'cfdi:Parte'
-        ];
     }
 
     public getImpuestos(): ConceptoImpuestos {
@@ -59,10 +69,10 @@ class TConcepto extends AbstractElement {
         return subject;
     }
 
-    public multiInformacionAduanera(...elementAttributes: Record<string, unknown>[]): this {
-        elementAttributes.forEach((attributes) => {
+    public multiInformacionAduanera(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addInformacionAduanera(attributes);
-        });
+        }
 
         return this;
     }
@@ -74,10 +84,10 @@ class TConcepto extends AbstractElement {
         return subject;
     }
 
-    public multiCuentaPredial(...elementAttributes: Record<string, unknown>[]): this {
-        elementAttributes.forEach((attributes) => {
+    public multiCuentaPredial(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addCuentaPredial(attributes);
-        });
+        }
 
         return this;
     }
@@ -99,15 +109,13 @@ class TConcepto extends AbstractElement {
         return subject;
     }
 
-    public multiParte(...elementAttributes: Record<string, unknown>[]): this {
-        elementAttributes.forEach((attributes) => {
+    public multiParte(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addParte(attributes);
-        });
+        }
 
         return this;
     }
 }
-
-class Concepto extends Mixin(TConcepto, ImpuestosTrait) {}
 
 export { Concepto };

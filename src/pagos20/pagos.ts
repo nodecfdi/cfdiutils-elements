@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { Totales } from './totales';
 import { Pago } from './pago';
@@ -39,10 +39,10 @@ export class Pagos extends AbstractElement {
         return subject;
     }
 
-    public multiPago(...elementAttributes: Record<string, unknown>[]): Pagos {
-        elementAttributes.forEach((attributes) => {
+    public multiPago(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addPago(attributes);
-        });
+        }
 
         return this;
     }

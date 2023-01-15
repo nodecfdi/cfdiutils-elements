@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { DescripcionesEspecificas } from './descripciones-especificas';
 
@@ -14,10 +14,10 @@ export class Mercancia extends AbstractElement {
         return subject;
     }
 
-    public multiDescripcionesEspecificas(...elementAttributes: Record<string, unknown>[]): this {
-        elementAttributes.forEach((attributes) => {
+    public multiDescripcionesEspecificas(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addDescripcionesEspecificas(attributes);
-        });
+        }
 
         return this;
     }

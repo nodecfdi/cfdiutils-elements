@@ -12,11 +12,11 @@ describe('Elements.Cfdi33.Conceptos', () => {
     });
 
     test('add concepto', () => {
-        // no child's
+        // No child's
         const parent = element;
         expect(parent.count()).toBe(0);
 
-        // add first child
+        // Add first child
         const first = parent.addConcepto({
             name: 'first'
         });
@@ -24,7 +24,7 @@ describe('Elements.Cfdi33.Conceptos', () => {
         expect(first.attributes().get('name')).toBe('first');
         expect(parent.count()).toBe(1);
 
-        // add second child
+        // Add second child
         parent.addConcepto();
         expect(parent.count()).toBe(2);
     });

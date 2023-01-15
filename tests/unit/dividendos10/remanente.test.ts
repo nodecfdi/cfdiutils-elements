@@ -1,13 +1,8 @@
 import { Remanente } from '~/dividendos10';
 
 describe('Elements.Dividendos10.Remanente', () => {
-    let element: Remanente;
-
-    beforeEach(() => {
-        element = new Remanente();
-    });
-
-    test('get element name', () => {
+    test('remanente', () => {
+        const element = new Remanente();
         expect(element.name()).toBe('dividendos:Remanente');
         expect(element.getElementName()).toBe('dividendos:Remanente');
     });

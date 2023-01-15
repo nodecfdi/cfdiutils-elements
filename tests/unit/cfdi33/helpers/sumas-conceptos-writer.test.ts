@@ -1,18 +1,19 @@
 import { CNode, XmlNodeUtils, install } from '@nodecfdi/cfdiutils-common';
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
 
-import { Comprobante, SumasConceptosWriter } from '~/cfdi33';
+import { Comprobante as Comprobante33, SumasConceptosWriter } from '~/cfdi33';
+import { Comprobante as Comprobante40 } from '~/cfdi40';
 import { SumasConceptos } from '~/common/sumas-conceptos/sumas-conceptos';
 import { ImpuestosLocales } from '~/imp-local10/impuestos-locales';
 
-describe('Cfdi40.SumasConceptosWriter', () => {
+describe('Cfdi33.SumasConceptosWriter', () => {
     beforeAll(() => {
         install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
     });
 
     test('constructor', () => {
         const precision = 6;
-        const comprobante = new Comprobante();
+        const comprobante = new Comprobante33();
         const sumasConceptos = new SumasConceptos(comprobante, precision);
         const writer = new SumasConceptosWriter(comprobante, sumasConceptos, precision);
         expect(writer.getComprobante()).toStrictEqual(comprobante);
@@ -22,22 +23,30 @@ describe('Cfdi40.SumasConceptosWriter', () => {
         expect(writer.hasWriteImpuestosBase()).toBeFalsy();
     });
 
+    test('constructor throws error on pass another comprobante different of cfdi33', () => {
+        const comprobante = new Comprobante40();
+        const sumasConceptos = new SumasConceptos(comprobante);
+        const writer = new SumasConceptosWriter(comprobante as unknown as Comprobante33, sumasConceptos);
+        expect(() => writer.getComprobante()).toThrow(TypeError);
+        expect(() => writer.getComprobante()).toThrow('Property comprobante is not instance of Comprobante33');
+    });
+
     test('format', () => {
         const precision = 6;
-        const comprobante = new Comprobante();
+        const comprobante = new Comprobante33();
         const sumasConceptos = new SumasConceptos(comprobante, precision);
         const writer = new SumasConceptosWriter(comprobante, sumasConceptos, precision);
 
-        expect(writer.format(1.2345664)).toBe('1.234566');
-        expect(writer.format(1.2345665)).toBe('1.234567');
-        expect(writer.format(1.2345674)).toBe('1.234567');
-        expect(writer.format(1.2345675)).toBe('1.234568');
+        expect(writer.format(1.234_566_4)).toBe('1.234566');
+        expect(writer.format(1.234_566_5)).toBe('1.234567');
+        expect(writer.format(1.234_567_4)).toBe('1.234567');
+        expect(writer.format(1.234_567_5)).toBe('1.234568');
         expect(writer.format(1)).toBe('1.000000');
     });
 
     test('put with empty values', () => {
         const precision = 2;
-        const comprobante = new Comprobante();
+        const comprobante = new Comprobante33();
         const sumasConceptos = new SumasConceptos(comprobante, precision);
         const writer = new SumasConceptosWriter(comprobante, sumasConceptos, precision);
         writer.put();
@@ -50,7 +59,7 @@ describe('Cfdi40.SumasConceptosWriter', () => {
 
     test('put with empty conceptos impuestos', () => {
         const precision = 2;
-        const comprobante = new Comprobante();
+        const comprobante = new Comprobante33();
         comprobante.addConcepto({ Importe: 1000, Descuento: 1000 });
         comprobante.addConcepto({ Importe: 2000, Descuento: 2000 });
 
@@ -66,7 +75,7 @@ describe('Cfdi40.SumasConceptosWriter', () => {
 
     test('put with zero conceptos impuestos', () => {
         const precision = 2;
-        const comprobante = new Comprobante();
+        const comprobante = new Comprobante33();
         comprobante.addConcepto({ Importe: '1000' }).addTraslado({
             Base: '1000',
             Impuesto: '002',
@@ -98,7 +107,7 @@ describe('Cfdi40.SumasConceptosWriter', () => {
 
     test('put with conceptos impuestos', () => {
         const precision = 2;
-        const comprobante = new Comprobante();
+        const comprobante = new Comprobante33();
         comprobante.addConcepto({ Importe: '2000', Descuento: '1000' }).addTraslado({
             Base: '1000',
             Impuesto: '002',
@@ -129,9 +138,9 @@ describe('Cfdi40.SumasConceptosWriter', () => {
     });
 
     test('descuento with value zero exists if a concepto has descuento', () => {
-        const comprobante = new Comprobante();
-        comprobante.addConcepto({}); // first concepto does not have Descuento
-        comprobante.addConcepto({ Descuento: '' }); // second concepto has Descuento
+        const comprobante = new Comprobante33();
+        comprobante.addConcepto({}); // First concepto does not have Descuento
+        comprobante.addConcepto({ Descuento: '' }); // Second concepto has Descuento
 
         const precision = 2;
         const sumasConceptos = new SumasConceptos(comprobante, precision);
@@ -142,21 +151,21 @@ describe('Cfdi40.SumasConceptosWriter', () => {
     });
 
     test('descuento not set if all conceptos does not have descuento', () => {
-        const comprobante = new Comprobante({ Descuento: '' }); // set value with discount
-        comprobante.addConcepto(); // first concepto does not have Descuento
-        comprobante.addConcepto(); // second concepto does not have Descuento neither
+        const comprobante = new Comprobante33({ Descuento: '' }); // Set value with discount
+        comprobante.addConcepto(); // First concepto does not have Descuento
+        comprobante.addConcepto(); // Second concepto does not have Descuento neither
 
         const precision = 2;
         const sumasConceptos = new SumasConceptos(comprobante, precision);
         const writer = new SumasConceptosWriter(comprobante, sumasConceptos, precision);
         writer.put();
 
-        // the Comprobante@Descuento attribute must not exist since there is no Descuento in concepts
+        // The Comprobante@Descuento attribute must not exist since there is no Descuento in concepts
         expect(comprobante.offsetExists('Descuento')).toBeFalsy();
     });
 
     test('on complemento impuestos importe sum is rounded cfdi', () => {
-        const comprobante = new Comprobante();
+        const comprobante = new Comprobante33();
         comprobante.addConcepto().addTraslado({
             Base: '48.611106',
             Importe: '7.777777',
@@ -186,7 +195,7 @@ describe('Cfdi40.SumasConceptosWriter', () => {
     });
 
     test('conceptos only with traslados exentos does not write traslados', () => {
-        const comprobante = new Comprobante();
+        const comprobante = new Comprobante33();
         const concepto = comprobante.addConcepto();
         concepto.addTraslado({ Base: '1000', Impuesto: '002', TipoFactor: 'Exento' });
         concepto.addRetencion({
@@ -214,7 +223,7 @@ describe('Cfdi40.SumasConceptosWriter', () => {
     });
 
     test('set required impLocal attributes', () => {
-        const comprobante = new Comprobante();
+        const comprobante = new Comprobante33();
         const impLocal = new ImpuestosLocales();
         for (let index = 0; index < 2; index++) {
             impLocal.addTrasladoLocal({
@@ -228,6 +237,7 @@ describe('Cfdi40.SumasConceptosWriter', () => {
                 TasadeTraslado: '2.50'
             });
         }
+
         comprobante.addComplemento(impLocal);
 
         const precision = 2;
@@ -240,7 +250,7 @@ describe('Cfdi40.SumasConceptosWriter', () => {
     });
 
     test('remove impLocal complement when is empty and preserves others complements', () => {
-        const comprobante = new Comprobante();
+        const comprobante = new Comprobante33();
         comprobante.addComplemento(new CNode('other:PrimerComplemento'));
         comprobante.addComplemento(new ImpuestosLocales());
         comprobante.addComplemento(new CNode('other:UltimoComplemento'));
@@ -257,7 +267,7 @@ describe('Cfdi40.SumasConceptosWriter', () => {
     });
 
     test('RemoveImpLocalComplementAndRemoveComplementoNodeWhenIsEmpty', () => {
-        const comprobante = new Comprobante();
+        const comprobante = new Comprobante33();
         comprobante.addComplemento(new ImpuestosLocales());
 
         const precision = 2;

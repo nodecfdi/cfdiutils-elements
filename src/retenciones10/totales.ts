@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { ImpRetenidos } from './imp-retenidos';
 
@@ -14,10 +14,10 @@ export class Totales extends AbstractElement {
         return subject;
     }
 
-    public multiImpRetenidos(...elementAttributes: Record<string, unknown>[]): Totales {
-        elementAttributes.forEach((attributes) => {
+    public multiImpRetenidos(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addImpRetenidos(attributes);
-        });
+        }
 
         return this;
     }

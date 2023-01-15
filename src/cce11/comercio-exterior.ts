@@ -1,11 +1,11 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { Emisor } from './emisor';
 import { Receptor } from './receptor';
 import { Propietario } from './propietario';
 import { Destinatario } from './destinatario';
 import { Mercancias } from './mercancias';
-import { Mercancia } from './mercancia';
+import { type Mercancia } from './mercancia';
 
 export class ComercioExterior extends AbstractElement {
     constructor(attributes: Record<string, unknown> = {}, children: CNodeInterface[] = []) {
@@ -41,10 +41,10 @@ export class ComercioExterior extends AbstractElement {
         return subject;
     }
 
-    public multiPropietario(...elementAttributes: Record<string, unknown>[]): this {
-        elementAttributes.forEach((attributes) => {
+    public multiPropietario(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addPropietario(attributes);
-        });
+        }
 
         return this;
     }
@@ -56,10 +56,10 @@ export class ComercioExterior extends AbstractElement {
         return subject;
     }
 
-    public multiDestinatario(...elementAttributes: Record<string, unknown>[]): this {
-        elementAttributes.forEach((attributes) => {
+    public multiDestinatario(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addDestinatario(attributes);
-        });
+        }
 
         return this;
     }

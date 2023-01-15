@@ -10,10 +10,10 @@ describe('Elements.Cfdi33.Retenciones', () => {
     test('add retencion', () => {
         const element = new Retenciones();
 
-        // no child's
+        // No child's
         expect(element.count()).toBe(0);
 
-        // add first child
+        // Add first child
         const first = element.addRetencion({
             name: 'first'
         });
@@ -21,11 +21,11 @@ describe('Elements.Cfdi33.Retenciones', () => {
         expect(first.attributes().get('name')).toBe('first');
         expect(element.count()).toBe(1);
 
-        // add second child
+        // Add second child
         const second = element.addRetencion();
         expect(element.count()).toBe(2);
 
-        // test that first and second are not the same
+        // Test that first and second are not the same
         expect(first.attributes().get('name')).not.toBe(second.attributes().get('name'));
     });
 

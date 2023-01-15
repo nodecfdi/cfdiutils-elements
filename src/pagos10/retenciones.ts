@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { Retencion } from './retencion';
 
@@ -14,10 +14,10 @@ export class Retenciones extends AbstractElement {
         return retencion;
     }
 
-    public multiRetencion(...elementAttributes: Record<string, unknown>[]): Retenciones {
-        elementAttributes.forEach((attributes) => {
+    public multiRetencion(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addRetencion(attributes);
-        });
+        }
 
         return this;
     }

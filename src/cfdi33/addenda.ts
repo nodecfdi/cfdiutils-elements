@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 
 export class Addenda extends AbstractElement {
@@ -6,7 +6,7 @@ export class Addenda extends AbstractElement {
         super('cfdi:Addenda', attributes, children);
     }
 
-    public add(child: CNodeInterface): Addenda {
+    public add(child: CNodeInterface): this {
         this.children().add(child);
 
         return this;

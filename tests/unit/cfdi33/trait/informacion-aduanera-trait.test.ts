@@ -1,13 +1,13 @@
-import { UseInformacionAduanera } from './use-informacion-aduanera';
 import { InformacionAduanera } from '~/cfdi33';
+import { UseInformacionAduanera } from './use-informacion-aduanera';
 
 describe('Elements.Cfdi33.Trait.InformacionAduaneraTrait', () => {
     test('add informacion aduanera', () => {
-        // no child's
+        // No child's
         const node = new UseInformacionAduanera('X');
         expect(node.count()).toBe(0);
 
-        // add first child
+        // Add first child
         const first = node.addInformacionAduanera({
             name: 'first'
         });
@@ -15,7 +15,7 @@ describe('Elements.Cfdi33.Trait.InformacionAduaneraTrait', () => {
         expect(first.attributes().get('name')).toBe('first');
         expect(node.count()).toBe(1);
 
-        // add second child
+        // Add second child
         node.addInformacionAduanera();
         expect(node.count()).toBe(2);
     });

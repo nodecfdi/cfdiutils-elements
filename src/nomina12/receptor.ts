@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { SubContratacion } from './sub-contratacion';
 
@@ -14,10 +14,10 @@ export class Receptor extends AbstractElement {
         return subContratacion;
     }
 
-    public multiSubContratacion(elementAttributes: Record<string, unknown>[] = []): Receptor {
-        elementAttributes.forEach((attributes) => {
+    public multiSubContratacion(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addSubContratacion(attributes);
-        });
+        }
 
         return this;
     }

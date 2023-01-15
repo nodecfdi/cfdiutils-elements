@@ -1,5 +1,15 @@
 # @nodecfdi/cfdiutils-elements ChangeLog
 
+## 1.4.0
+
+### Minor Changes - Change build process
+
+- Fixes various problems outside perfect way data.
+- Update dependencies.
+- Move from microbundle to rollup for generation of library.
+- Move from jest to vitest for increment code coverage with testing on browser and node.
+- Update rules for eslint more strict.
+
 ## 1.3.1
 
 - fixed problem with traits on multiple inheritance lose children order

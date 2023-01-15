@@ -1,4 +1,4 @@
-import { CNodeInterface } from '@nodecfdi/cfdiutils-common';
+import { type CNodeInterface } from '@nodecfdi/cfdiutils-common';
 import { AbstractElement } from '../common/abstract-element';
 import { JubilacionPensionRetiro } from './jubilacion-pension-retiro';
 import { Percepcion } from './percepcion';
@@ -20,10 +20,10 @@ export class Percepciones extends AbstractElement {
         return percepcion;
     }
 
-    public multiPercepcion(elementAttributes: Record<string, unknown>[] = []): Percepciones {
-        elementAttributes.forEach((attributes) => {
+    public multiPercepcion(...elementAttributes: Array<Record<string, unknown>>): this {
+        for (const attributes of elementAttributes) {
             this.addPercepcion(attributes);
-        });
+        }
 
         return this;
     }
