@@ -157,7 +157,7 @@ The `@nodecfdi/cfdiutils-elements` library is copyright © [NodeCfdi](https://gi
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord
 [badge-release]: https://img.shields.io/npm/v/@nodecfdi/cfdiutils-elements.svg?logo=npm
 [badge-license]: https://img.shields.io/github/license/nodecfdi/cfdiutils-elements.svg?logo=open-source-initiative
-[badge-build]: https://img.shields.io/github/workflow/status/nodecfdi/cfdiutils-elements/build/main?logo=github-actions
+[badge-build]: https://img.shields.io/github/actions/workflow/status/nodecfdi/cfdiutils-elements/build.yml?branch=main
 [badge-reliability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdiutils-elements&metric=reliability_rating
 [badge-maintainability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdiutils-elements&metric=sqale_rating
 [badge-coverage]: https://img.shields.io/sonar/coverage/nodecfdi_cfdiutils-elements/main?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io
