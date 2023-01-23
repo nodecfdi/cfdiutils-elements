@@ -27,7 +27,7 @@ specifiers:
   jsdom: ^21.0.0
   lint-staged: ^13.1.0
   prettier: ^2.8.2
-  rimraf: ^3.0.2
+  rimraf: ^4.0.0
   rollup: ^3.10.0
   ts-mixer: ^6.0.2
   typedoc: ^0.23.24
@@ -65,7 +65,7 @@ devDependencies:
   jsdom: 21.0.0
   lint-staged: 13.1.0
   prettier: 2.8.2
-  rimraf: 3.0.2
+  rimraf: 4.1.1
   rollup: 3.10.0
   ts-mixer: 6.0.2
   typedoc: 0.23.24_typescript@4.9.4
@@ -4158,6 +4158,12 @@ packages:
     hasBin: true
     dependencies:
       glob: 7.2.3
+    dev: true
+
+  /rimraf/4.1.1:
+    resolution: {integrity: sha512-Z4Y81w8atcvaJuJuBB88VpADRH66okZAuEm+Jtaufa+s7rZmIz+Hik2G53kGaNytE7lsfXyWktTmfVz0H9xuDg==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /rollup/3.10.0:
