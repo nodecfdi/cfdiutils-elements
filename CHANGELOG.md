@@ -1,5 +1,12 @@
 # @nodecfdi/cfdiutils-elements ChangeLog
 
+## 1.4.1
+
+### Minor Changes - Change export for build process using bundlers
+
+- Resolve exports for usage with bundlers like a vite|rollup
+- Update dependencies
+
 ## 1.4.0
 
 ### Minor Changes - Change build process

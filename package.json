@@ -1,6 +1,6 @@
 {
     "name": "@nodecfdi/cfdiutils-elements",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "description": "Librería para contener las estructuras de datos que componen un cfdi",
     "keywords": [
         "cfdi",
