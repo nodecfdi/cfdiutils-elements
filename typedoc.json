@@ -2,8 +2,8 @@
     "entryPoints": ["src/index.ts"],
     "entryPointStrategy": "expand",
     "out": "docs",
-    "plugin": ["typedoc-theme-hierarchy"],
-    "theme": "hierarchy",
+    "plugin": ["@mxssfd/typedoc-theme"],
+    "theme": "my-theme",
     "tsconfig": "./tsconfig.json",
     "name": "@nodecfdi/cfdiutils-elements"
 }
