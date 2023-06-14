@@ -9,6 +9,7 @@
 - Test CFDI3.3 and CFDI4.0 behavior on when to write or not exentos node
 - Update dependencies
 - Change theme for docs
+- Drop NodeJS 14.x version support
 
 ## 1.4.1
 
