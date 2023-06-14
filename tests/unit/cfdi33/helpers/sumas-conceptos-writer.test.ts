@@ -166,20 +166,34 @@ describe('Cfdi33.SumasConceptosWriter', () => {
 
     test('on complemento impuestos importe sum is rounded cfdi', () => {
         const comprobante = new Comprobante33();
-        comprobante.addConcepto().addTraslado({
-            Base: '48.611106',
-            Importe: '7.777777',
-            Impuesto: '002',
-            TipoFactor: 'Tasa',
-            TasaOCuota: '0.160000'
-        });
-        comprobante.addConcepto().addTraslado({
-            Base: '13.888888',
-            Importe: '2.222222',
-            Impuesto: '002',
-            TipoFactor: 'Tasa',
-            TasaOCuota: '0.160000'
-        });
+        comprobante.addConcepto().multiTraslado(
+            {
+                Base: '48.611106',
+                Importe: '7.777777',
+                Impuesto: '002',
+                TipoFactor: 'Tasa',
+                TasaOCuota: '0.160000'
+            },
+            {
+                Base: '48.611106',
+                Impuesto: '002',
+                TipoFactor: 'Exento'
+            }
+        );
+        comprobante.addConcepto().multiTraslado(
+            {
+                Base: '13.888888',
+                Importe: '2.222222',
+                Impuesto: '002',
+                TipoFactor: 'Tasa',
+                TasaOCuota: '0.160000'
+            },
+            {
+                Base: '13.888888',
+                Impuesto: '002',
+                TipoFactor: 'Exento'
+            }
+        );
 
         const precision = 3;
         const sumasConceptos = new SumasConceptos(comprobante, precision);
@@ -191,7 +205,17 @@ describe('Cfdi33.SumasConceptosWriter', () => {
         expect(comprobante.searchAttribute('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado', 'Importe')).toBe(
             '10.000'
         );
-        expect(traslado?.get('Base')).toBe('62.500');
+
+        if (writer.hasWriteImpuestosBase()) {
+            expect(traslado?.get('Base')).toBe('62.500');
+        } else {
+            expect(traslado?.attributes().has('Base')).toBeFalsy();
+        }
+
+        if (writer.hasWriteExentos()) {
+            const exento = comprobante.searchNodes('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado').get(1);
+            expect(exento.attributes().get('Base')).toBe('62.500');
+        }
     });
 
     test('conceptos only with traslados exentos does not write traslados', () => {
@@ -212,13 +236,30 @@ describe('Cfdi33.SumasConceptosWriter', () => {
         const writer = new SumasConceptosWriter(comprobante, sumasConceptos, precision);
         writer.put();
 
-        const expected = [
-            '<cfdi:Impuestos TotalImpuestosRetenidos="40.00">',
-            '<cfdi:Retenciones>',
-            '<cfdi:Retencion Impuesto="001" Importe="40.00"/>',
-            '</cfdi:Retenciones>',
-            '</cfdi:Impuestos>'
-        ].join('');
+        expect(
+            writer.hasWriteExentos(),
+            'When has to write "exentos" also has to write "impuesto base" and vice versa'
+        ).toBe(writer.hasWriteImpuestosBase());
+
+        const expected = writer.hasWriteExentos()
+            ? [
+                  '<cfdi:Impuestos TotalImpuestosRetenidos="40.00">',
+                  '<cfdi:Retenciones>',
+                  '<cfdi:Retencion Impuesto="001" Importe="40.00"/>',
+                  '</cfdi:Retenciones>',
+                  '<cfdi:Traslados>',
+                  '<cfdi:Traslado TipoFactor="Exento" Impuesto="002" Base="2000.00"/>',
+                  '</cfdi:Traslados>',
+                  '</cfdi:Impuestos>'
+              ].join('')
+            : [
+                  '<cfdi:Impuestos TotalImpuestosRetenidos="40.00">',
+                  '<cfdi:Retenciones>',
+                  '<cfdi:Retencion Impuesto="001" Importe="40.00"/>',
+                  '</cfdi:Retenciones>',
+                  '</cfdi:Impuestos>'
+              ].join('');
+
         expect(XmlNodeUtils.nodeToXmlString(comprobante.getImpuestos())).toBe(expected);
     });
 

@@ -8,12 +8,15 @@ export class SumasConceptosWriter {
     private readonly sumas: SumasConceptos;
     private readonly precision: number;
     private readonly writeImpuestoBase: boolean;
+    private readonly writeExentos: boolean;
 
     constructor(comprobante: AbstractElement, sumas: SumasConceptos, precision = 6) {
         if (comprobante instanceof Comprobante33) {
             this.writeImpuestoBase = false;
+            this.writeExentos = false;
         } else if (comprobante instanceof Comprobante40) {
             this.writeImpuestoBase = true;
+            this.writeExentos = true;
         } else {
             throw new TypeError('The argument comprobante must be a Comprobante (CFDI 3.3 or CFDI 4.0) element');
         }
@@ -59,6 +62,10 @@ export class SumasConceptosWriter {
         return this.writeImpuestoBase;
     }
 
+    public hasWriteExentos(): boolean {
+        return this.writeExentos;
+    }
+
     private putComprobanteSumas(): void {
         this.comprobante.set('SubTotal', this.format(this.sumas.getSubTotal()));
         this.comprobante.set('Total', this.format(this.sumas.getTotal()));
@@ -72,7 +79,11 @@ export class SumasConceptosWriter {
         // Obtain node reference
         const impuestos = this.comprobante.getImpuestos();
         // If there is nothing to write then remove the children and exit
-        if (!this.sumas.hasTraslados() && !this.sumas.hasRetenciones()) {
+        if (
+            !this.sumas.hasTraslados() &&
+            !this.sumas.hasRetenciones() &&
+            !(this.writeExentos && this.sumas.hasExentos())
+        ) {
             this.comprobante.children().remove(impuestos);
 
             return;
@@ -83,13 +94,23 @@ export class SumasConceptosWriter {
         // Add traslados when needed
         if (this.sumas.hasTraslados()) {
             impuestos.set('TotalImpuestosTrasladados', this.format(this.sumas.getImpuestosTrasladados()));
-            impuestos.getTraslados().multiTraslado(...this.getImpuestosContents(this.sumas.getTraslados()));
+            impuestos
+                .getTraslados()
+                .multiTraslado(...this.getImpuestosContents(this.sumas.getTraslados(), this.writeImpuestoBase, true));
+        }
+
+        if (this.writeExentos && this.sumas.hasExentos()) {
+            impuestos
+                .getTraslados()
+                .multiTraslado(...this.getImpuestosContents(this.sumas.getExentos(), this.writeImpuestoBase, false));
         }
 
         // Add retenciones when needed
         if (this.sumas.hasRetenciones()) {
             impuestos.set('TotalImpuestosRetenidos', this.format(this.sumas.getImpuestosRetenidos()));
-            impuestos.getRetenciones().multiRetencion(...this.getImpuestosContents(this.sumas.getRetenciones()));
+            impuestos
+                .getRetenciones()
+                .multiRetencion(...this.getImpuestosContents(this.sumas.getRetenciones(), false, true));
         }
     }
 
@@ -113,12 +134,24 @@ export class SumasConceptosWriter {
     }
 
     private getImpuestosContents(
-        impuestos: Record<string, Record<string, string | number>>
+        impuestos: Record<string, Record<string, string | number>>,
+        hasBase: boolean,
+        hasImporte: boolean
     ): Array<Record<string, string | number>> {
         const returnList: Array<Record<string, string | number>> = [];
         for (const impuesto of Object.values(impuestos)) {
-            impuesto.Importe = this.format(Number(impuesto.Importe));
-            returnList.push(impuesto);
+            const impuestoTemporary: Record<string, string | number | undefined> = {
+                ...impuesto,
+                Base: hasBase ? this.format(Number(impuesto.Base ?? 0)) : undefined,
+                Importe: hasImporte ? this.format(Number(impuesto.Importe)) : undefined
+            };
+
+            const impuestoFixed: Record<string, string | number> = {};
+            for (const key of Object.keys(impuestoTemporary).filter((key) => impuestoTemporary[key] !== undefined)) {
+                impuestoFixed[key] = impuestoTemporary[key]!;
+            }
+
+            returnList.push(impuestoFixed);
         }
 
         return returnList;
