@@ -1,5 +1,15 @@
 # @nodecfdi/cfdiutils-elements ChangeLog
 
+## 1.4.2
+
+### Patch Changes - Fixed SumasConceptos with Exentos
+
+- Add exentos property to SumasConceptos
+- Add writeExentos to SumasConceptosWriter
+- Test CFDI3.3 and CFDI4.0 behavior on when to write or not exentos node
+- Update dependencies
+- Change theme for docs
+
 ## 1.4.1
 
 ### Minor Changes - Change export for build process using bundlers
