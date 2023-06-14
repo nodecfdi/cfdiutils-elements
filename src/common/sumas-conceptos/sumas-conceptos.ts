@@ -11,6 +11,7 @@ export class SumasConceptos {
     private impuestosTrasladados!: number;
     private impuestosRetenidos!: number;
     private traslados: Record<string, Record<string, string | number>> = {};
+    private exentos: Record<string, Record<string, string | number>> = {};
     private retenciones: Record<string, Record<string, string | number>> = {};
     private localesImpuestosTraslados!: number;
     private localesImpuestosRetenidos!: number;
@@ -44,12 +45,20 @@ export class SumasConceptos {
         return this.traslados;
     }
 
+    public getExentos(): Record<string, Record<string, string | number>> {
+        return this.exentos;
+    }
+
     public getRetenciones(): Record<string, Record<string, string | number>> {
         return this.retenciones;
     }
 
     public hasTraslados(): boolean {
         return Object.keys(this.traslados).length > 0;
+    }
+
+    public hasExentos(): boolean {
+        return Object.keys(this.exentos).length > 0;
     }
 
     public hasRetenciones(): boolean {
@@ -155,7 +164,9 @@ export class SumasConceptos {
 
         const traslados = concepto.searchNodes('cfdi:Impuestos', 'cfdi:Traslados', 'cfdi:Traslado');
         for (const traslado of traslados) {
-            if (traslado.get('TipoFactor') !== 'Exento') {
+            if (traslado.get('TipoFactor') === 'Exento') {
+                this.addExento(traslado);
+            } else {
                 this.addTraslado(traslado);
             }
         }
@@ -226,6 +237,20 @@ export class SumasConceptos {
 
         const attributeBase = Number.isNaN(Number.parseFloat(attributes.get('Base'))) ? '0' : attributes.get('Base');
         (this.traslados[key].Base as number) += Number.parseFloat(attributeBase);
+    }
+
+    private addExento(exento: CNodeInterface): void {
+        const key = SumasConceptos.impuestoKey(exento.get('Impuesto'), exento.get('TipoFactor'), '');
+        if (!this.exentos[key]) {
+            this.exentos[key] = {
+                TipoFactor: exento.get('TipoFactor'),
+                Impuesto: exento.get('Impuesto'),
+                Base: 0
+            };
+        }
+
+        const attributeBase = Number.isNaN(Number.parseFloat(exento.get('Base'))) ? '0' : exento.get('Base');
+        (this.exentos[key].Base as number) += Number.parseFloat(attributeBase);
     }
 
     private addRetencion(retencion: CNodeInterface): void {

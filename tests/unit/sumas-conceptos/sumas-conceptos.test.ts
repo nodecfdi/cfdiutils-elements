@@ -18,10 +18,12 @@ describe('SumasConceptos', () => {
         expect(sc.getLocalesImpuestosTrasladados()).toBe(0);
         expect(Object.values(sc.getRetenciones())).toHaveLength(0);
         expect(Object.values(sc.getTraslados())).toHaveLength(0);
+        expect(Object.values(sc.getExentos())).toHaveLength(0);
         expect(sc.getLocalesRetenciones()).toHaveLength(0);
         expect(sc.getLocalesTraslados()).toHaveLength(0);
         expect(sc.hasRetenciones()).toBeFalsy();
         expect(sc.hasTraslados()).toBeFalsy();
+        expect(sc.hasExentos()).toBeFalsy();
         expect(sc.hasLocalesRetenciones()).toBeFalsy();
         expect(sc.hasLocalesTraslados()).toBeFalsy();
         expect(sc.foundAnyConceptWithDiscount()).toBeFalsy();
@@ -65,6 +67,7 @@ describe('SumasConceptos', () => {
             expect(sc.getDescuento()).toBe(0);
             expect(sc.getImpuestosRetenidos()).toBe(0);
             expect([...Object.entries(sc.getRetenciones())]).toHaveLength(0);
+            expect([...Object.entries(sc.getExentos())]).toHaveLength(0);
         }
     );
 
@@ -210,24 +213,37 @@ describe('SumasConceptos', () => {
         comprobante
             .addConcepto()
             .multiTraslado(
-                { Impuesto: '002', TipoFactor: 'Exento' },
+                { Impuesto: '002', TipoFactor: 'Exento', Base: '1000' },
                 { Impuesto: '002', TipoFactor: 'Tasa', TasaOCuota: '0.160000', Base: '1000', Importe: '160' }
             );
-        comprobante.addConcepto().multiTraslado({
+        comprobante.addConcepto().addTraslado({
             Impuesto: '002',
             TipoFactor: 'Tasa',
             TasaOCuota: '0.160000',
             Base: '1000',
             Importe: '160'
         });
+        comprobante.addConcepto().addTraslado({
+            Impuesto: '002',
+            TipoFactor: 'Exento',
+            Base: '234.56'
+        });
 
         const sumas = new SumasConceptos(comprobante, 2);
         expect(sumas.hasTraslados()).toBeTruthy();
         expect(sumas.getImpuestosTrasladados()).toBe(320);
         expect([...Object.entries(sumas.getTraslados())]).toHaveLength(1);
+
+        expect(sumas.hasExentos()).toBeTruthy();
+        expect([...Object.entries(sumas.getExentos())]).toHaveLength(1);
+        expect(
+            Object.values(sumas.getExentos())
+                .map((v) => v.Base)
+                .reduce((sum: number, value) => sum + Number(value), 0)
+        ).toBe(1234.56);
     });
 
-    test('impuesto with Traslados and only Exento', () => {
+    test('impuesto with Traslados and only Exento without Base', () => {
         const comprobante = new Comprobante40();
         comprobante.addConcepto().multiTraslado({ Impuesto: '002', TipoFactor: 'Exento' });
         comprobante.addConcepto().multiTraslado({ Impuesto: '002', TipoFactor: 'Exento' });
@@ -236,6 +252,40 @@ describe('SumasConceptos', () => {
         expect(sumas.hasTraslados()).toBeFalsy();
         expect(sumas.getImpuestosTrasladados()).toBe(0);
         expect([...Object.entries(sumas.getTraslados())]).toHaveLength(0);
+
+        expect(sumas.hasExentos()).toBeTruthy();
+        expect(
+            Object.values(sumas.getExentos())
+                .map((v) => v.Base)
+                .reduce((sum: number, value) => sum + Number(value), 0)
+        ).toBe(0);
+    });
+
+    test('impuesto with Traslados and only Exento with Base', () => {
+        const comprobante = new Comprobante40();
+        comprobante.addConcepto().multiTraslado({ Impuesto: '002', TipoFactor: 'Exento', Base: '123.45' });
+        comprobante
+            .addConcepto()
+            .multiTraslado(
+                { Impuesto: '002', TipoFactor: 'Exento', Base: '543.21' },
+                { Impuesto: '001', TipoFactor: 'Exento', Base: '100' }
+            );
+        comprobante.addConcepto().multiTraslado({ Impuesto: '001', TipoFactor: 'Exento', Base: '150' });
+
+        const sumas = new SumasConceptos(comprobante, 2);
+        expect(sumas.hasTraslados()).toBeFalsy();
+        expect(sumas.getImpuestosTrasladados()).toBe(0);
+        expect([...Object.entries(sumas.getTraslados())]).toHaveLength(0);
+
+        expect(sumas.hasExentos()).toBeTruthy();
+
+        const exentos001 = Object.values(sumas.getExentos()).filter((values) => values.Impuesto === '001');
+        expect(exentos001.map((v) => v.Base).reduce((sum: number, value) => sum + Number(value), 0)).toBeCloseTo(250);
+
+        const exentos002 = Object.values(sumas.getExentos()).filter((values) => values.Impuesto === '002');
+        expect(exentos002.map((v) => v.Base).reduce((sum: number, value) => sum + Number(value), 0)).toBeCloseTo(
+            666.66
+        );
     });
 
     test('impuesto with Retenciones', () => {
