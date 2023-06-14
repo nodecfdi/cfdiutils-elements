@@ -17,13 +17,6 @@
     "unpkg": "dist/cfdiutils-elements.global.js",
     "browser": "dist/cfdiutils-elements.global.js",
     "types": "./dist/index.d.ts",
-    "exports": {
-        ".": {
-            "import": "./dist/cfdiutils-elements.mjs",
-            "require": "./dist/cfdiutils-elements.js",
-            "default": "./dist/cfdiutils-elements.js"
-        }
-    },
     "files": [
         "dist"
     ],
@@ -33,6 +26,7 @@
         "lint": "eslint --fix --ext .js,.ts .",
         "lint:check": "eslint --ext .js,.ts .",
         "format": "prettier --write \"**/*.{js,ts,json}\"",
+        "format:check": "prettier --check \"**/*.{js,ts,json}\"",
         "test": "vitest",
         "test:run": "vitest run",
         "test:coverage": "vitest run --coverage",
