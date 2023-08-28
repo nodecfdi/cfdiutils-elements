@@ -21,7 +21,7 @@ devDependencies:
     version: 7.35.3(@types/node@20.3.1)
   '@mxssfd/typedoc-theme':
     specifier: ^1.1.1
-    version: 1.1.1(typedoc@0.24.8)
+    version: 1.1.1(typedoc@0.25.0)
   '@nrsk/config-conventional':
     specifier: ^1.0.0
     version: 1.0.0
@@ -98,8 +98,8 @@ devDependencies:
     specifier: ^6.0.3
     version: 6.0.3
   typedoc:
-    specifier: ^0.24.8
-    version: 0.24.8(typescript@5.1.3)
+    specifier: ^0.25.0
+    version: 0.25.0(typescript@5.1.3)
   typescript:
     specifier: ^5.1.3
     version: 5.1.3
@@ -1060,13 +1060,13 @@ packages:
     resolution: {integrity: sha512-9b8mPpKrfeGRuhFH5iO1iwCLeIIsV6+H1sRfxbkoGXIyQE2BTsPd9zqSqQJ+pv5sJ/hT5M1zvOFL02MnEezFug==}
     dev: true
 
-  /@mxssfd/typedoc-theme@1.1.1(typedoc@0.24.8):
+  /@mxssfd/typedoc-theme@1.1.1(typedoc@0.25.0):
     resolution: {integrity: sha512-XhXy2MDoMJFeHgbE0cTxpB3K8AizQMJcm6gvf9lqNwfN6+ZfDnmIZub6lCuDgpL0O0fvckKTq7fGSP6XIU/17Q==}
     engines: {node: '>= 14'}
     peerDependencies:
       typedoc: ^0.24.1
     dependencies:
-      typedoc: 0.24.8(typescript@5.1.3)
+      typedoc: 0.25.0(typescript@5.1.3)
     dev: true
 
   /@nodecfdi/cfdiutils-common@1.2.4:
@@ -3728,6 +3728,13 @@ packages:
       brace-expansion: 2.0.1
     dev: true
 
+  /minimatch@9.0.3:
+    resolution: {integrity: sha512-RHiac9mvaRw0x3AYRgDC1CxAP7HTcNrrECeA8YYJeWnpo+2Q5CegtZjaotWTWxDG3UeGA1coE05iH1mPjT/2mg==}
+    engines: {node: '>=16 || 14 >=14.17'}
+    dependencies:
+      brace-expansion: 2.0.1
+    dev: true
+
   /minimist-options@4.1.0:
     resolution: {integrity: sha512-Q4r8ghd80yhO/0j1O3B2BjweX3fiHg9cdOwjJd2J76Q135c+NDxGCqdYKQ1SKBuFfgWbAUzBfvYjPUEeNgqN1A==}
     engines: {node: '>= 6'}
@@ -4877,16 +4884,16 @@ packages:
       is-typed-array: 1.1.10
     dev: true
 
-  /typedoc@0.24.8(typescript@5.1.3):
-    resolution: {integrity: sha512-ahJ6Cpcvxwaxfu4KtjA8qZNqS43wYt6JL27wYiIgl1vd38WW/KWX11YuAeZhuz9v+ttrutSsgK+XO1CjL1kA3w==}
-    engines: {node: '>= 14.14'}
+  /typedoc@0.25.0(typescript@5.1.3):
+    resolution: {integrity: sha512-FvCYWhO1n5jACE0C32qg6b3dSfQ8f2VzExnnRboowHtqUD6ARzM2r8YJeZFYXhcm2hI4C2oCRDgNPk/yaQUN9g==}
+    engines: {node: '>= 16'}
     hasBin: true
     peerDependencies:
-      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x
+      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x
     dependencies:
       lunr: 2.3.9
       marked: 4.3.0
-      minimatch: 9.0.1
+      minimatch: 9.0.3
       shiki: 0.14.1
       typescript: 5.1.3
     dev: true
