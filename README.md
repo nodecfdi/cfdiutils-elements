@@ -1,3 +1,4 @@
+> Note: @nodecfdi/cfdiutils-elements is now deprecated. Use [@nodecfdi/cfdi-elements](https://github.com/nodecfdi/cfdi-elements).
 # `@nodecfdi/cfdiutils-elements`
 
 [![Source Code][badge-source]][source]
